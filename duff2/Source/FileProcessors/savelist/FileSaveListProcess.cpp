@@ -55,7 +55,7 @@ void CFileSaveListProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & File
 			//Line.Replace("%1", FileList.ElementAt(i).PathName
 			if (pFileInfo->Selected)
 			{
-		  outfile.write( pFileInfo->FullName, _tcslen(pFileInfo->FullName ) );
+		  outfile.write( pFileInfo->GetFullName(), _tcslen(pFileInfo->GetFullName() ) );
 			 outfile.write("\n",1);
 			}
 

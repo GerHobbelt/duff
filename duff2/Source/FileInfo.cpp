@@ -30,7 +30,6 @@ CFileInfo::~CFileInfo()
 	#ifdef _DEBUG
 	Count--;
 	#endif
-
 }
 
 

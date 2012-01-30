@@ -53,17 +53,17 @@ inline bool CFilenameLayer::FilesEqual( CFileInfo & FileInfo1,  CFileInfo & File
  {
 	case IDC_MATCH_FILENAMES:
 		if ( m_CaseSensitive ) 
-   return _tcscmp( FileInfo1.Name ,  FileInfo2.Name ) == 0;
+   return _tcscmp( FileInfo1.GetName() ,  FileInfo2.GetName() ) == 0;
 		else
-   return _tcsicmp( FileInfo1.Name ,  FileInfo2.Name ) == 0;
+   return _tcsicmp( FileInfo1.GetName() ,  FileInfo2.GetName() ) == 0;
 
 		break;
 	case IDC_MATCH_EXTENSIONS:
 		{
-			TCHAR *pExtension1 = NULL , *pExtension2 = NULL;
+			LPCTSTR pExtension1, pExtension2;
 
-			pExtension1 = _tcsrchr( FileInfo1.Name, _T('.') ) ;
-			pExtension2 = _tcsrchr( FileInfo2.Name, _T('.') ) ;
+			pExtension1 = FileInfo1.GetExtension();
+			pExtension2 = FileInfo2.GetExtension();
   
 			if ( pExtension1 == NULL || pExtension2 == NULL )
 			{	
@@ -80,17 +80,17 @@ inline bool CFilenameLayer::FilesEqual( CFileInfo & FileInfo1,  CFileInfo & File
 		break;
 	case IDC_MATCH_NOT_FILENAME:
 		if ( m_CaseSensitive ) 
-   return _tcscmp( FileInfo1.Name ,  FileInfo2.Name ) != 0;
+   return _tcscmp( FileInfo1.GetName() ,  FileInfo2.GetName() ) != 0;
 		else
-   return _tcsicmp( FileInfo1.Name ,  FileInfo2.Name ) != 0;
+   return _tcsicmp( FileInfo1.GetName() ,  FileInfo2.GetName() ) != 0;
 
 		break;
 	case IDC_MATCH_NOT_EXTENSIONS:
   {
-			TCHAR *pExtension1 = NULL , *pExtension2 = NULL;
+			LPCTSTR pExtension1, pExtension2;
 
-			pExtension1 = _tcsrchr( FileInfo1.Name, _T('.') ) ;
-			pExtension2 = _tcsrchr( FileInfo2.Name, _T('.') ) ;
+			pExtension1 = FileInfo1.GetExtension();
+			pExtension2 = FileInfo2.GetExtension();
   
 			if ( pExtension1 == NULL || pExtension2 == NULL )
 			{	
@@ -111,17 +111,12 @@ inline bool CFilenameLayer::FilesEqual( CFileInfo & FileInfo1,  CFileInfo & File
 	 CArray <CString, CString&> Words2;
 	 CArray <CString, CString> IgnoreWords;
   CString strMask;
-		CString TempStr = FileInfo1.Name;
+		CString TempStr = FileInfo1.GetBaseName();
   int nPos = 0;	
 		int nNextPos = 0;
 		int x, y;
 		
-		//remove extension
-		nPos = TempStr.ReverseFind(_T('.'));
-		if ( nPos != -1)
-			TempStr = TempStr.Left(nPos);
-  //
-  nPos = 0;	
+		nPos = 0;	
 		nNextPos = 0;
 
 		// add file masks
@@ -138,14 +133,9 @@ inline bool CFilenameLayer::FilesEqual( CFileInfo & FileInfo1,  CFileInfo & File
 		}
 		//
 
-		TempStr = FileInfo2.Name;
+		TempStr = FileInfo2.GetBaseName();
 
-		//remove extension
-		nPos = TempStr.ReverseFind(_T('.'));
-		if ( nPos != -1)
-			TempStr = TempStr.Left(nPos);
-  //
-  nPos = 0;	
+		nPos = 0;	
 		nNextPos = 0;
 
 		// add file masks

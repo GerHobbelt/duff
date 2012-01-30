@@ -110,7 +110,7 @@ void CFileMoveProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & FileList
 			 }*/
 
 	
-			 _tcscpy(pFilenameBuffer, pFileInfo->FullName );
+			 _tcscpy(pFilenameBuffer, pFileInfo->GetFullName() );
 
     UINT			Length = _tcslen( pFilenameBuffer );
 
@@ -124,12 +124,12 @@ void CFileMoveProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & FileList
 
 			 fos.pFrom = pFilenameBuffer;
 
-			 //		g_DupeFileFind.GetDuffDlg()->m_CurrentTaskInfoText.SetWindowText(FileList.ElementAt(i)->FullName);
+			 //		g_DupeFileFind.GetDuffDlg()->m_CurrentTaskInfoText.SetWindowText(FileList.ElementAt(i)->GetFullName());
 	   //		g_DupeFileFind.GetDuffDlg()->m_CurrentTaskInfoText.RedrawWindow();
 
 		 	// update progress information
 		  pDuffStatus->Lock();
-		  pDuffStatus->CurrentTaskInfo = pFileInfo->FullName;
+		  pDuffStatus->CurrentTaskInfo = pFileInfo->GetFullName();
 		  pDuffStatus->SubProgress1.Pos++;
 		  pDuffStatus->Unlock();
 		  //
@@ -142,12 +142,12 @@ void CFileMoveProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & FileList
 
 				if	( SHFileOperation(&fos) )
 				{
-					Msg.Format("ERROR moving file: %s to %s",pFileInfo->FullName,m_Dir);
+					Msg.Format("ERROR moving file: %s to %s",pFileInfo->GetFullName(),m_Dir);
 		//			g_DupeFileFind.GetDuffDlg()->Log(Msg);
 				}
 				else
 				{
-					Msg.Format("Moved file: %s to %s",pFileInfo->FullName,m_Dir);
+					Msg.Format("Moved file: %s to %s",pFileInfo->GetFullName(),m_Dir);
 	//				g_DupeFileFind.GetDuffDlg()->Log(Msg);
 				}
 		//		g_DupeFileFind.GetDuffDlg()->m_ProgressEntire.StepIt();

@@ -68,7 +68,7 @@ unsigned int CFilenameMarker::MakeSelections( CList< CList<CFileInfo *,CFileInfo
 	while (xPos)
 	{
   found = false;
-  NewLen = _tcslen ( DupeList.GetAt(xPos)->GetHead()->Name ); //DupeList.ElementAt(x)->ElementAt(0).Filename.Right( DupeList.ElementAt(x)->ElementAt(0).Filename.GetLength() - DupeList.ElementAt(x)->ElementAt(0).Filename.ReverseFind('\\') -1 ).GetLength();
+  NewLen = _tcslen ( DupeList.GetAt(xPos)->GetHead()->GetName() ); //DupeList.ElementAt(x)->ElementAt(0).Filename.Right( DupeList.ElementAt(x)->ElementAt(0).Filename.GetLength() - DupeList.ElementAt(x)->ElementAt(0).Filename.ReverseFind('\\') -1 ).GetLength();
 
 
   //for (y = 0; y < DupeList.ElementAt(x)->GetSize(); y++)
@@ -80,7 +80,7 @@ unsigned int CFilenameMarker::MakeSelections( CList< CList<CFileInfo *,CFileInfo
 		{
  //  CString ModifiedFilename ;
 	//		ModifiedFilename = DupeList.ElementAt(x)->ElementAt(y).Filename.Right( DupeList.ElementAt(x)->ElementAt(y).Filename.GetLength() - DupeList.ElementAt(x)->ElementAt(y).Filename.ReverseFind('\\') -1 );
-   UINT CurrentLength = _tcslen(DupeList.GetAt(xPos)->GetAt(yPos)->Name);
+   UINT CurrentLength = _tcslen(DupeList.GetAt(xPos)->GetAt(yPos)->GetName());
    if (
 				(m_MarkMode == IDC_LONGEST ) && CurrentLength > NewLen ||
 				(m_MarkMode == IDC_SHORTEST) && CurrentLength < NewLen 
@@ -97,8 +97,11 @@ unsigned int CFilenameMarker::MakeSelections( CList< CList<CFileInfo *,CFileInfo
  			 UniqueLength = false;
 				}
 					//			if ( y && JUST_FILENAME(DupeList.ElementAt(x)->ElementAt(y-1).Filename).GetLength() != JUST_FILENAME(DupeList.ElementAt(x)->ElementAt(y).Filename).GetLength() ) found = true;
-	if ( yPosOld && _tcslen( DupeList.GetAt(xPos)->GetAt(yPosOld)->Name ) != _tcslen(DupeList.GetAt(xPos)->GetAt(yPos)->Name) ) found = true;
-   
+	if ( yPosOld && _tcslen( DupeList.GetAt(xPos)->GetAt(yPosOld)->GetName() ) != _tcslen(DupeList.GetAt(xPos)->GetAt(yPos)->GetName()) ) 
+	{
+		found = true;
+	}
+
 	  yPosOld = yPos;
 	  DupeList.GetAt(xPos)->GetNext(yPos);
 		}
@@ -111,10 +114,10 @@ unsigned int CFilenameMarker::MakeSelections( CList< CList<CFileInfo *,CFileInfo
 		DupeList.GetNext(xPos); 
 	}
 	break;
+
 	case IDC_CONTAIN:
 	case IDC_DONTCONTAIN:
- 
-		{
+ 		{
 			CString FindText = m_ContainText;
 
 			//for (x = 0; x < DupeList.GetSize(); x++)
@@ -131,7 +134,7 @@ unsigned int CFilenameMarker::MakeSelections( CList< CList<CFileInfo *,CFileInfo
 				{
 					CString ModifiedFilename;
 
-					ModifiedFilename = DupeList.GetAt(xPos)->GetAt(yPos)->Name; //.Right( DupeList.ElementAt(x)->ElementAt(y).Filename.GetLength() - DupeList.ElementAt(x)->ElementAt(y).Filename.ReverseFind('\\') -1 );
+					ModifiedFilename = DupeList.GetAt(xPos)->GetAt(yPos)->GetName(); //.Right( DupeList.ElementAt(x)->ElementAt(y).Filename.GetLength() - DupeList.ElementAt(x)->ElementAt(y).Filename.ReverseFind('\\') -1 );
   
 					if ( !m_CaseSensitive )
 					{
@@ -158,12 +161,12 @@ unsigned int CFilenameMarker::MakeSelections( CList< CList<CFileInfo *,CFileInfo
 
     DupeList.GetNext(xPos);
 			}
-
 		}
 	break;
+
 	case IDC_LOWERCASE:
 	case IDC_UPPERCASE:
-	
+
 		//for (x = 0; x < DupeList.GetSize(); x++)
 	xPos = DupeList.GetHeadPosition();
 
@@ -178,13 +181,13 @@ unsigned int CFilenameMarker::MakeSelections( CList< CList<CFileInfo *,CFileInfo
 		while (yPos && !found)
 		{
    CString ModifiedFilename ;
-			ModifiedFilename = DupeList.GetAt(xPos)->GetAt(yPos)->Name; //JUST_FILENAME(DupeList.ElementAt(x)->ElementAt(y).Filename);
+			ModifiedFilename = DupeList.GetAt(xPos)->GetAt(yPos)->GetName(); //JUST_FILENAME(DupeList.ElementAt(x)->ElementAt(y).Filename);
    if (m_MarkMode == IDC_LOWERCASE)
 				ModifiedFilename.MakeLower();
 			else
 	 		ModifiedFilename.MakeUpper();
 	
-   if (	ModifiedFilename	== DupeList.GetAt(xPos)->GetAt(yPos)->Name )
+   if (	ModifiedFilename	== DupeList.GetAt(xPos)->GetAt(yPos)->GetName() )
 			{
 				SpecialIndex  = yPos;
 				found = true;
@@ -206,8 +209,6 @@ unsigned int CFilenameMarker::MakeSelections( CList< CList<CFileInfo *,CFileInfo
 		ASSERT(false);
  	break;
 	}
-
-
 	
 	return count;
 }

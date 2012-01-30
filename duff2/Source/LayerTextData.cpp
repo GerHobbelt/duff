@@ -68,7 +68,7 @@ bool CFileTextDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2
 	UINT NumRead2;
  ULONGLONG TotalBytesRead = 0;
 
-	TRACE2("Comparing %s : %s...",FileInfo1.Name, FileInfo2.Name);
+	TRACE2("Comparing %s : %s...",FileInfo1.GetName(), FileInfo2.GetName());
 
 	// progress bar stuff
 	//g_DupeFileFind.GetDuffDlg()->m_ProgressSub2.SetRange64(0,FileInfo1.Length);
@@ -77,7 +77,7 @@ bool CFileTextDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2
 	// update status and log
  if ( g_DupeFileFind.m_DuffStatus.LockIfUnlocked() )
 	{
-  g_DupeFileFind.m_DuffStatus.CurrentTaskInfo.Format( _T("\"%s\", \"%s\"") ,FileInfo1.FullName,FileInfo2.FullName);
+  g_DupeFileFind.m_DuffStatus.CurrentTaskInfo.Format( _T("\"%s\", \"%s\"") ,FileInfo1.GetFullName(),FileInfo2.GetFullName());
   g_DupeFileFind.m_DuffStatus.SubProgress2.Min = 0;
   g_DupeFileFind.m_DuffStatus.SubProgress2.Max = 1000; // FileInfo1.GetLength() / ULongLong_IntRatio;
   g_DupeFileFind.m_DuffStatus.SubProgress2.Pos = 0;
@@ -88,8 +88,8 @@ bool CFileTextDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2
 
 
 	// attempt to open the files
-	ok1 = ifile1.Open(FileInfo1.FullName,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan);
-	ok2 = ifile2.Open(FileInfo2.FullName,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan);
+	ok1 = ifile1.Open(FileInfo1.GetFullName(),  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan);
+	ok2 = ifile2.Open(FileInfo2.GetFullName(),  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan);
 
 	TRACE0("attempted open;");
 
@@ -205,7 +205,7 @@ bool CFileTextDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2
 		CString Temp;
 		if (!ok1)
 		{
-			Temp.Format( _T("ERROR Accessing file: %s") ,FileInfo1.FullName);
+			Temp.Format( _T("ERROR Accessing file: %s") ,FileInfo1.GetFullName());
 			// update status and log
 			g_DupeFileFind.m_DuffStatus.Lock();
 			g_DupeFileFind.m_DuffStatus.LogQueue.Add(Temp);
@@ -218,7 +218,7 @@ bool CFileTextDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2
 
 		if (!ok2)
 		{
-			Temp.Format( _T("ERROR Accessing file: %s") ,FileInfo2.FullName);
+			Temp.Format( _T("ERROR Accessing file: %s") ,FileInfo2.GetFullName());
 			// update status and log
 			g_DupeFileFind.m_DuffStatus.Lock();
 			g_DupeFileFind.m_DuffStatus.LogQueue.Add(Temp);

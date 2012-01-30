@@ -417,7 +417,7 @@ if ( ! theApp.m_DuffOptions.General.UseToolTip )
 
 
 	strTip.Format("%s\n%s bytes\nCreated on %s\nLast Modified on %s\nLast Accessed on %s\nAttributes: %s",
-		                 pFileInfo->FullName,
+		                 pFileInfo->GetFullName(),
 																			 buffer,
 																				TimeC.Format("%B %d %Y at %H:%M:%S"),
 																				TimeM.Format("%B %d %Y at %H:%M:%S"),
@@ -552,9 +552,11 @@ void CDuplicateListCtrl::OnDeleteitem(NMHDR* pNMHDR, LRESULT* pResult)
 	ASSERT( pFileInfo );
 	//
 
+#if 0 // should happen in CleanUp() as everybody uses references to that data...
 	// delete the associated CFileInfo object
 	delete pFileInfo;
 	//
+#endif
 
 #ifdef _DEBUG
 	SetItemData( pNMListView->iItem, NULL );
@@ -1139,7 +1141,7 @@ void CDuplicateListCtrl::OnDoubleClickItem(NMHDR* pNMHDR, LRESULT* pResult)
 	// if a valid list item was double-clicked on, execute the file associated with it
 	if ( pNMListView->iItem != -1 )
 	{
- 	ShellExecute( NULL , NULL, ((CFileInfo*)GetItemData(pNMListView->iItem))->FullName , NULL_STR , NULL_STR , SW_SHOWNORMAL );
+ 	ShellExecute( NULL , NULL, ((CFileInfo*)GetItemData(pNMListView->iItem))->GetFullName() , NULL_STR , NULL_STR , SW_SHOWNORMAL );
 	}
  //
 
@@ -1489,7 +1491,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 		case ID_COPYFILENAME:
 			while (iIndex != LB_ERR)
 			{
-				sTemp += ((CFileInfo*)GetItemData(iIndex))->Name;
+				sTemp += ((CFileInfo*)GetItemData(iIndex))->GetName();
 				sTemp += "\n";
 				iIndex = GetNextItem(iIndex,LVNI_SELECTED );
 			}
@@ -1501,7 +1503,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 		case ID_COPYFULLFILENAME:
 			while ( iIndex != LB_ERR )
 			{
-				sTemp += ((CFileInfo*)GetItemData(iIndex))->FullName;
+				sTemp += ((CFileInfo*)GetItemData(iIndex))->GetFullName();
 				sTemp += "\n";
 				iIndex = GetNextItem(iIndex,LVNI_SELECTED );
 			}
@@ -1525,7 +1527,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 		case ID_OPENFILES:
 	 	while ( iIndex != LB_ERR )
 	 	{
-	 		ShellExecute( NULL , NULL , ((CFileInfo*)GetItemData(iIndex))->FullName , NULL_STR , NULL_STR , SW_SHOWNORMAL);
+	 		ShellExecute( NULL , NULL , ((CFileInfo*)GetItemData(iIndex))->GetFullName() , NULL_STR , NULL_STR , SW_SHOWNORMAL);
     iIndex = GetNextItem ( iIndex , LVNI_SELECTED );
 	 	}
  	break;
@@ -1534,7 +1536,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 	 case ID_OPENDIRS:
 			while ( iIndex != LB_ERR )
 		 {
-		  sTemp = ((CFileInfo*)GetItemData(iIndex))->FullName;
+		  sTemp = ((CFileInfo*)GetItemData(iIndex))->GetFullName();
 		  sTemp = sTemp.Left( sTemp.ReverseFind('\\') );
     ShellExecute( NULL , NULL , sTemp , NULL_STR , NULL_STR , SW_SHOWNORMAL );
     iIndex = GetNextItem ( iIndex, LVNI_SELECTED );
@@ -1553,7 +1555,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 		seiExecInfo.lpVerb = _T("properties") ;
 	while ( iIndex != LB_ERR )
 		{
-			sTemp.Format( _T("\"%s\" "), ((CFileInfo*)GetItemData(iIndex))->FullName );
+			sTemp.Format( _T("\"%s\" "), ((CFileInfo*)GetItemData(iIndex))->GetFullName() );
 			sAllFiles += sTemp;
 			iIndex = GetNextItem(iIndex,LVNI_SELECTED );
 		}
@@ -1571,7 +1573,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 		seiExecInfo.lpVerb = SHELL_VERB_PROPERTIES ;
 		while ( iIndex != LB_ERR )
 		{
-			seiExecInfo.lpFile = ((CFileInfo*)GetItemData(iIndex))->FullName ;
+			seiExecInfo.lpFile = ((CFileInfo*)GetItemData(iIndex))->GetFullName() ;
 			ShellExecuteEx ( &seiExecInfo ) ;
 			iIndex = GetNextItem(iIndex,LVNI_SELECTED );
 		}
@@ -1848,7 +1850,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 			{
 				pFileInfo = (CFileInfo*)GetItemData(iIndex);
 				TRACE1( "index: %d\n", iSelectionMade - (IDM_COPY_ALL_VISIBLE_COLUMNS+m_Columns.GetSize()) );
-    ShellExecute(NULL, pFileInfo->ShellVerbs.ElementAt(iSelectionMade - (IDM_COPY_ALL_VISIBLE_COLUMNS+m_Columns.GetSize()) ).Name, pFileInfo->FullName,NULL,NULL,SW_SHOWDEFAULT );
+    ShellExecute(NULL, pFileInfo->ShellVerbs.ElementAt(iSelectionMade - (IDM_COPY_ALL_VISIBLE_COLUMNS+m_Columns.GetSize()) ).Name, pFileInfo->GetFullName(),NULL,NULL,SW_SHOWDEFAULT );
 			}
   break;
 

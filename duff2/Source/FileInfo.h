@@ -44,10 +44,63 @@ public:
 	ULONGLONG  Size;
 	DWORD      Reserved0;
  DWORD      Reserved1;
-	TCHAR      FullName[ MAX_PATH ];
-	TCHAR     *Name;
- TCHAR     *Extension;
 
+	inline void SetFullName(LPCTSTR ParentDir, LPCTSTR filename)
+	{
+		// copy parent directory name to full file path name
+		_FullName = ParentDir;
+
+		// append a \ if nesessary
+		if ( _FullName[ _tcslen(ParentDir) -1 ] != _T('\\') ) _FullName += _T("\\");
+
+		// set the pointer to the filename
+		_Name = _FullName.GetLength();
+
+		// append the filename to the end of the parent directory name
+		_FullName += filename;
+
+		// set the pointer to the extension
+		LPCTSTR ext = _tcsrchr(filename, '.');
+		if (ext)
+		{
+			_Extension = _Name + (ext - filename) + 1; // set pointer to first character in extension, instead of the period ( so Extenstion is "TXT" instead of ".TXT" )
+		}
+		else
+		{
+			_Extension = 0;
+		}
+	}
+	inline const CString &GetFullName() const
+	{
+		return _FullName;
+	}
+	// return the path / directory component with trailing '\\'
+	inline CString GetDirPath() const 
+	{
+		CString rv = (_Name >= 0 ? _FullName.Left(_Name) : _FullName);
+		return rv;
+	}
+	inline LPCTSTR GetName() const 
+	{
+		return _Name >= 0 ? _FullName.GetString() + _Name : NULL;
+	}
+	inline LPCTSTR GetExtension() const
+	{
+		return _Extension > 0 ? _FullName.GetString() + _Extension : NULL;
+	}
+	// return only the filename  without extension
+	inline CString GetBaseName() const
+	{
+		CString rv = (_Name >= 0 ? _Extension > 0 ? _FullName.Mid(_Name, _Extension - _Name - 1) : _FullName.Mid(_Name) : NULL_STR);
+		return rv;
+	}
+
+private:
+	CString      _FullName;
+	int _Name;
+	int _Extension;
+
+public:
 	// from VS_FIXEDFILEINFO
 	bool  VersionDataIsValid;
  DWORD VersionSignature;
@@ -115,13 +168,13 @@ inline void CFileInfo::InitShellVerbs()
  sShellVerb sv;
  CString RegKeyName;
 	CString TypeStringShort;
-	if ( Extension )
+	if ( GetExtension() )
 	{
 		HKEY hkey;
 		HKEY hkey2;
 
 		int Ret, Ret2;
-		RegKeyName.Format( _T(".%s"),Extension );
+		RegKeyName.Format( _T(".%s"), GetExtension() );
 		Ret = RegOpenKeyEx(HKEY_CLASSES_ROOT ,RegKeyName,0,KEY_QUERY_VALUE,&hkey);
 		if ( Ret == ERROR_SUCCESS )
 		{
@@ -206,15 +259,15 @@ inline void CFileInfo::InitShellVerbs()
 
 
 	}
-	if ( !TypeString.GetLength() ) TypeString.Format( _T("%s File"), Extension );
+	if ( !TypeString.GetLength() ) TypeString.Format( _T("%s File"), (GetExtension() ? GetExtension() : _T("???")));
 
  ShellVerbsValid = true;
 }
 
 inline CString CFileInfo::GetParentDirName() const
 {
-	CString DirName = FullName;
-	DirName = DirName.Left( Name - FullName );
+	CString DirName = GetFullName();
+	DirName = DirName.Left(_Name);
 	return DirName;
 }
 
@@ -229,9 +282,9 @@ inline CFileInfo::CFileInfo()
 	Reserved0        = NULL;
  Reserved1        = NULL;
 
- FullName[0] = 0;
- Name        = NULL;
-	Extension   = NULL;
+ _FullName = NULL_STR;
+ _Name        = -1;
+	_Extension   = 0;
 
  ////
  VersionDataIsValid  = false;
@@ -295,16 +348,39 @@ inline CFileInfo & CFileInfo::operator = ( CFileInfo & fi)
 inline CFileInfo & CFileInfo::Copy(const CFileInfo & fi)
 {
 	// simply copy all info
- memcpy(this, &fi, sizeof(CFileInfo) );
+Attributes = fi.Attributes;
+TimeCreated = fi.TimeCreated;
+TimeLastAccessed = fi.TimeLastAccessed;
+TimeLastModified = fi.TimeLastModified;
+Size = fi.Size;
+Reserved0 = fi.Reserved0;
+Reserved1 = fi.Reserved1;
+_FullName = fi._FullName;
+_Name = fi._Name;
+_Extension = fi._Extension;
+VersionDataIsValid = fi.VersionDataIsValid;
+VersionSignature = fi.VersionSignature;
+VersionStrucVersion = fi.VersionStrucVersion;
+VersionFile = fi.VersionFile;
+VersionProduct = fi.VersionProduct;
+VersionFlagsMask = fi.VersionFlagsMask;
+VersionFlags = fi.VersionFlags;
+VersionOS = fi.VersionOS;
+VersionType = fi.VersionType;
+VersionSubtype = fi.VersionSubtype;
+VersionDateMS = fi.VersionDateMS;
+VersionDateLS = fi.VersionDateLS;
+FirstFile = fi.FirstFile;
+Duplicate = fi.Duplicate;
+Selected = fi.Selected;
+Unaccessible = fi.Unaccessible;
+SetID = fi.SetID;
 
-	// now, fix the file name pointer
-	//Name =  _tcsrchr(FullName,'\\') + sizeof(TCHAR);
- Name = FullName + (fi.Name - fi.FullName);
+ShellVerbs.Copy(fi.ShellVerbs);
+ShellVerbsValid = fi.ShellVerbsValid;
 
-		// fix extenstion pointer
- Extension = (TCHAR*)_tcsrchr(Name,'.');
-	if (Extension) Extension += sizeof(TCHAR); // set pointer to first character in extension, instead of the period ( so Extenstion is "TXT" instead of ".TXT" )
-
+TypeString = fi.TypeString;
+OpenedBefore = fi.OpenedBefore;
 
 	return (*this);
 }
@@ -323,24 +399,7 @@ inline void CFileInfo::Init(const TCHAR* ParentDir, const WIN32_FIND_DATA & fd, 
 	Reserved0      = fd.dwReserved0;
  Reserved1      = fd.dwReserved1;
 
-	// copy parent directory name to full file path name
-	_tcscpy(FullName, ParentDir);
-
-	// append a \ if nesessary
-	if ( FullName[ _tcslen(FullName) -1 ] != _T('\\') ) _tcscat(FullName, _T("\\") );
-
-
-	// set the pointer to the filename
- Name = FullName + _tcslen(FullName);
-
-	// append the filename to the end of the parent directory name
-	_tcscat(FullName, fd.cFileName);
-
-
-	// set the pointer to the extension
- Extension = (TCHAR*)_tcsrchr(Name,'.');
-	if (Extension) Extension += sizeof(TCHAR); // set pointer to first character in extension, instead of the period ( so Extenstion is "TXT" instead of ".TXT" )
-
+ SetFullName(ParentDir, fd.cFileName);
 
 	SetID = 0;
 
@@ -389,22 +448,7 @@ inline void CFileInfo::Init(const TCHAR* ParentDir, const WIN32_FIND_DATA & fd)
 	Reserved0      = fd.dwReserved0;
  Reserved1      = fd.dwReserved1;
 
-	// copy parent directory name to full file path name
-	_tcscpy(FullName, ParentDir);
-
-	// append a \ if nesessary
-	if ( FullName[ _tcslen(FullName) -1 ] != _T('\\') ) _tcscat(FullName, _T("\\") );
-
-	// set the pointer to the filename
- Name = FullName + _tcslen(FullName);
-
-	// append the filename to the end of the parent directory name
-	_tcscat(FullName, fd.cFileName);
-
-	// set the pointer to the extension
- Extension = (TCHAR*)_tcsrchr(Name,'.');
-	if (Extension) Extension += sizeof(TCHAR); // set pointer to first character in extension, instead of the period ( so Extenstion is "TXT" instead of ".TXT" )
-
+ SetFullName(ParentDir, fd.cFileName);
 
 	SetID = 0;
 
@@ -471,13 +515,13 @@ inline void CFileInfo::InitVersion()
 //	LPVOID  lpVersion;    // String pointer to 'version' text
 	UINT    uVersionLen;   // Current length of full version string
 //	TCHAR szGetName[500];
-	 dwVerInfoSize = GetFileVersionInfoSize(FullName, &dwHnd);
+	 dwVerInfoSize = GetFileVersionInfoSize(GetFullName(), &dwHnd);
 	 if (dwVerInfoSize)
 	{
 		  pBuffer = malloc(dwVerInfoSize);
 		  if (pBuffer == NULL)
 			   return;
-		  GetFileVersionInfo(FullName, dwHnd, dwVerInfoSize, pBuffer);
+		  GetFileVersionInfo(GetFullName(), dwHnd, dwVerInfoSize, pBuffer);
 		  // get the fixed file info (language-independend)
 		  VerQueryValue(pBuffer,_T("\\"),(void**)&pFixedInfo,(UINT *)&uVersionLen);
 

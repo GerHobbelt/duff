@@ -22,7 +22,7 @@ public:
 
 inline CString CFullFilenameColumn::GetColumnText(CFileInfo* pFileInfo)
 {
- return pFileInfo->FullName;
+ return pFileInfo->GetFullName();
 }
 
 inline int CFullFilenameColumn::CompareItems( CFileInfo *pFileInfo1 , CFileInfo *pFileInfo2 )
@@ -34,7 +34,7 @@ inline int CFullFilenameColumn::CompareItems( CFileInfo *pFileInfo1 , CFileInfo 
 		pFileInfo2 = pFileInfoTemp;
 	}
 
-	return _tcsicmp( pFileInfo1->FullName, pFileInfo2->FullName );
+	return _tcsicmp( pFileInfo1->GetFullName(), pFileInfo2->GetFullName() );
 }
 
 #endif // !defined(AFX_FULLFILENAMECOLUMN_H__710C39F3_06FB_4728_AFD8_2D01873AE151__INCLUDED_)

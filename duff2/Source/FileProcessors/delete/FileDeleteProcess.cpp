@@ -83,7 +83,7 @@ void CFileDeleteProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & FileLi
 			if ( m_YesToAll ) fos.fFlags |= FOF_NOCONFIRMATION;
 			//
 
-		UINT TotalLength = _tcslen (pFileInfo->FullName ) ;
+		UINT TotalLength = _tcslen (pFileInfo->GetFullName() ) ;
 			// create filename buffer and fill with filename
 
 			buffer = new TCHAR[ TotalLength + sizeof(TCHAR) * 4];
@@ -92,7 +92,7 @@ void CFileDeleteProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & FileLi
 	//			buffer[x] = FileList.ElementAt(i)->Filename.GetAt(x);
 	//		}
 
-			_tcscpy(buffer, pFileInfo->FullName);
+			_tcscpy(buffer, pFileInfo->GetFullName());
 
 			buffer[TotalLength] = 0;
 			buffer[TotalLength+1] = 0;
@@ -104,7 +104,7 @@ void CFileDeleteProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & FileLi
 
 			// update progress information
 			pDuffStatus->Lock();
-			pDuffStatus->CurrentTaskInfo = pFileInfo->FullName;
+			pDuffStatus->CurrentTaskInfo = pFileInfo->GetFullName();
 			pDuffStatus->SubProgress1.Pos ++;
 			pDuffStatus->Unlock();
 			//
@@ -116,7 +116,7 @@ void CFileDeleteProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & FileLi
 
 			if	( SHFileOperation(&fos) )
 			{
-				Msg.Format("ERROR %s file: %s",m_Recycle ? "recycling" : "deleting", pFileInfo->FullName);
+				Msg.Format("ERROR %s file: %s",m_Recycle ? "recycling" : "deleting", pFileInfo->GetFullName());
 				//g_DupeFileFind.GetDuffDlg()->Log(Msg);
 
 
@@ -129,7 +129,7 @@ void CFileDeleteProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & FileLi
 			}
 			else
 			{
-				Msg.Format("%s file: %s",m_Recycle ? "Recycled" : "Deleted", pFileInfo->FullName);
+				Msg.Format("%s file: %s",m_Recycle ? "Recycled" : "Deleted", pFileInfo->GetFullName());
 			//g_DupeFileFind.GetDuffDlg()->Log(Msg);
 
 
@@ -154,12 +154,12 @@ void CFileDeleteProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & FileLi
 
 			else
 			{
-				Msg.Format("%s file: %s", DeleteFile(pFileInfo->FullName) ? "Deleted" : "ERROR deleting", pFileInfo->FullName);
+				Msg.Format("%s file: %s", DeleteFile(pFileInfo->GetFullName()) ? "Deleted" : "ERROR deleting", pFileInfo->GetFullName());
 
 
 				// update status and log
 				pDuffStatus->Lock();
-				pDuffStatus->CurrentTaskInfo = pFileInfo->FullName;
+				pDuffStatus->CurrentTaskInfo = pFileInfo->GetFullName();
 				pDuffStatus->LogQueue.Add(Msg);
 				pDuffStatus->Unlock();
 				//

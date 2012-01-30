@@ -24,7 +24,7 @@ public:
 inline CString CFileLocationColumn::GetColumnText(CFileInfo* pFileInfo)
 {
 	CString sLocation;
-	sLocation = pFileInfo->FullName;
+	sLocation = pFileInfo->GetFullName();
  sLocation = sLocation.Left( sLocation.ReverseFind('\\')+1);
  return sLocation;
 }
@@ -42,27 +42,27 @@ inline int CFileLocationColumn::CompareItems( CFileInfo *pFileInfo1, CFileInfo *
  
  // C:\directory\file.txt
 /*
-	if ( pFileInfo1->Name - pFileInfo1->FullName > pFileInfo2->Name - pFileInfo2->FullName )
+	if ( pFileInfo1->Name - pFileInfo1->GetFullName() > pFileInfo2->Name - pFileInfo2->GetFullName() )
 	{
-		iCount = ( (pFileInfo1->Name - pFileInfo1->FullName) / sizeof(TCHAR) ) - 1;
+		iCount = ( (pFileInfo1->Name - pFileInfo1->GetFullName()) / sizeof(TCHAR) ) - 1;
 	}
 	else
 	{
-		iCount = ( (pFileInfo2->Name - pFileInfo2->FullName) / sizeof(TCHAR) ) - 1;
+		iCount = ( (pFileInfo2->Name - pFileInfo2->GetFullName()) / sizeof(TCHAR) ) - 1;
 	}
 */
 	CString Dir1;
 	CString Dir2;
 
-	Dir1 = pFileInfo1->FullName;
+	Dir1 = pFileInfo1->GetFullName();
  Dir1 = Dir1.Left( Dir1.ReverseFind('\\') );
 
-	Dir2 = pFileInfo2->FullName;
+	Dir2 = pFileInfo2->GetFullName();
  Dir2 = Dir2.Left( Dir2.ReverseFind('\\') );
 
 	return Dir1.Compare(Dir2);
 
-//	return _tcsnicmp( pFileInfo1->FullName , pFileInfo2->FullName  , iCount );
+//	return _tcsnicmp( pFileInfo1->GetFullName() , pFileInfo2->GetFullName()  , iCount );
 }
 
 #endif // !defined(AFX_FILELOCATIONCOLUMN_H__3E5E4B94_D0A3_4388_81CE_103AAAC64F23__INCLUDED_)

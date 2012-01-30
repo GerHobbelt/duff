@@ -23,7 +23,7 @@ public:
 
 inline CString CFilenameColumn::GetColumnText(CFileInfo* pFileInfo)
 {
- return pFileInfo->Name;
+ return pFileInfo->GetName();
 }
 
 inline int CFilenameColumn::CompareItems( CFileInfo *pFileInfo1 , CFileInfo *pFileInfo2 )
@@ -35,7 +35,7 @@ inline int CFilenameColumn::CompareItems( CFileInfo *pFileInfo1 , CFileInfo *pFi
 		pFileInfo2 = pFileInfoTemp;
 	}
 
-	return _tcsicmp( pFileInfo1->Name, pFileInfo2->Name );
+	return _tcsicmp( pFileInfo1->GetName(), pFileInfo2->GetName() );
 }
 
 

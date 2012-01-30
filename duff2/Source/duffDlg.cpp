@@ -531,7 +531,6 @@ bool CDuffDlg::ClearResults()
 {
 	if ( Confirm() )
 	{
-
 		g_DupeFileFind.CleanUp();
 		m_DuplicatePage.m_DupeList.DeleteAllItems();
 		return true;

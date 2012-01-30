@@ -1,4 +1,4 @@
-//Microsoft Developer Studio generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
 
@@ -27,18 +27,18 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE DISCARDABLE 
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE DISCARDABLE 
+2 TEXTINCLUDE 
 BEGIN
     "#include ""afxres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE DISCARDABLE 
+3 TEXTINCLUDE 
 BEGIN
     "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
     "#define _AFX_NO_OLE_RESOURCES\r\n"
@@ -66,7 +66,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON    DISCARDABLE     "Resource\\duff.ico"
+IDR_MAINFRAME           ICON                    "Resource\\duff.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -74,150 +74,103 @@ IDR_MAINFRAME           ICON    DISCARDABLE     "Resource\\duff.ico"
 //
 
 IDD_ABOUTBOX DIALOGEX 0, 0, 262, 228
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_TOOLWINDOW
 CAPTION "About"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
-    CONTROL         160,IDC_ICONLOGO,"Static",SS_BITMAP | SS_NOTIFY,5,5,65,
-                    105
-    LTEXT           "DUFF - DUplicate File Finder",IDC_STATIC,75,5,119,8,
-                    SS_NOPREFIX
+    CONTROL         160,IDC_ICONLOGO,"Static",SS_BITMAP | SS_NOTIFY,5,5,65,105
+    LTEXT           "DUFF - DUplicate File Finder",IDC_STATIC,75,5,119,8,SS_NOPREFIX
     LTEXT           "Version XX.xx.xx",IDC_VERSION,75,27,155,8
     LTEXT           "Copyright (C) 2001-2004",IDC_COPYRIGHT,75,60,170,8
     LTEXT           "Visit My Homepage",URL_HOMEPAGE,75,71,75,8
-    LTEXT           "CResizeableLib by Paolo Messina",URL_SIZELIB,75,105,107,
-                    8
-    LTEXT           "Modified version of CHyperLink by Chris Maunder",
-                    URL_CHYPERLINK,75,116,156,8
-    LTEXT           "Modified version of CVersionInfo by Roberto Rocco",
-                    URL_VERSIONINFO,75,127,162,8
+    LTEXT           "CResizeableLib by Paolo Messina",URL_SIZELIB,75,105,107,8
+    LTEXT           "Modified version of CHyperLink by Chris Maunder",URL_CHYPERLINK,75,116,156,8
+    LTEXT           "Modified version of CVersionInfo by Roberto Rocco",URL_VERSIONINFO,75,127,162,8
     DEFPUSHBUTTON   "OK",IDOK,220,210,35,14,WS_GROUP
     LTEXT           "INSERT DATE HERE",IDC_COMPILED_DATE,75,38,175,8
-    LTEXT           "by Jeremy Bryan Smith (Helamonster)",IDC_STATIC,75,16,
-                    117,8
+    LTEXT           "by Jeremy Bryan Smith (Helamonster)",IDC_STATIC,75,16,117,8
     LTEXT           "Email me",IDC_EMAIL,75,82,29,8
     LTEXT           "-- License Type --",IDC_LICENSE_TYPE,75,50,170,8
-    CONTROL         "List1",IDC_PLUGIN_INFORMATION,"SysListView32",
-                    LVS_REPORT | LVS_NOLABELWRAP | LVS_NOSORTHEADER | NOT 
-                    WS_VISIBLE | WS_BORDER | WS_TABSTOP,10,145,240,55
+    CONTROL         "List1",IDC_PLUGIN_INFORMATION,"SysListView32",LVS_REPORT | LVS_NOLABELWRAP | LVS_NOSORTHEADER | NOT WS_VISIBLE | WS_BORDER | WS_TABSTOP,10,145,240,55
     GROUPBOX        "Plugins",IDC_STATIC,5,135,250,70
-    LTEXT           "This program uses the following 3rd-party libraries:",
-                    IDC_STATIC,75,95,156,8
-    LTEXT           "TODO: Add plugin information here",IDC_STATIC,70,175,
-                    111,8
+    LTEXT           "This program uses the following 3rd-party libraries:",IDC_STATIC,75,95,156,8
+    LTEXT           "TODO: Add plugin information here",IDC_STATIC,70,175,111,8
 END
 
 IDD_DUFF_DIALOG DIALOGEX 0, 0, 416, 241
-STYLE DS_MODALFRAME | DS_CONTEXTHELP | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | 
-    WS_POPUP | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CONTEXTHELP | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_CONTEXTHELP | WS_EX_APPWINDOW
 CAPTION "DUFF - DUplicate File Finder"
 MENU IDR_MENU_MAIN
-FONT 8, "MS Sans Serif"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
-    CONTROL         "Progress1",IDC_PROGRESS_ENTIRE,"msctls_progress32",
-                    PBS_SMOOTH | WS_BORDER,65,225,260,10
-    RTEXT           "Entire progress:",IDC_STATIC_PROGRESS_ENTIRE,5,225,58,
-                    10,SS_CENTERIMAGE
-    CONTROL         "Progress1",IDC_PROGRESS_SUB_1,"msctls_progress32",
-                    WS_BORDER,65,215,260,10
-    RTEXT           "Sub progress #1:",IDC_STATIC_SUBPREGRESS1,5,215,58,10,
-                    SS_CENTERIMAGE
-    RTEXT           "Current Task:",IDC_STATIC_CURRENT_TASK,5,185,58,10,
-                    SS_CENTERIMAGE
-    RTEXT           "Task info:",IDC_STATIC_TASK_INFO,4,195,59,10,
-                    SS_CENTERIMAGE
-    CONTROL         "",IDC_PROPERTYSHEET,"Static",SS_BLACKFRAME | NOT 
-                    WS_VISIBLE,5,5,410,185
+    CONTROL         "Progress1",IDC_PROGRESS_ENTIRE,"msctls_progress32",PBS_SMOOTH | WS_BORDER,65,225,260,10
+    RTEXT           "Entire progress:",IDC_STATIC_PROGRESS_ENTIRE,5,225,58,10,SS_CENTERIMAGE
+    CONTROL         "Progress1",IDC_PROGRESS_SUB_1,"msctls_progress32",WS_BORDER,65,215,260,10
+    RTEXT           "Sub progress #1:",IDC_STATIC_SUBPREGRESS1,5,215,58,10,SS_CENTERIMAGE
+    RTEXT           "Current Task:",IDC_STATIC_CURRENT_TASK,5,185,58,10,SS_CENTERIMAGE
+    RTEXT           "Task info:",IDC_STATIC_TASK_INFO,4,195,59,10,SS_CENTERIMAGE
+    CONTROL         "",IDC_PROPERTYSHEET,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,5,5,410,185
     PUSHBUTTON      "S&tart",IDC_START,355,220,25,15
     PUSHBUTTON      "!",IDC_EXIT,400,185,10,14,NOT WS_VISIBLE
     PUSHBUTTON      "&Stop",IDC_STOP,385,220,25,15
-    CONTROL         "Animate1",IDC_ANIMATE_CONTROL,"SysAnimate32",
-                    ACS_TRANSPARENT | WS_TABSTOP,355,185,10,10,
-                    WS_EX_TRANSPARENT
-    CONTROL         "&Pause",IDC_PAUSE,"Button",BS_AUTOCHECKBOX | 
-                    BS_PUSHLIKE | NOT WS_VISIBLE | WS_TABSTOP,360,200,15,15
-    CONTROL         "Progress1",IDC_PROGRESS_SUB_2,"msctls_progress32",
-                    WS_BORDER,65,205,260,10
-    RTEXT           "Sub progress #2:",IDC_STATIC_SUBPROGRESS2,5,205,58,10,
-                    SS_CENTERIMAGE
+    CONTROL         "Animate1",IDC_ANIMATE_CONTROL,"SysAnimate32",ACS_TRANSPARENT | WS_TABSTOP,355,185,10,10,WS_EX_TRANSPARENT
+    CONTROL         "&Pause",IDC_PAUSE,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | NOT WS_VISIBLE | WS_TABSTOP,355,200,29,15
+    CONTROL         "Progress1",IDC_PROGRESS_SUB_2,"msctls_progress32",WS_BORDER,65,205,260,10
+    RTEXT           "Sub progress #2:",IDC_STATIC_SUBPROGRESS2,5,205,58,10,SS_CENTERIMAGE
     LTEXT           "Idle",IDC_STATUS,371,185,29,10
     RTEXT           "000 %",IDC_SUBRANGE2,325,205,25,10,0,WS_EX_STATICEDGE
     RTEXT           "000 %",IDC_SUBRANGE1,325,215,25,10,0,WS_EX_STATICEDGE
-    RTEXT           "000 %",IDC_RANGE_ENTIRE,325,225,25,10,0,
-                    WS_EX_STATICEDGE
-    CONTROL         "Idle",IDC_CURRENT_TASK,"Static",SS_LEFTNOWORDWRAP | 
-                    SS_NOPREFIX | WS_GROUP,65,185,285,10,WS_EX_STATICEDGE
-    CONTROL         "",IDC_TASK_INFO,"Static",SS_LEFTNOWORDWRAP | 
-                    SS_NOPREFIX | WS_GROUP,65,195,285,10,WS_EX_STATICEDGE
+    RTEXT           "000 %",IDC_RANGE_ENTIRE,325,225,25,10,0,WS_EX_STATICEDGE
+    CONTROL         "Idle",IDC_CURRENT_TASK,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,65,185,285,10,WS_EX_STATICEDGE
+    CONTROL         "",IDC_TASK_INFO,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,65,195,285,10,WS_EX_STATICEDGE
     PUSHBUTTON      "test",IDC_TEST,390,204,19,9,NOT WS_VISIBLE
 END
 
 IDD_LAYERS_PAGE DIALOGEX 0, 0, 407, 202
-STYLE WS_CHILD | WS_CLIPSIBLINGS | WS_CAPTION
+STYLE DS_SETFONT | WS_CHILD | WS_CLIPSIBLINGS | WS_CAPTION
 EXSTYLE WS_EX_CONTROLPARENT
 CAPTION "Layers"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
-    LISTBOX         IDC_LAYER_CHECKLIST,5,10,85,155,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
-    PUSHBUTTON      "Up",IDC_LAYER_MOVE_UP,30,165,30,15,WS_DISABLED,
-                    WS_EX_STATICEDGE
-    PUSHBUTTON      "Down",IDC_LAYER_MOVE_DOWN,60,165,30,15,WS_DISABLED,
-                    WS_EX_STATICEDGE
-    CONTROL         "AND",IDC_RADIO_LOGIC_AND,"Button",BS_AUTORADIOBUTTON,30,
-                    180,31,15
-    CONTROL         "OR",IDC_RADIO_LOGIC_OR,"Button",BS_AUTORADIOBUTTON,60,
-                    180,27,15
-    EDITTEXT        IDC_LAYER_DESCRIPTION,105,10,295,30,ES_MULTILINE | 
-                    ES_READONLY | NOT WS_BORDER
-    CONTROL         "",IDC_PROPERTYSHEET,"Static",SS_BLACKFRAME | NOT 
-                    WS_VISIBLE,110,60,290,135
-    LTEXT           "This layer has no configuration.",IDC_NOCONFIG,110,60,
-                    123,10
-    GROUPBOX        "Comparison Layers",IDC_COMPARISON_LAYERS_FRAME,0,0,95,
-                    200
-    GROUPBOX        "Layer Configuration",IDC_LAYER_CONFIG_FRAME,100,45,305,
-                    155
+    LISTBOX         IDC_LAYER_CHECKLIST,5,10,85,155,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Up",IDC_LAYER_MOVE_UP,30,165,30,15,WS_DISABLED,WS_EX_STATICEDGE
+    PUSHBUTTON      "Down",IDC_LAYER_MOVE_DOWN,60,165,30,15,WS_DISABLED,WS_EX_STATICEDGE
+    CONTROL         "AND",IDC_RADIO_LOGIC_AND,"Button",BS_AUTORADIOBUTTON,30,180,31,15
+    CONTROL         "OR",IDC_RADIO_LOGIC_OR,"Button",BS_AUTORADIOBUTTON,60,180,27,15
+    EDITTEXT        IDC_LAYER_DESCRIPTION,105,10,295,30,ES_MULTILINE | ES_READONLY | NOT WS_BORDER
+    CONTROL         "",IDC_PROPERTYSHEET,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,110,60,290,135
+    LTEXT           "This layer has no configuration.",IDC_NOCONFIG,110,60,123,10
+    GROUPBOX        "Comparison Layers",IDC_COMPARISON_LAYERS_FRAME,0,0,95,200
+    GROUPBOX        "Layer Configuration",IDC_LAYER_CONFIG_FRAME,100,45,305,155
     GROUPBOX        "Layer Info",IDC_LAYER_INFO_FRAME,100,0,305,45
     LTEXT           " Order:",IDC_STATIC_ORDER,5,165,25,15,SS_CENTERIMAGE
     LTEXT           " Logic:",IDC_STATIC_LOGIC,5,180,25,15,SS_CENTERIMAGE
 END
 
-IDD_FILENAME_LAYER_FORM DIALOG DISCARDABLE  0, 0, 266, 96
-STYLE WS_CHILD
+IDD_FILENAME_LAYER_FORM DIALOG  0, 0, 266, 96
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
-    CONTROL         "Filenames must be equal",IDC_MATCH_FILENAMES,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,5,0,93,15
+    CONTROL         "Filenames must be equal",IDC_MATCH_FILENAMES,"Button",BS_AUTORADIOBUTTON | WS_GROUP,5,0,93,15
     CONTROL         "Filenames must be different",IDC_MATCH_NOT_FILENAME,
                     "Button",BS_AUTORADIOBUTTON,5,15,101,15
     CONTROL         "Filename extensions must be equal",IDC_MATCH_EXTENSIONS,
                     "Button",BS_AUTORADIOBUTTON,5,30,125,15
-    CONTROL         "Filename extensions must be different",
-                    IDC_MATCH_NOT_EXTENSIONS,"Button",BS_AUTORADIOBUTTON,5,
-                    45,133,15
-    CONTROL         "Filenames must contain at least",IDC_MATCH_WORDS,"Button",
-                    BS_AUTORADIOBUTTON,5,60,114,15
-    CONTROL         "Case sensitive comparisons",IDC_CASE_SENSITIVE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,5,80,103,15
-    EDITTEXT        IDC_WORD_COUNT,120,60,35,14,ES_RIGHT | ES_AUTOHSCROLL | 
-                    ES_NUMBER
-    LTEXT           "common words",IDC_STATIC_COMMON_WORDS,160,60,48,15,
-                    SS_CENTERIMAGE
-    CONTROL         "Allow",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | 
-                    WS_DISABLED | WS_TABSTOP,120,80,30,15
-    EDITTEXT        IDC_TYPO_COUNT,155,80,35,14,ES_RIGHT | ES_AUTOHSCROLL | 
-                    ES_NUMBER | WS_DISABLED
-    LTEXT           "character typos",IDC_STATIC,195,80,50,15,SS_CENTERIMAGE | 
-                    WS_DISABLED
+    CONTROL         "Filename extensions must be different",IDC_MATCH_NOT_EXTENSIONS,
+                    "Button",BS_AUTORADIOBUTTON,5,45,133,15
+    CONTROL         "Filenames must contain at least",IDC_MATCH_WORDS,"Button",BS_AUTORADIOBUTTON,5,60,114,15
+    CONTROL         "Case sensitive comparisons",IDC_CASE_SENSITIVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,80,103,15
+    EDITTEXT        IDC_WORD_COUNT,120,60,35,14,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "common words",IDC_STATIC_COMMON_WORDS,160,60,48,15,SS_CENTERIMAGE
+    CONTROL         "Allow",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,120,80,30,15
+    EDITTEXT        IDC_TYPO_COUNT,155,80,35,14,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER | WS_DISABLED
+    LTEXT           "character typos",IDC_STATIC,195,80,50,15,SS_CENTERIMAGE | WS_DISABLED
 END
 
 IDD_DIRECTORIES_PAGE DIALOGEX 0, 0, 392, 166
-STYLE WS_CHILD | WS_CAPTION
+STYLE DS_SETFONT | WS_CHILD | WS_CAPTION
 EXSTYLE WS_EX_CONTROLPARENT
 CAPTION "Files/Dirs"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
@@ -225,314 +178,219 @@ BEGIN
     LTEXT           "File &mask(s):",IDC_STATIC,5,5,40,15,SS_CENTERIMAGE
     EDITTEXT        IDC_FILE_MASKS,50,5,165,14,ES_AUTOHSCROLL
     LTEXT           "Dir. &Attribites:",IDC_INCLUDE_DESCRIPTION,5,25,60,10
-    LISTBOX         IDC_ATTRIBUTES_LIST,5,35,60,115,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | LBS_NOSEL | 
-                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_ATTRIBUTES_LIST,5,35,60,115,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | LBS_NOSEL | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "An&y",IDC_ATTRIBUTES_ANY,5,150,60,14,0,WS_EX_STATICEDGE
-    LISTBOX         IDC_INCLUDE_DIRECTORIES_LIST,70,35,320,115,
-                    LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | 
-                    LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_VSCROLL | 
-                    WS_TABSTOP,WS_EX_ACCEPTFILES
-    PUSHBUTTON      "Add &Directory...",IDC_BROWSE_INCLUDE,70,150,70,15,0,
-                    WS_EX_STATICEDGE
-    PUSHBUTTON      "&Remove Selected",IDC_REMOVE_SELECTED_INCLUDE_DIRECTORY,
-                    145,150,70,15,0,WS_EX_STATICEDGE
-    PUSHBUTTON      "Remove A&ll",IDC_REMOVE_ALL_DIRECTORIES,220,150,70,15,0,
-                    WS_EX_STATICEDGE
-    LTEXT           "&Specify directories to include in search by clicking 'Add Directory' or by dragging folders to the list:",
-                    IDC_INCLUDE_BROWSE_DESC,70,25,310,10
-    LTEXT           "Seperate masks with semicolons ( e.g. *.jpg; *.gif )",
-                    IDC_STATIC,225,5,165,15,SS_CENTERIMAGE
+    LISTBOX         IDC_INCLUDE_DIRECTORIES_LIST,70,35,320,115,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_VSCROLL | WS_TABSTOP,WS_EX_ACCEPTFILES
+    PUSHBUTTON      "Add &Directory...",IDC_BROWSE_INCLUDE,70,150,70,15,0,WS_EX_STATICEDGE
+    PUSHBUTTON      "&Remove Selected",IDC_REMOVE_SELECTED_INCLUDE_DIRECTORY,145,150,70,15,0,WS_EX_STATICEDGE
+    PUSHBUTTON      "Remove A&ll",IDC_REMOVE_ALL_DIRECTORIES,220,150,70,15,0,WS_EX_STATICEDGE
+    LTEXT           "&Specify directories to include in search by clicking 'Add Directory' or by dragging folders to the list:",IDC_INCLUDE_BROWSE_DESC,70,25,310,10
+    LTEXT           "Seperate masks with semicolons ( e.g. *.jpg; *.gif )",IDC_STATIC,225,5,165,15,SS_CENTERIMAGE
 END
 
 IDD_DUPLICATES_PAGE DIALOGEX 0, 0, 397, 201
-STYLE WS_POPUP | WS_CAPTION
+STYLE DS_SETFONT | WS_POPUP | WS_CAPTION
 EXSTYLE WS_EX_CONTROLPARENT
 CAPTION "Duplicates"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
-    CONTROL         "List1",IDC_DUPLICATE_LIST,"SysListView32",LVS_REPORT | 
-                    LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,10,10,380,160,
-                    WS_EX_RIGHT
+    CONTROL         "List1",IDC_DUPLICATE_LIST,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,10,10,380,160,WS_EX_RIGHT
     GROUPBOX        "Duplicates Found",IDC_DUPLICATE_LIST_FRAME,0,0,395,200
-    EDITTEXT        IDC_TOTAL_SIZE,330,185,60,12,ES_RIGHT | ES_AUTOHSCROLL | 
-                    ES_READONLY | NOT WS_BORDER,WS_EX_STATICEDGE
-    RTEXT           "Total bytes ",IDC_STATIC_SIZE,330,175,60,10,
-                    SS_CENTERIMAGE,WS_EX_STATICEDGE
-    EDITTEXT        IDC_TOTAL_COUNT,110,185,35,12,ES_RIGHT | ES_AUTOHSCROLL | 
-                    ES_READONLY | NOT WS_BORDER,WS_EX_STATICEDGE
-    RTEXT           "Total ",IDC_STATIC_COUNT,110,175,35,10,SS_CENTERIMAGE,
-                    WS_EX_STATICEDGE
-    EDITTEXT        IDC_TOTAL_SELECTED,75,185,35,12,ES_RIGHT | 
-                    ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,
-                    WS_EX_STATICEDGE
-    RTEXT           "Selected ",IDC_STATIC_SELECTED,75,175,35,10,
-                    SS_CENTERIMAGE,WS_EX_STATICEDGE
-    RTEXT           "Marked ",IDC_STATIC_CHECKED,40,175,35,10,SS_CENTERIMAGE,
-                    WS_EX_STATICEDGE
-    EDITTEXT        IDC_TOTAL_CHECKED,40,185,35,12,ES_RIGHT | ES_AUTOHSCROLL | 
-                    ES_READONLY | NOT WS_BORDER,WS_EX_STATICEDGE
-    EDITTEXT        IDC_SELECTED_SIZE,270,185,60,12,ES_RIGHT | 
-                    ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,
-                    WS_EX_STATICEDGE
-    RTEXT           "Selected bytes ",IDC_STATIC_SELECTED_SIZE,270,175,60,10,
-                    SS_CENTERIMAGE,WS_EX_STATICEDGE
-    EDITTEXT        IDC_MARKED_SIZE,210,185,60,12,ES_RIGHT | ES_AUTOHSCROLL | 
-                    ES_READONLY | NOT WS_BORDER,WS_EX_STATICEDGE
-    RTEXT           "Marked bytes ",IDC_STATIC_MARKED_SIZE,210,175,60,10,
-                    SS_CENTERIMAGE,WS_EX_STATICEDGE
-    RTEXT           "Duplicate ",IDC_STATIC_DUPLICATES,5,175,35,10,
-                    SS_CENTERIMAGE,WS_EX_STATICEDGE
-    EDITTEXT        IDC_TOTAL_DUPLICATES,5,185,35,12,ES_RIGHT | 
-                    ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,
-                    WS_EX_STATICEDGE
-    EDITTEXT        IDC_TOTAL_DUPE_SIZE,150,185,60,12,ES_RIGHT | 
-                    ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,
-                    WS_EX_STATICEDGE
-    RTEXT           "Duplicate bytes ",IDC_STATIC_TOTAL_DUPE_SIZE,150,175,60,
-                    10,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    EDITTEXT        IDC_TOTAL_SIZE,330,185,60,12,ES_RIGHT | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_STATICEDGE
+    RTEXT           "Total bytes ",IDC_STATIC_SIZE,330,175,60,10,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    EDITTEXT        IDC_TOTAL_COUNT,110,185,35,12,ES_RIGHT | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_STATICEDGE
+    RTEXT           "Total ",IDC_STATIC_COUNT,110,175,35,10,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    EDITTEXT        IDC_TOTAL_SELECTED,75,185,35,12,ES_RIGHT | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_STATICEDGE
+    RTEXT           "Selected ",IDC_STATIC_SELECTED,75,175,35,10,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "Marked ",IDC_STATIC_CHECKED,40,175,35,10,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    EDITTEXT        IDC_TOTAL_CHECKED,40,185,35,12,ES_RIGHT | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_STATICEDGE
+    EDITTEXT        IDC_SELECTED_SIZE,270,185,60,12,ES_RIGHT | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_STATICEDGE
+    RTEXT           "Selected bytes ",IDC_STATIC_SELECTED_SIZE,270,175,60,10,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    EDITTEXT        IDC_MARKED_SIZE,210,185,60,12,ES_RIGHT | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_STATICEDGE
+    RTEXT           "Marked bytes ",IDC_STATIC_MARKED_SIZE,210,175,60,10,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    RTEXT           "Duplicate ",IDC_STATIC_DUPLICATES,5,175,35,10,SS_CENTERIMAGE,WS_EX_STATICEDGE
+    EDITTEXT        IDC_TOTAL_DUPLICATES,5,185,35,12,ES_RIGHT | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_STATICEDGE
+    EDITTEXT        IDC_TOTAL_DUPE_SIZE,150,185,60,12,ES_RIGHT | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_STATICEDGE
+    RTEXT           "Duplicate bytes ",IDC_STATIC_TOTAL_DUPE_SIZE,150,175,60,10,SS_CENTERIMAGE,WS_EX_STATICEDGE
 END
 
 IDD_PROCESSES_PAGE DIALOGEX 0, 0, 392, 202
-STYLE WS_POPUP | WS_CAPTION
+STYLE DS_SETFONT | WS_POPUP | WS_CAPTION
 EXSTYLE WS_EX_CONTROLPARENT
 CAPTION "Processors"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
     GROUPBOX        "File Processors",IDC_PROCESS_FRAME,0,0,95,200
     PUSHBUTTON      "&Perform processes",IDC_PERFORM,5,180,85,14
-    GROUPBOX        "Processor Configuration",IDC_PROCESS_CONFIG_FRAME,100,
-                    45,290,155
-    LTEXT           "This processor has no configuration.",IDC_NOCONFIG,110,
-                    60,135,10
+    GROUPBOX        "Processor Configuration",IDC_PROCESS_CONFIG_FRAME,100,45,290,155
+    LTEXT           "This processor has no configuration.",IDC_NOCONFIG,110,60,135,10
     GROUPBOX        "Processor info",IDC_PROCESS_INFO_FRAME,100,0,290,45
-    EDITTEXT        IDC_PROCESS_DESCRIPTION,105,15,280,25,ES_MULTILINE | 
-                    ES_READONLY | NOT WS_BORDER
-    CONTROL         "",IDC_PROPERTYSHEET,"Static",SS_BLACKFRAME | NOT 
-                    WS_VISIBLE,110,60,275,135
-    LISTBOX         IDC_PROCESS_CHECKLIST,5,10,85,165,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
+    EDITTEXT        IDC_PROCESS_DESCRIPTION,105,15,280,25,ES_MULTILINE | ES_READONLY | NOT WS_BORDER
+    CONTROL         "",IDC_PROPERTYSHEET,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,110,60,275,135
+    LISTBOX         IDC_PROCESS_CHECKLIST,5,10,85,165,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
 END
 
 IDD_STATUSLOG_PAGE DIALOGEX 0, 0, 392, 202
-STYLE WS_CHILD | WS_CAPTION
+STYLE DS_SETFONT | WS_CHILD | WS_CAPTION
 EXSTYLE WS_EX_CONTROLPARENT
 CAPTION "Status Log"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
-    CONTROL         "List3",IDC_STATUS_LOG,"SysListView32",LVS_REPORT | 
-                    LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | 
-                    WS_TABSTOP,5,10,380,165
+    CONTROL         "List3",IDC_STATUS_LOG,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,5,10,380,165
     GROUPBOX        "Status log",IDC_STATUS_LOG_FRAME,0,0,390,200
     PUSHBUTTON      "save log...",IDC_SAVE_LOG,5,180,50,14
     PUSHBUTTON      "clear log..",IDC_CLEAR_LOG,60,180,50,14
 END
 
 IDD_SELECTIONS_PAGE DIALOGEX 0, 0, 392, 202
-STYLE WS_CHILD | WS_CAPTION
+STYLE DS_SETFONT | WS_CHILD | WS_CAPTION
 EXSTYLE WS_EX_CONTROLPARENT
 CAPTION "Markers"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
     PUSHBUTTON      "Mark the files!",IDC_SELECTIONS_MAKE,5,180,85,15
     GROUPBOX        "File Markers",IDC_SELECTION_FRAME,0,0,95,200
-    GROUPBOX        "Marker Configuration",IDC_SELECTION_CONFIG_FRAME,100,45,
-                    290,155
-    LTEXT           "This marker has no configuration.",IDC_NOCONFIG,110,60,
-                    130,10
+    GROUPBOX        "Marker Configuration",IDC_SELECTION_CONFIG_FRAME,100,45,290,155
+    LTEXT           "This marker has no configuration.",IDC_NOCONFIG,110,60,130,10
     GROUPBOX        "Marker info",IDC_SELECTION_INFO_FRAME,100,0,290,45
-    EDITTEXT        IDC_SELECTION_DESCRIPTION,105,15,280,25,ES_MULTILINE | 
-                    ES_READONLY | NOT WS_BORDER
-    CONTROL         "",IDC_PROPERTYSHEET,"Static",SS_BLACKFRAME | NOT 
-                    WS_VISIBLE,110,60,275,135
-    LISTBOX         IDC_SELECTION_CHECKLIST,5,10,85,165,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
+    EDITTEXT        IDC_SELECTION_DESCRIPTION,105,15,280,25,ES_MULTILINE | ES_READONLY | NOT WS_BORDER
+    CONTROL         "",IDC_PROPERTYSHEET,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,110,60,275,135
+    LISTBOX         IDC_SELECTION_CHECKLIST,5,10,85,165,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
 END
 
-IDD_FILE_DELETE_PROCESS_FORM DIALOG DISCARDABLE  0, 0, 236, 71
-STYLE WS_CHILD
+IDD_FILE_DELETE_PROCESS_FORM DIALOG  0, 0, 236, 71
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
-    CONTROL         "Delete to recycle bin (slower)",IDC_RECYCLE,"Button",
-                    BS_AUTORADIOBUTTON,5,5,107,10
-    CONTROL         "Direct delete (faster)",IDC_DELETE,"Button",
-                    BS_AUTORADIOBUTTON,5,15,79,10
-    CONTROL         "Delete read-only files",IDC_DELETE_READONLY,"Button",
-                    BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,5,30,81,10
-    CONTROL         "Respond with yes to all confirmation dialog boxes that are displayed",
-                    IDC_YES_TO_ALL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,
-                    40,227,10
+    CONTROL         "Delete to recycle bin (slower)",IDC_RECYCLE,"Button",BS_AUTORADIOBUTTON,5,5,107,10
+    CONTROL         "Direct delete (faster)",IDC_DELETE,"Button",BS_AUTORADIOBUTTON,5,15,79,10
+    CONTROL         "Delete read-only files",IDC_DELETE_READONLY,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,5,30,81,10
+    CONTROL         "Respond with yes to all confirmation dialog boxes that are displayed",IDC_YES_TO_ALL,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,40,227,10
 END
 
-IDD_OPTIONS_PAGE DIALOG DISCARDABLE  0, 0, 397, 162
-STYLE WS_POPUP | WS_CAPTION
+IDD_OPTIONS_PAGE DIALOG  0, 0, 397, 162
+STYLE DS_SETFONT | WS_POPUP | WS_CAPTION
 CAPTION "Options"
 FONT 8, "MS Sans Serif"
 BEGIN
     GROUPBOX        "",IDC_OPTION_TITLE,100,0,295,160
     GROUPBOX        "Options",IDC_OPTIONS,0,0,95,160
-    LISTBOX         IDC_OPTION_LIST,5,10,85,105,LBS_NOINTEGRALHEIGHT | 
-                    WS_VSCROLL | WS_TABSTOP
-    CONTROL         "",IDC_OPTION_FRAME,"Static",SS_BLACKFRAME | NOT 
-                    WS_VISIBLE,110,15,280,140
+    LISTBOX         IDC_OPTION_LIST,5,10,85,105,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_OPTION_FRAME,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,110,15,280,140
     PUSHBUTTON      "Abort Changes",IDC_ABORT_CHANGES,5,120,85,14
     PUSHBUTTON      "Apply Changes",IDC_APPLY_CHANGES,5,140,85,14
 END
 
-IDD_FILENAME_SELECTION_FORM DIALOG DISCARDABLE  0, 0, 286, 101
-STYLE WS_CHILD
+IDD_FILENAME_SELECTION_FORM DIALOG  0, 0, 286, 101
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
-    CONTROL         "longest filename",IDC_LONGEST,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,0,15,65,9
-    CONTROL         "shortest filename",IDC_SHORTEST,"Button",
-                    BS_AUTORADIOBUTTON,0,25,65,9
-    CONTROL         "filenames that contain:",IDC_CONTAIN,"Button",
-                    BS_AUTORADIOBUTTON,0,40,85,10
-    CONTROL         "filenames that don't contain:",IDC_DONTCONTAIN,"Button",
-                    BS_AUTORADIOBUTTON,0,50,100,10
+    CONTROL         "longest filename",IDC_LONGEST,"Button",BS_AUTORADIOBUTTON | WS_GROUP,0,15,65,9
+    CONTROL         "shortest filename",IDC_SHORTEST,"Button",BS_AUTORADIOBUTTON,0,25,65,9
+    CONTROL         "filenames that contain:",IDC_CONTAIN,"Button",BS_AUTORADIOBUTTON,0,40,85,10
+    CONTROL         "filenames that don't contain:",IDC_DONTCONTAIN,"Button",BS_AUTORADIOBUTTON,0,50,100,10
     EDITTEXT        IDC_CONTAINTEXT,105,45,115,15,ES_AUTOHSCROLL
     CONTROL         "filenames that are in all lowercase",IDC_LOWERCASE,
                     "Button",BS_AUTORADIOBUTTON,0,65,121,10
     CONTROL         "filenames that are in all uppercase",IDC_UPPERCASE,
                     "Button",BS_AUTORADIOBUTTON,0,75,122,8
     LTEXT           "Mark file(s) with:",IDC_STATIC,0,0,52,8
-    CONTROL         "Case sensitive",IDC_CASE_SENSITIVE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,225,45,61,15
-    CONTROL         "Include parent directory name",IDC_INCLUDE_PATH,"Button",
-                    BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,0,90,109,
-                    10
+    CONTROL         "Case sensitive",IDC_CASE_SENSITIVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,225,45,61,15
+    CONTROL         "Include parent directory name",IDC_INCLUDE_PATH,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,0,90,109,10
 END
 
-IDD_FILE_MOVE_PROCESS_FORM DIALOG DISCARDABLE  0, 0, 231, 86
-STYLE WS_CHILD
+IDD_FILE_MOVE_PROCESS_FORM DIALOG  0, 0, 231, 86
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "Move selected files to the following location:",
-                    IDC_STATIC,0,0,140,8
+    LTEXT           "Move selected files to the following location:",IDC_STATIC,0,0,140,8
     EDITTEXT        IDC_DIR,0,10,195,14,ES_AUTOHSCROLL
     PUSHBUTTON      "...",IDC_BROWSE,195,10,20,14
-    CONTROL         "Move read-only files",IDC_MOVE_READ_ONLY,"Button",
-                    BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,0,30,79,10
-    LTEXT           "Overwriting existing files:",IDC_STATIC,130,45,80,8,
-                    WS_DISABLED
-    LTEXT           "Moving read-only files:",IDC_STATIC,0,45,80,8,
-                    WS_DISABLED
-    CONTROL         "Yes to all",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON | 
-                    WS_DISABLED | WS_GROUP,130,55,45,10
-    CONTROL         "No to all",IDC_RADIO7,"Button",BS_AUTORADIOBUTTON | 
-                    WS_DISABLED,130,65,42,10
-    CONTROL         "Prompt",IDC_RADIO8,"Button",BS_AUTORADIOBUTTON | 
-                    WS_DISABLED,130,75,38,10
-    CONTROL         "Yes to all",IDC_RADIO9,"Button",BS_AUTORADIOBUTTON | 
-                    WS_DISABLED | WS_GROUP,0,55,45,10
-    CONTROL         "No to all",IDC_RADIO10,"Button",BS_AUTORADIOBUTTON | 
-                    WS_DISABLED,0,65,42,10
-    CONTROL         "Prompt",IDC_RADIO11,"Button",BS_AUTORADIOBUTTON | 
-                    WS_DISABLED,0,75,38,10
-    CONTROL         "yes to all dialog prompts",IDC_YES_TO_ALL,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,90,30,91,10
+    CONTROL         "Move read-only files",IDC_MOVE_READ_ONLY,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,0,30,79,10
+    LTEXT           "Overwriting existing files:",IDC_STATIC,130,45,80,8,WS_DISABLED
+    LTEXT           "Moving read-only files:",IDC_STATIC,0,45,80,8,WS_DISABLED
+    CONTROL         "Yes to all",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON | WS_DISABLED | WS_GROUP,130,55,45,10
+    CONTROL         "No to all",IDC_RADIO7,"Button",BS_AUTORADIOBUTTON | WS_DISABLED,130,65,42,10
+    CONTROL         "Prompt",IDC_RADIO8,"Button",BS_AUTORADIOBUTTON | WS_DISABLED,130,75,38,10
+    CONTROL         "Yes to all",IDC_RADIO9,"Button",BS_AUTORADIOBUTTON | WS_DISABLED | WS_GROUP,0,55,45,10
+    CONTROL         "No to all",IDC_RADIO10,"Button",BS_AUTORADIOBUTTON | WS_DISABLED,0,65,42,10
+    CONTROL         "Prompt",IDC_RADIO11,"Button",BS_AUTORADIOBUTTON | WS_DISABLED,0,75,38,10
+    CONTROL         "yes to all dialog prompts",IDC_YES_TO_ALL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,90,30,91,10
 END
 
 IDD_FILE_ATTRIBUTES_FILTER_FORM DIALOGEX 0, 0, 276, 101
-STYLE WS_CHILD
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
-    LISTBOX         IDC_ATTRIBUTES_LIST,0,0,60,80,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | LBS_NOSEL | 
-                    WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "&Reset",IDC_ATTRIBUTES_ANY,0,80,60,14,0,
-                    WS_EX_STATICEDGE
-    LTEXT           "Checked\t= Process only files with this attribute\nUnchecked\t= Process only files without this attribute\nIndeterminate\t= Process files with or without this attribute",
-                    IDC_STATIC,65,0,200,25
-    LTEXT           "If you set all to indeterminate, this layer is pointless and will only slow processing down!",
-                    IDC_STATIC,65,35,205,20
+    LISTBOX         IDC_ATTRIBUTES_LIST,0,0,60,80,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | LBS_NOSEL | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Reset",IDC_ATTRIBUTES_ANY,0,80,60,14,0,WS_EX_STATICEDGE
+    LTEXT           "Checked\t= Process only files with this attribute\nUnchecked\t= Process only files without this attribute\nIndeterminate\t= Process files with or without this attribute",IDC_STATIC,65,0,200,25
+    LTEXT           "If you set all to indeterminate, this layer is pointless and will only slow processing down!",IDC_STATIC,65,35,205,20
 END
 
-IDD_FILE_FILTERS_PAGE DIALOG DISCARDABLE  0, 0, 392, 202
-STYLE WS_CHILD | WS_CAPTION
+IDD_FILE_FILTERS_PAGE DIALOG  0, 0, 392, 202
+STYLE DS_SETFONT | WS_CHILD | WS_CAPTION
 CAPTION "Filters"
 FONT 8, "MS Sans Serif"
 BEGIN
     GROUPBOX        "File Filters",IDC_FILE_FILTERS_FRAME,0,0,95,200
-    GROUPBOX        "Filter Configuration",IDC_FILTER_CONFIG_FRAME,100,45,
-                    290,155
-    LTEXT           "This filter has no configuration.",IDC_NOCONFIG,110,60,
-                    120,10
+    GROUPBOX        "Filter Configuration",IDC_FILTER_CONFIG_FRAME,100,45,290,155
+    LTEXT           "This filter has no configuration.",IDC_NOCONFIG,110,60,120,10
     GROUPBOX        "Filter Info",IDC_FILTER_INFO_FRAME,100,0,290,45
-    EDITTEXT        IDC_FILTER_DESCRIPTION,105,15,283,25,ES_MULTILINE | 
-                    ES_READONLY | NOT WS_BORDER
-    CONTROL         "",IDC_PROPERTYSHEET,"Static",SS_BLACKFRAME | NOT 
-                    WS_VISIBLE,110,60,275,135
-    LISTBOX         IDC_FILTER_CHECKLIST,5,10,85,185,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
+    EDITTEXT        IDC_FILTER_DESCRIPTION,105,15,283,25,ES_MULTILINE | ES_READONLY | NOT WS_BORDER
+    CONTROL         "",IDC_PROPERTYSHEET,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,110,60,275,135
+    LISTBOX         IDC_FILTER_CHECKLIST,5,10,85,185,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
 END
 
-IDD_FILE_SIZE_FILTER_FORM DIALOG DISCARDABLE  0, 0, 281, 91
-STYLE WS_CHILD
+IDD_FILE_SIZE_FILTER_FORM DIALOG  0, 0, 281, 91
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "File size must be",IDC_STATIC,0,10,55,15,SS_CENTERIMAGE
-    COMBOBOX        IDC_FILTER_TYPE,55,10,75,70,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
-    EDITTEXT        IDC_VALUE1,135,10,50,14,ES_RIGHT | ES_AUTOHSCROLL | 
-                    ES_NUMBER
+    COMBOBOX        IDC_FILTER_TYPE,55,10,75,70,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_VALUE1,135,10,50,14,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
     LTEXT           "and",IDC_STATIC_AND,191,10,13,15,SS_CENTERIMAGE
-    EDITTEXT        IDC_VALUE2,205,10,50,14,ES_RIGHT | ES_AUTOHSCROLL | 
-                    ES_NUMBER
+    EDITTEXT        IDC_VALUE2,205,10,50,14,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
     LTEXT           "bytes",IDC_STATIC_BYTES,261,10,20,13,SS_CENTERIMAGE
 END
 
 IDD_FILE_LOCATION_MARKER_FORM DIALOGEX 0, 0, 266, 101
-STYLE WS_CHILD
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
     EDITTEXT        IDC_PATH,0,50,200,14,ES_AUTOHSCROLL,WS_EX_ACCEPTFILES
-    CONTROL         "In this directory:",IDC_IN_DIR,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,0,15,65,10
-    CONTROL         "Not in this directory:",IDC_NOTIN_DIR,"Button",
-                    BS_AUTORADIOBUTTON,0,25,78,10
-    CONTROL         "and/or subdirectories",IDC_SUBDIRS,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,0,35,83,10
+    CONTROL         "In this directory:",IDC_IN_DIR,"Button",BS_AUTORADIOBUTTON | WS_GROUP,0,15,65,10
+    CONTROL         "Not in this directory:",IDC_NOTIN_DIR,"Button",BS_AUTORADIOBUTTON,0,25,78,10
+    CONTROL         "and/or subdirectories",IDC_SUBDIRS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,0,35,83,10
     PUSHBUTTON      "...",IDC_BROWSE,200,50,20,14
-    LTEXT           "Examples: C:\\   or   c:\\winnt\\   or   \\\\server\\share\\",
-                    IDC_STATIC,0,70,184,8
+    LTEXT           "Examples: C:\\   or   c:\\winnt\\   or   \\\\server\\share\\",IDC_STATIC,0,70,184,8
     LTEXT           "Mark files:",IDC_STATIC,0,0,33,8
 END
 
-IDD_FILE_TEXT_DATA_LAYER_FORM DIALOG DISCARDABLE  0, 0, 281, 100
-STYLE WS_CHILD
+IDD_FILE_TEXT_DATA_LAYER_FORM DIALOG  0, 0, 281, 100
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "Use text mode to compare text-only files.\nText mode treats CR+LF, CR, and LF all the same.\nText mode can be used to compare text files that were saved by different systems (ie PC, Mac, *nix).",
-                    IDC_STATIC,130,45,150,55,NOT WS_VISIBLE
-    LTEXT           "Using text mode on binary files can result in false positive duplicate detections. When using text mode, make sure you are only processing text files.",
-                    IDC_STATIC,5,70,115,30,NOT WS_VISIBLE
-    CONTROL         "Case sensitive",IDC_CASE_SENSITIVE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,130,10,61,10
+    LTEXT           "Use text mode to compare text-only files.\nText mode treats CR+LF, CR, and LF all the same.\nText mode can be used to compare text files that were saved by different systems (ie PC, Mac, *nix).",IDC_STATIC,130,45,150,55,NOT WS_VISIBLE
+    LTEXT           "Using text mode on binary files can result in false positive duplicate detections. When using text mode, make sure you are only processing text files.",IDC_STATIC,5,70,115,30,NOT WS_VISIBLE
+    CONTROL         "Case sensitive",IDC_CASE_SENSITIVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,130,10,61,10
     CONTROL         "Ignore characters that can't be represented",IDC_CHECK2,
-                    "Button",BS_AUTOCHECKBOX | BS_VCENTER | WS_TABSTOP,130,
-                    20,150,10
-    LISTBOX         IDC_TEXT_ENCODING_FORMATS,0,10,125,55,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
+                    "Button",BS_AUTOCHECKBOX | BS_VCENTER | WS_TABSTOP,130,20,150,10
+    LISTBOX         IDC_TEXT_ENCODING_FORMATS,0,10,125,55,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Character Encoding Schemes:",IDC_STATIC,0,0,115,8
     CONTROL         "Interpret CR, LF, and CR-LF as the same",IDC_CHECK1,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,130,30,144,10
     LTEXT           "Options:",IDC_STATIC,130,0,27,8
 END
 
-IDD_OPTIONS_SOUNDS_FORM DIALOG DISCARDABLE  0, 0, 281, 126
-STYLE WS_CHILD
+IDD_OPTIONS_SOUNDS_FORM DIALOG  0, 0, 281, 126
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
     PUSHBUTTON      "...",IDC_BROWSE1,238,20,15,12
     PUSHBUTTON      "!",IDC_PLAY1,258,20,15,12
-    CONTROL         "Enable sounds",IDC_ENABLED,"Button",BS_AUTOCHECKBOX | 
-                    BS_LEFTTEXT | WS_TABSTOP,210,5,63,10
+    CONTROL         "Enable sounds",IDC_ENABLED,"Button",BS_AUTOCHECKBOX | BS_LEFTTEXT | WS_TABSTOP,210,5,63,10
     EDITTEXT        IDC_FOUND_DUPLICATE,75,20,160,12,ES_AUTOHSCROLL
     RTEXT           "Found duplicate:",IDC_STATIC,5,20,65,10,SS_CENTERIMAGE
     PUSHBUTTON      "...",IDC_BROWSE2,238,35,15,12
@@ -541,156 +399,116 @@ BEGIN
     RTEXT           "Process complete:",IDC_STATIC,0,35,70,10,SS_CENTERIMAGE
 END
 
-IDD_FILE_DATE_FILTER_FORM DIALOG DISCARDABLE  0, 0, 286, 101
-STYLE WS_CHILD
+IDD_FILE_DATE_FILTER_FORM DIALOG  0, 0, 286, 101
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&&",IDC_AND_CREATED,190,10,8,13,SS_CENTERIMAGE
     LTEXT           "&&",IDC_AND_MODIFIED,190,40,8,13,SS_CENTERIMAGE
     LTEXT           "&&",IDC_AND_ACCESSED,190,70,8,13,SS_CENTERIMAGE
     LTEXT           "&Creation date:",IDC_STATIC,0,0,45,8
-    COMBOBOX        IDC_OPTION_CREATED,0,10,40,40,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        IDC_FILTERTYPE_CREATED,40,10,60,70,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_OPTION_CREATED,0,10,40,40,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FILTERTYPE_CREATED,40,10,60,70,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     CONTROL         "DateTimePicker1",IDC_DATETIME_CREATED1,
-                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,100,10,
-                    90,12
+                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,100,10,90,12
     CONTROL         "DateTimePicker2",IDC_DATETIME_CREATED2,
-                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,195,10,
-                    90,12
+                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,195,10,90,12
     LTEXT           "Last &modified date:",IDC_STATIC,0,30,60,8
-    COMBOBOX        IDC_OPTION_MODIFIED,0,40,40,40,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        IDC_FILTERTYPE_MODIFIED,40,40,60,70,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_OPTION_MODIFIED,0,40,40,40,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FILTERTYPE_MODIFIED,40,40,60,70,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     CONTROL         "DateTimePicker1",IDC_DATETIME_MODIFIED1,
-                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,100,40,
-                    90,12
+                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,100,40,90,12
     CONTROL         "DateTimePicker2",IDC_DATETIME_MODIFIED2,
-                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,195,40,
-                    90,12
+                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,195,40,90,12
     LTEXT           "Last &accessed date:",IDC_STATIC,0,60,65,8
-    COMBOBOX        IDC_OPTION_ACCESSED,0,70,40,40,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        IDC_FILTERTYPE_ACCESSED,40,70,60,70,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_OPTION_ACCESSED,0,70,40,40,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FILTERTYPE_ACCESSED,40,70,60,70,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     CONTROL         "DateTimePicker1",IDC_DATETIME_ACCESSED1,
-                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,100,70,
-                    90,12
+                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,100,70,90,12
     CONTROL         "DateTimePicker2",IDC_DATETIME_ACCESSED2,
-                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,195,70,
-                    90,12
-    CONTROL         "Ignore time of day (just use date)",
-                    IDC_IGNORE_TIME_CREATED,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,100,0,118,10
-    CONTROL         "Ignore time of day",IDC_IGNORE_TIME_MODIFIED,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,100,30,72,10
-    CONTROL         "Ignore time of day",IDC_IGNORE_TIME_ACCESSED,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,100,60,72,10
-    LTEXT           "Note: Date spans are exclusive of the selected start and end dates",
-                    IDC_STATIC,0,90,211,8
+                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,195,70,90,12
+    CONTROL         "Ignore time of day (just use date)",IDC_IGNORE_TIME_CREATED,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,100,0,118,10
+    CONTROL         "Ignore time of day",IDC_IGNORE_TIME_MODIFIED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,100,30,72,10
+    CONTROL         "Ignore time of day",IDC_IGNORE_TIME_ACCESSED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,100,60,72,10
+    LTEXT           "Note: Date spans are exclusive of the selected start and end dates",IDC_STATIC,0,90,211,8
 END
 
 IDD_OPTIONS_GENERAL DIALOGEX 0, 0, 286, 146
-STYLE WS_CHILD
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
-    EDITTEXT        IDC_PROGRESS_UPDATE_INTERVAL,81,0,25,14,ES_AUTOHSCROLL | 
-                    ES_NUMBER
-    COMBOBOX        IDC_THREAD_PRIORITY,55,15,90,105,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_PROGRESS_UPDATE_INTERVAL,81,0,25,14,ES_AUTOHSCROLL | ES_NUMBER
+    COMBOBOX        IDC_THREAD_PRIORITY,55,15,90,105,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     CONTROL         "Autoscroll duplicate list",IDC_AUTOSCROLL_DUPE_LIST,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,30,87,10
-    CONTROL         "Don't try to access a file more than once if an access error occurs",
-                    IDC_NO_ACCESS_RETRY,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,5,40,225,10
+    CONTROL         "Don't try to access a file more than once if an access error occurs",IDC_NO_ACCESS_RETRY,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,40,225,10
     CONTROL         "Show tooltips in duplicate list",IDC_SHOW_TOOLTIPS,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,55,106,10,
-                    WS_EX_TRANSPARENT
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,55,106,10,WS_EX_TRANSPARENT
     GROUPBOX        "",IDC_STATIC,0,55,285,90
-    EDITTEXT        IDC_TOOLTIP_FORMAT,5,75,110,65,ES_MULTILINE | 
-                    ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_NOHIDESEL | 
-                    ES_WANTRETURN | WS_VSCROLL
-    LISTBOX         IDC_TOOLTIP_TEXTS,120,75,115,65,LBS_USETABSTOPS | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Update progress every",IDC_STATIC,5,0,75,15,
-                    SS_CENTERIMAGE
+    EDITTEXT        IDC_TOOLTIP_FORMAT,5,75,110,65,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_NOHIDESEL | ES_WANTRETURN | WS_VSCROLL
+    LISTBOX         IDC_TOOLTIP_TEXTS,120,75,115,65,LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Update progress every",IDC_STATIC,5,0,75,15,SS_CENTERIMAGE
     LTEXT           "milliseconds",IDC_STATIC,111,0,70,15,SS_CENTERIMAGE
     LTEXT           "Thread Priority:",IDC_STATIC,5,15,48,15,SS_CENTERIMAGE
     LTEXT           "Tooltip format:",IDC_STATIC_TOOLTIP_FORMAT,5,65,46,8
-    LTEXT           "Double-click to insert column texts:",
-                    IDC_STATIC_TOOLTIP_TEXTS,120,65,110,8
+    LTEXT           "Double-click to insert column texts:",IDC_STATIC_TOOLTIP_TEXTS,120,65,110,8
 END
 
-IDD_OPTIONS_SELECTIONS DIALOG DISCARDABLE  0, 0, 256, 101
-STYLE WS_CHILD
+IDD_OPTIONS_SELECTIONS DIALOG  0, 0, 256, 101
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
     CONTROL         "Unmark all files before marking files",IDC_AUTO_UNMARK,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,5,126,10
-    CONTROL         "Perform selected file selections immediately after search is completed.",
-                    IDC_SELECT_AUTO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,
-                    14,233,10
+    CONTROL         "Perform selected file selections immediately after search is completed.",IDC_SELECT_AUTO,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,14,233,10
 END
 
-IDD_OPTIONS_PROCESSES DIALOG DISCARDABLE  0, 0, 246, 93
-STYLE WS_CHILD
+IDD_OPTIONS_PROCESSES DIALOG  0, 0, 246, 93
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
-    CONTROL         "Perform selected processes immediately after search is completed.",
-                    IDC_PROCESS_AUTO_PERFORM,"Button",BS_AUTOCHECKBOX | 
-                    WS_DISABLED | WS_TABSTOP,5,5,223,10
-    CONTROL         "Warn if trying to process all of the files in a duplicate set",
-                    IDC_SET_PROCESS_WARNING,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,5,15,190,10
+    CONTROL         "Perform selected processes immediately after search is completed.",IDC_PROCESS_AUTO_PERFORM,
+                    "Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,5,5,223,10
+    CONTROL         "Warn if trying to process all of the files in a duplicate set",IDC_SET_PROCESS_WARNING,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,15,190,10
 END
 
 IDD_DUPE_FIND_DIALOG DIALOGEX 0, 0, 222, 137
-STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_TOOLWINDOW
 CAPTION "Look for"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
     EDITTEXT        IDC_TEXT,10,10,200,15,ES_AUTOHSCROLL
     DEFPUSHBUTTON   "&Look for",IDOK,115,120,45,14
-    CONTROL         "&Match case",IDC_MATCHCASE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,120,71,53,8
-    CONTROL         "&Whole string only",IDC_WHOLE_WORD_ONLY,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,120,80,70,8
-    CONTROL         "&Clear current selections",IDC_CLEAR_CURSEL,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,120,90,89,8
+    CONTROL         "&Match case",IDC_MATCHCASE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,71,53,8
+    CONTROL         "&Whole string only",IDC_WHOLE_WORD_ONLY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,80,70,8
+    CONTROL         "&Clear current selections",IDC_CLEAR_CURSEL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,90,89,8
     GROUPBOX        "Direction",IDC_STATIC,115,30,40,30
-    CONTROL         "&Up",IDC_DIRECTION_UP,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,120,40,24,8
-    CONTROL         "&Down",IDC_DIRECTION_DOWN,"Button",BS_AUTORADIOBUTTON,
-                    120,50,33,8
+    CONTROL         "&Up",IDC_DIRECTION_UP,"Button",BS_AUTORADIOBUTTON | WS_GROUP,120,40,24,8
+    CONTROL         "&Down",IDC_DIRECTION_DOWN,"Button",BS_AUTORADIOBUTTON,120,50,33,8
     GROUPBOX        "Select",IDC_STATIC,160,30,55,30
-    CONTROL         "&All found",IDC_SELECT_ALL,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,165,40,43,8
-    CONTROL         "&First found",IDC_SELECT_FIRST,"Button",
-                    BS_AUTORADIOBUTTON,165,50,47,8
+    CONTROL         "&All found",IDC_SELECT_ALL,"Button",BS_AUTORADIOBUTTON | WS_GROUP,165,40,43,8
+    CONTROL         "&First found",IDC_SELECT_FIRST,"Button",BS_AUTORADIOBUTTON,165,50,47,8
     PUSHBUTTON      "Cancel",IDCANCEL,170,120,45,14
-    LISTBOX         IDC_COLUMNS,10,41,95,89,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
+    LISTBOX         IDC_COLUMNS,10,41,95,89,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Columns to seach in",IDC_STATIC,5,30,105,105
     GROUPBOX        "Options",IDC_STATIC,115,60,100,55
     GROUPBOX        "Text",IDC_STATIC,5,0,210,30
-    CONTROL         "&NOT (invert selections)",IDC_NOT,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,120,100,85,10
+    CONTROL         "&NOT (invert selections)",IDC_NOT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,100,85,10
 END
 
-IDD_FILE_DATE_MARKER_FORM DIALOG DISCARDABLE  0, 0, 196, 91
-STYLE WS_CHILD
+IDD_FILE_DATE_MARKER_FORM DIALOG  0, 0, 196, 91
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
-    CONTROL         "most recently created ( newest )",
-                    IDC_MOST_RECENTLY_CREATED,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,0,15,116,10
-    CONTROL         "least recently created ( oldest )",
-                    IDC_LEAST_RECENTLY_CREATED,"Button",BS_AUTORADIOBUTTON,0,
-                    25,112,10
+    CONTROL         "most recently created ( newest )",IDC_MOST_RECENTLY_CREATED,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,0,15,116,10
+    CONTROL         "least recently created ( oldest )",IDC_LEAST_RECENTLY_CREATED,
+                    "Button",BS_AUTORADIOBUTTON,0,25,112,10
     CONTROL         "most recently modified",IDC_MOST_RECENTLY_MODIFIED,
                     "Button",BS_AUTORADIOBUTTON,0,40,85,10
     CONTROL         "least recently modified",IDC_LEAST_RECENTLY_MODIFIED,
@@ -702,99 +520,80 @@ BEGIN
     LTEXT           "Mark files:",IDC_STATIC,0,0,33,8
 END
 
-IDD_MARKER_OPTIONS_FORM DIALOG DISCARDABLE  0, 0, 246, 96
-STYLE WS_CHILD
+IDD_MARKER_OPTIONS_FORM DIALOG  0, 0, 246, 96
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
-    CONTROL         "Single: mark first file identified by marker",
-                    IDC_MODE_SINGLE,"Button",BS_AUTORADIOBUTTON | WS_GROUP,5,
-                    40,141,10
-    CONTROL         "Multiple: mark all but one (recursive marking)",
-                    IDC_MODE_MULTIPLE,"Button",BS_AUTORADIOBUTTON | 
-                    WS_DISABLED,5,51,155,10
+    CONTROL         "Single: mark first file identified by marker",IDC_MODE_SINGLE,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,5,40,141,10
+    CONTROL         "Multiple: mark all but one (recursive marking)",IDC_MODE_MULTIPLE,
+                    "Button",BS_AUTORADIOBUTTON | WS_DISABLED,5,51,155,10
     LTEXT           "Marking type:",IDC_STATIC,5,30,44,8
-    CONTROL         "Clear all marks before performing mark operation",
-                    IDC_CLEAR_MARKS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,
-                    15,167,10
-    CONTROL         "If no difference between files is found, mark at least 1 file",
-                    IDC_MARK_AT_LEAST_ONE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,5,5,194,10
+    CONTROL         "Clear all marks before performing mark operation",IDC_CLEAR_MARKS,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,15,167,10
+    CONTROL         "If no difference between files is found, mark at least 1 file",IDC_MARK_AT_LEAST_ONE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,5,194,10
 END
 
-IDD_FILE_SIZE_MARKER_FORM DIALOG DISCARDABLE  0, 0, 236, 61
-STYLE WS_CHILD
+IDD_FILE_SIZE_MARKER_FORM DIALOG  0, 0, 236, 61
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
-    CONTROL         "smallest size",IDC_SMALLEST,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,0,10,55,10
-    CONTROL         "biggest size",IDC_BIGGEST,"Button",BS_AUTORADIOBUTTON,0,
-                    20,53,10
+    CONTROL         "smallest size",IDC_SMALLEST,"Button",BS_AUTORADIOBUTTON | WS_GROUP,0,10,55,10
+    CONTROL         "biggest size",IDC_BIGGEST,"Button",BS_AUTORADIOBUTTON,0,20,53,10
     LTEXT           "Mark files with:",IDC_STATIC,0,0,48,8
-    LTEXT           "Using this marker with the 'File Data' FCL does not make sense and is totally pointless.",
-                    IDC_STATIC,0,40,235,20
+    LTEXT           "Using this marker with the 'File Data' FCL does not make sense and is totally pointless.",IDC_STATIC,0,40,235,20
 END
 
-IDD_FILE_VERSION_MARKER_FORM DIALOG DISCARDABLE  0, 0, 185, 61
-STYLE WS_CHILD
+IDD_FILE_VERSION_MARKER_FORM DIALOG  0, 0, 185, 61
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Mark files with:",IDC_STATIC,0,0,48,8
-    CONTROL         "oldest file version",IDC_FILE_VERSION_OLDEST,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,0,10,70,10
-    CONTROL         "newest file version",IDC_FILE_VERSION_NEWEST,"Button",
-                    BS_AUTORADIOBUTTON,0,20,74,10
+    CONTROL         "oldest file version",IDC_FILE_VERSION_OLDEST,"Button",BS_AUTORADIOBUTTON | WS_GROUP,0,10,70,10
+    CONTROL         "newest file version",IDC_FILE_VERSION_NEWEST,"Button",BS_AUTORADIOBUTTON,0,20,74,10
     CONTROL         "oldest product version",IDC_PRODUCT_VERSION_OLDEST,
                     "Button",BS_AUTORADIOBUTTON,0,35,85,10
     CONTROL         "newest product version",IDC_PRODUCT_VERSION_NEWEST,
                     "Button",BS_AUTORADIOBUTTON,0,45,89,10
 END
 
-IDD_FILE_MP3DATA_LAYER_FORM DIALOG DISCARDABLE  0, 0, 286, 101
-STYLE WS_CHILD
+IDD_FILE_MP3DATA_LAYER_FORM DIALOG  0, 0, 286, 101
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "Assume that the total possible difference in file lengths is:",
-                    IDC_STATIC,0,0,179,8,SS_CENTERIMAGE
-    CONTROL         "Slider1",IDC_SLIDER,"msctls_trackbar32",TBS_AUTOTICKS | 
-                    TBS_BOTH | WS_TABSTOP,0,10,285,20
+    LTEXT           "Assume that the total possible difference in file lengths is:",IDC_STATIC,0,0,179,8,SS_CENTERIMAGE
+    CONTROL         "Slider1",IDC_SLIDER,"msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | WS_TABSTOP,0,10,285,20
     RTEXT           "Anything",IDC_SIZETEXT,180,0,30,8,SS_CENTERIMAGE
-    LTEXT           "Faster processing, file sizes must be closer, finds less duplicates",
-                    IDC_STATIC,0,30,110,20
-    RTEXT           "Slower processing, file sizes can be very different, finds more duplicates",
-                    IDC_STATIC,165,30,120,20
-    LTEXT           "Recommended setting is around 1 - 4 K. If your MP3 files have data other than text in the ID3v2 tags (such as lyrics, icons, or pictures), then add the estimated maximum size of that data to the value.",
-                    IDC_STATIC,0,50,285,25
-    LTEXT           "Setting to 0 means that the file sizes are the same, which implies that both files have the same tags (but they can contain different data). Setting to 'Anything' ignores file sizes. Do this only if you know you have huge amounts of data in your IDv2 tags.",
-                    IDC_STATIC,0,75,285,25
+    LTEXT           "Faster processing, file sizes must be closer, finds less duplicates",IDC_STATIC,0,30,110,20
+    RTEXT           "Slower processing, file sizes can be very different, finds more duplicates",IDC_STATIC,165,30,120,20
+    LTEXT           "Recommended setting is around 1 - 4 K. If your MP3 files have data other than text in the ID3v2 tags (such as lyrics, icons, or pictures), then add the estimated maximum size of that data to the value.",IDC_STATIC,0,50,285,25
+    LTEXT           "Setting to 0 means that the file sizes are the same, which implies that both files have the same tags (but they can contain different data). Setting to 'Anything' ignores file sizes. Do this only if you know you have huge amounts of data in your IDv2 tags.",IDC_STATIC,0,75,285,25
 END
 
-IDD_FILE_CONTENTS_FILTER_FORM DIALOG DISCARDABLE  0, 0, 196, 81
-STYLE WS_CHILD
+IDD_FILE_CONTENTS_FILTER_FORM DIALOG  0, 0, 196, 81
+STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif"
 BEGIN
     EDITTEXT        IDC_CONTENT_STRING,0,25,175,14,ES_AUTOHSCROLL
     CONTROL         "Contains the following string:",IDC_CONTAINS_DATA,
                     "Button",BS_AUTORADIOBUTTON | WS_GROUP,0,0,105,10
-    CONTROL         "Does NOT contain the following string:",
-                    IDC_DOES_NOT_CONTAIN_DATA,"Button",BS_AUTORADIOBUTTON,0,
-                    10,137,10
-    CONTROL         "Case sensitive",IDC_CASE_SENSITIVE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,0,45,61,10
+    CONTROL         "Does NOT contain the following string:",IDC_DOES_NOT_CONTAIN_DATA,
+                    "Button",BS_AUTORADIOBUTTON,0,10,137,10
+    CONTROL         "Case sensitive",IDC_CASE_SENSITIVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,0,45,61,10
 END
 
-IDD_DEBUG_PAGE DIALOG DISCARDABLE  0, 0, 322, 156
-STYLE WS_POPUP | WS_CAPTION
+IDD_DEBUG_PAGE DIALOG  0, 0, 322, 156
+STYLE DS_SETFONT | WS_POPUP | WS_CAPTION
 CAPTION "Debug"
 FONT 8, "MS Sans Serif"
 BEGIN
-    LISTBOX         IDC_FILES,0,15,175,125,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
-                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_FILES,0,15,175,125,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "Read CFileInfos",IDC_READ_FILES,0,140,60,14
     LTEXT           "Static",IDC_FILEINFO_COUNT,5,5,315,8
 END
 
 
-#ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
@@ -817,19 +616,17 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "Comments", "http://utdallas.edu/~jbs024000/\0"
-            VALUE "CompanyName", "Helamonster Software\0"
-            VALUE "FileDescription", "DUFF executable\0"
-            VALUE "FileVersion", "0, 6, 9, 26\0"
-            VALUE "InternalName", "duff\0"
-            VALUE "LegalCopyright", "Copyright (C) 2001-2005\0"
-            VALUE "LegalTrademarks", "\0"
-            VALUE "MD5", "B7222CDD9A7F029A\0"
-            VALUE "OriginalFilename", "duff.exe\0"
-            VALUE "PrivateBuild", "\0"
-            VALUE "ProductName", "DUFF - DUplicate File Filder\0"
-            VALUE "ProductVersion", "0, 6, 9, 26\0"
-            VALUE "SpecialBuild", "alpha\0"
+            VALUE "Comments", "http://utdallas.edu/~jbs024000/"
+            VALUE "CompanyName", "Helamonster Software"
+            VALUE "FileDescription", "DUFF executable"
+            VALUE "FileVersion", "0, 6, 9, 26"
+            VALUE "InternalName", "duff"
+            VALUE "LegalCopyright", "Copyright (C) 2001-2005"
+            VALUE "MD5", "B7222CDD9A7F029A"
+            VALUE "OriginalFilename", "duff.exe"
+            VALUE "ProductName", "DUFF - DUplicate File Filder"
+            VALUE "ProductVersion", "0, 6, 9, 26"
+            VALUE "SpecialBuild", "alpha"
         END
     END
     BLOCK "VarFileInfo"
@@ -838,15 +635,13 @@ BEGIN
     END
 END
 
-#endif    // !_MAC
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Menu
 //
 
-IDR_MENU_MAIN MENU DISCARDABLE 
+IDR_MENU_MAIN MENU 
 BEGIN
     POPUP "&File"
     BEGIN
@@ -889,8 +684,7 @@ BEGIN
     POPUP "&Tools"
     BEGIN
         MENUITEM "Find files...",               IDM_TOOLS_FIND_FILE, GRAYED
-        MENUITEM "&Compare directories...",     IDM_TOOLS_COMPARE_DIRS
-        , GRAYED
+        MENUITEM "&Compare directories...",     IDM_TOOLS_COMPARE_DIRS, GRAYED
     END
     POPUP "&Help"
     BEGIN
@@ -900,7 +694,7 @@ BEGIN
     END
 END
 
-IDR_MENU_DUPLICATES MENU DISCARDABLE 
+IDR_MENU_DUPLICATES MENU 
 BEGIN
     POPUP "menu"
     BEGIN
@@ -926,18 +720,16 @@ BEGIN
         MENUITEM "Mark all",                    ID_MARK_ALL
         MENUITEM "Mark none",                   ID_MARK_NONE
         MENUITEM "Perform checked markers",     ID_PERFORM_CHECKED_SELECTIONS
-
         MENUITEM SEPARATOR
         POPUP "Copy column text"
         BEGIN
             MENUITEM "All visible columns",         IDM_COPY_ALL_VISIBLE_COLUMNS
-
             MENUITEM "All columns",                 IDM_COPY_ENTIRE_LIST
         END
     END
 END
 
-IDR_DUPE_HEADER_MENU MENU DISCARDABLE 
+IDR_DUPE_HEADER_MENU MENU 
 BEGIN
     POPUP "gggg"
     BEGIN
@@ -954,7 +746,7 @@ END
 // Accelerator
 //
 
-IDR_ACCELERATOR ACCELERATORS DISCARDABLE 
+IDR_ACCELERATOR ACCELERATORS 
 BEGIN
     "1",            IDM_VIEW_LAYERS,        VIRTKEY, CONTROL, NOINVERT
     "2",            IDM_VIEW_DIECTORIES,    VIRTKEY, CONTROL, NOINVERT
@@ -974,8 +766,8 @@ END
 // Bitmap
 //
 
-IDB_TABIMAGES           BITMAP  DISCARDABLE     "Resource\\TabImages.bmp"
-IDB_DUFF                BITMAP  DISCARDABLE     "Resource\\DuffCan.bmp"
+IDB_TABIMAGES           BITMAP                  "Resource\\TabImages.bmp"
+IDB_DUFF                BITMAP                  "Resource\\DuffCan.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -1078,7 +870,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO DISCARDABLE 
+GUIDELINES DESIGNINFO 
 BEGIN
     IDD_FILE_LOCATION_MARKER_FORM, DIALOG
     BEGIN
@@ -1093,7 +885,7 @@ END
 // String Table
 //
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_MAIN_WINDOW_TITLE   "DUFF - DUplicate File Finder"
     IDS_MSGBOX_ACCELERATOR_LOAD_ERROR_TEXT 
@@ -1107,7 +899,7 @@ BEGIN
     IDS_MSGBOX_ARE_YOU_SURE_TEXT "Are you sure you want to do this?"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_MSGBOX_ARE_YOU_SURE_TITLE "Confirmation"
     IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE "Feature Missing"
@@ -1128,7 +920,7 @@ BEGIN
     IDS_FINISHED_LOADING_PLUGINS "Finished loading plugins."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_BAD_FCL_INPUT       "Duplicate file find cancelled because of bad input in '%s' file comparison layer"
     IDS_BAD_DIRECTORY_INPUT "Duplicate file find cancelled because of bad input in directories"
@@ -1147,7 +939,7 @@ BEGIN
     IDS_SEARCHDIALOG_SEARCH "Search"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_COLUMN_SET          "Set"
     IDS_STATUS_CREATING_DIR_LIST "Creating directory list..."
@@ -1172,7 +964,7 @@ BEGIN
     IDS_LOGTEXT_MARKING_FINISHED "Finished performing file markers"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_DUPELIST_CONFIRM_DELETE_SELECTED 
                             "Are you sure you want to remove the selected files from the list?"
@@ -1193,7 +985,7 @@ BEGIN
     IDS_FILENAMEEDIT_SELECT_ALL "Select &All"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_COLUMN_FILE_SIZE    "File Size"
     IDS_COLUMN_TYPE         "File Type"
@@ -1214,7 +1006,7 @@ BEGIN
     IDS_PLUGINTYPE_PROCESSOR "Processor"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_PLUGINTYPE_FILER    "Filter"
     IDS_PLUGINTYPE_MARKER   "Marker"

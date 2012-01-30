@@ -111,7 +111,7 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 	// update status and progress
  if ( g_DupeFileFind.m_DuffStatus.LockIfUnlocked() )
 	{
-  g_DupeFileFind.m_DuffStatus.CurrentTaskInfo.Format( _T("\"%s\", \"%s\"") ,FileInfo1.FullName,FileInfo2.FullName);
+  g_DupeFileFind.m_DuffStatus.CurrentTaskInfo.Format( _T("\"%s\", \"%s\"") ,FileInfo1.GetFullName(),FileInfo2.GetFullName());
   g_DupeFileFind.m_DuffStatus.SubProgress2.Min = 0;
   g_DupeFileFind.m_DuffStatus.SubProgress2.Max = 1000; // FileInfo1.GetLength() / ULongLong_IntRatio;
   g_DupeFileFind.m_DuffStatus.SubProgress2.Pos = 0;
@@ -120,8 +120,8 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 	//
 
 	// attempt to open the files
-	FileGood1 = Mp3File1.Open( FileInfo1.FullName ,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan);
-	FileGood2 = Mp3File2.Open( FileInfo2.FullName ,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan);
+	FileGood1 = Mp3File1.Open( FileInfo1.GetFullName() ,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan);
+	FileGood2 = Mp3File2.Open( FileInfo2.GetFullName() ,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan);
  //
 
 
@@ -328,7 +328,7 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 		// Could not open the file, so log the access error
 		if (!FileGood1)
 		{
-			sTemp.Format( _T("ERROR Accessing file: %s") ,FileInfo1.FullName);
+			sTemp.Format( _T("ERROR Accessing file: %s") ,FileInfo1.GetFullName());
 
 			// update log
 			g_DupeFileFind.m_DuffStatus.Lock();
@@ -346,7 +346,7 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 		// Could not open the file, so log the access error
 		if (!FileGood2)
 		{
-			sTemp.Format( _T("ERROR Accessing file: %s") ,FileInfo2.FullName);
+			sTemp.Format( _T("ERROR Accessing file: %s") ,FileInfo2.GetFullName());
 
 			// update log
 			g_DupeFileFind.m_DuffStatus.Lock();

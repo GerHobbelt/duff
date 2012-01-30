@@ -101,7 +101,7 @@ inline bool CFileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileIn
 	// update status and log
  if ( g_DupeFileFind.m_DuffStatus.LockIfUnlocked() )
 	{
-  g_DupeFileFind.m_DuffStatus.CurrentTaskInfo.Format( _T("\"%s\", \"%s\"") ,FileInfo1.FullName,FileInfo2.FullName);
+  g_DupeFileFind.m_DuffStatus.CurrentTaskInfo.Format( _T("\"%s\", \"%s\"") ,FileInfo1.GetFullName(),FileInfo2.GetFullName());
   g_DupeFileFind.m_DuffStatus.SubProgress2.Min = 0;
   g_DupeFileFind.m_DuffStatus.SubProgress2.Max = 1000; // FileInfo1.GetLength() / ULongLong_IntRatio;
   g_DupeFileFind.m_DuffStatus.SubProgress2.Pos = 0;
@@ -122,8 +122,8 @@ inline bool CFileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileIn
 
 
 	// attempt to open the files
-	ok1 = ifile1.Open(FileInfo1.FullName,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan, &file_ex);
-	ok2 = ifile2.Open(FileInfo2.FullName,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan, &file_ex);
+	ok1 = ifile1.Open(FileInfo1.GetFullName(),  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan, &file_ex);
+	ok2 = ifile2.Open(FileInfo2.GetFullName(),  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan, &file_ex);
 
 	//TRACE("attempted open;");
 
@@ -173,7 +173,7 @@ inline bool CFileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileIn
 		CString Temp;
 		if (!ok1)
 		{
-			Temp.Format( _T("ERROR Accessing file: %s") ,FileInfo1.FullName);
+			Temp.Format( _T("ERROR Accessing file: %s") ,FileInfo1.GetFullName());
 			// update status and log
 			g_DupeFileFind.m_DuffStatus.Lock();
 			g_DupeFileFind.m_DuffStatus.LogQueue.Add(Temp);
@@ -186,7 +186,7 @@ inline bool CFileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileIn
 
 		if (!ok2)
 		{
-			Temp.Format( _T("ERROR Accessing file: %s") ,FileInfo2.FullName);
+			Temp.Format( _T("ERROR Accessing file: %s") ,FileInfo2.GetFullName());
 			// update status and log
 			g_DupeFileFind.m_DuffStatus.Lock();
 			g_DupeFileFind.m_DuffStatus.LogQueue.Add(Temp);

@@ -75,14 +75,14 @@ int CFileContentsFilter::FilterDuplicateList( CList<CFileInfo*,CFileInfo*> & Fil
 				// update status and log
 		if ( g_DupeFileFind.m_DuffStatus.LockIfUnlocked() )
 		{
-			g_DupeFileFind.m_DuffStatus.CurrentTaskInfo = FileList.GetAt(xPos)->FullName;
+			g_DupeFileFind.m_DuffStatus.CurrentTaskInfo = FileList.GetAt(xPos)->GetFullName();
 			g_DupeFileFind.m_DuffStatus.SubProgress2.Max = FileList.GetAt(xPos)->Size;
 	  g_DupeFileFind.m_DuffStatus.SubProgress2.Pos = 0;
 			g_DupeFileFind.m_DuffStatus.Unlock();
 		}
 		//
 
-		ok = ifile.Open( FileList.GetAt(xPos)->FullName ,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan, &file_ex);
+		ok = ifile.Open( FileList.GetAt(xPos)->GetFullName() ,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan, &file_ex);
 		if (ok)
 		{
 			//ifile.seekg(0);
@@ -141,7 +141,7 @@ int CFileContentsFilter::FilterDuplicateList( CList<CFileInfo*,CFileInfo*> & Fil
 		// update status and log
 		if ( ArrayIndex >=0 && g_DupeFileFind.m_DuffStatus.LockIfUnlocked() )
 		{
-			g_DupeFileFind.m_DuffStatus.CurrentTaskInfo = FileList.GetAt(xPos)->FullName;
+			g_DupeFileFind.m_DuffStatus.CurrentTaskInfo = FileList.GetAt(xPos)->GetFullName();
 			g_DupeFileFind.m_DuffStatus.SubProgress1.Pos = ArrayIndex;
 			g_DupeFileFind.m_DuffStatus.Unlock();
 		}

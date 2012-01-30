@@ -50,7 +50,7 @@ void CFileSendToProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & Files)
  		if (Files.GetAt(ListPos)->Selected)
 		 {
  			sParams = m_Parameters;
- 			sFilenames.Format("\"%s\"",Files.GetAt(ListPos)->FullName);
+ 			sFilenames.Format("\"%s\"",Files.GetAt(ListPos)->GetFullName());
  			sParams.Replace("%s",sFilenames);
  			ShellExecute(NULL, "open", m_ProgramName, sParams, "", SW_NORMAL);
 	  }	
@@ -67,7 +67,7 @@ void CFileSendToProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & Files)
 			{
 				if (ListPos == Files.GetHeadPosition() ) sFilenames += " ";
 			 sFilenames += '\"';
-			 sFilenames += Files.GetAt(ListPos)->FullName;
+			 sFilenames += Files.GetAt(ListPos)->GetFullName();
 			 sFilenames += '\"';
    }
 			Files.GetNext(ListPos);

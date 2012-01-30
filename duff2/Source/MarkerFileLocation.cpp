@@ -52,16 +52,10 @@ unsigned int CFileLocationMarker::MakeSelections( CList< CList<CFileInfo *,CFile
 		{
    CFileInfo *pFileInfo= DupeList.GetAt(xPos)->GetAt(yPos);
 
-			//?? need to change --- possible multiple thread problem !!!!
-			// nice little hack to compare file path only
-   TCHAR OldFirstChar = pFileInfo->Name[0];
-   pFileInfo->Name[0] = _T('\0');
-   //
-
    switch(m_Option)
 			{
 			case IDC_IN_DIR:
-				if ( (m_Path.CompareNoCase(pFileInfo->FullName) == 0) || (m_SubDirs && m_Path.CompareNoCase(CString(pFileInfo->FullName).Left(m_Path.GetLength() )) == 0 ) )
+				if ( (m_Path.CompareNoCase(pFileInfo->GetDirPath()) == 0) || (m_SubDirs && m_Path.CompareNoCase(CString(pFileInfo->GetDirPath()).Left(m_Path.GetLength() )) == 0 ) )
     {
 					Found = true;
      pFileInfo->Selected = true;
@@ -69,7 +63,7 @@ unsigned int CFileLocationMarker::MakeSelections( CList< CList<CFileInfo *,CFile
 				}
 				break;
    case IDC_NOTIN_DIR:
-				if ( (m_Path.CompareNoCase( CString(pFileInfo->FullName).Left(m_Path.GetLength())) != 0) )
+				if ( (m_Path.CompareNoCase( CString(pFileInfo->GetDirPath()).Left(m_Path.GetLength())) != 0) )
     {
 					Found = true;
      DupeList.GetAt(xPos)->GetAt(yPos)->Selected = true;
@@ -82,10 +76,6 @@ unsigned int CFileLocationMarker::MakeSelections( CList< CList<CFileInfo *,CFile
 				break;
 			}
    
-			// repair the little hack
-   pFileInfo->Name[0] = OldFirstChar;
-			//
-
 	  //y++;
 			DupeList.GetAt(xPos)->GetNext(yPos);
 		}

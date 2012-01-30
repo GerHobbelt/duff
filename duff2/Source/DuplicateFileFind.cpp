@@ -83,6 +83,7 @@ CDuplicateFileFind::CDuplicateFileFind()
 CDuplicateFileFind::~CDuplicateFileFind()
 {
 	CleanUp();
+	RemoveAllSearchPaths();
 }
 
 
@@ -90,11 +91,21 @@ void CDuplicateFileFind::CleanUp()
 {
 	while (!m_FileInfos.IsEmpty())
 	{
-		delete m_FileInfos.RemoveTail();
+		CFileInfo *elem = m_FileInfos.RemoveTail();
+		ASSERT_VALID(elem);
+		delete elem;
 	}
 
-	m_IncludeDirectories.RemoveAll();
+	//m_IncludeDirectories.RemoveAll();
 	m_FileInfos.RemoveAll();
+
+	while (!m_DuplicateFiles.IsEmpty())
+	{
+		CList<CFileInfo *,CFileInfo *> *elem = m_DuplicateFiles.RemoveTail();
+		ASSERT_VALID(elem);
+		delete elem;
+	}
+
 	m_DuplicateFiles.RemoveAll();
 }
 
@@ -120,8 +131,7 @@ unsigned int CDuplicateFileFind::BuildFileList()
 	//
 
 	// Empty file list
-	m_DuplicateFiles.RemoveAll();
-	m_FileInfos.RemoveAll();
+	CleanUp();
  //
 
 
@@ -463,12 +473,12 @@ UINT CDuplicateFileFind::BuildDuplicateList()
 		// update status and log
 		if ( m_DuffStatus.LockIfUnlocked() )
 		{
-		 Msg.Format( _T("\"%s\"") ,File1->FullName );
+		 Msg.Format( _T("\"%s\"") ,File1->GetFullName() );
 		 m_DuffStatus.CurrentTaskInfo = Msg;
 		 m_DuffStatus.Unlock();
 		}
 		//
-		TRACE1( "Working with: %s...\n" ,File1->Name);
+		TRACE1( "Working with: %s...\n" ,File1->GetName());
 
 		pDupeList = NULL;
 
