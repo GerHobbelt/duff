@@ -1,0 +1,47 @@
+; CLW file contains information for the MFC ClassWizard
+
+[General Info]
+Version=1
+LastClass=CFileSaveListProcessForm
+LastTemplate=CDialog
+NewFileInclude1=#include "stdafx.h"
+NewFileInclude2=#include "savelst.h"
+LastPage=0
+
+ClassCount=2
+Class1=CFileSaveListProcessForm
+Class2=CSavelstApp
+
+ResourceCount=1
+Resource1=IDD_FILE_SAVELIST_PROCESS_FORM
+
+[CLS:CFileSaveListProcessForm]
+Type=0
+BaseClass=CDialog
+HeaderFile=FileSaveListProcessForm.h
+ImplementationFile=FileSaveListProcessForm.cpp
+LastObject=CFileSaveListProcessForm
+Filter=D
+VirtualFilter=dWC
+
+[CLS:CSavelstApp]
+Type=0
+BaseClass=CWinApp
+HeaderFile=savelst.h
+ImplementationFile=savelst.cpp
+
+[DLG:IDD_FILE_SAVELIST_PROCESS_FORM]
+Type=1
+Class=CFileSaveListProcessForm
+ControlCount=10
+Control1=IDC_STATIC,static,1342308866
+Control2=IDC_FILENAME,edit,1350631552
+Control3=IDC_BROWSE,button,1342242816
+Control4=IDC_WHATFILES_OPTION1,button,1476526089
+Control5=IDC_WHATFILES_OPTION2,button,1476395017
+Control6=IDC_STATIC,static,1342308352
+Control7=IDC_LINE_FORMAT,edit,1484849280
+Control8=IDC_STATIC,static,1342308866
+Control9=IDC_STATIC,static,1342308352
+Control10=IDC_NEWLINE,button,1476460547
+

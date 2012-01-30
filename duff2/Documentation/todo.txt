@@ -1,0 +1,154 @@
+DUFF is (will be) a tool for Windows used to find and process duplicate files on a computer file system and/or network.
+Using numerous built-in and plugin-based file comparison layers, duplicate markers, and fileset processers, it will (hopefully) become a tool for many purposes, including, but not limited to the following:
+1. Saving disk space by removing exact duplicate DLLs used by multiple applications
+2. Finding different versions of files ( EXEs, DLLs, etc ), and being able to determine which ones are out of date, so they can be updated or removed
+3. saving network disk space by using 1 file server for a location of data files used by an entire network (moving all system files to one central location)
+4. determining how much disk space is wasted by an installation of Windows
+5. perform the tedious task of finding duplicates (which may have different file names and/or data) in data archives, such as pictures and sound files.
+
+I've (tried to) maintain small personal projects before, but organizing everything was not always easy. Since I decided to make this project open source, I know I need a version control system, and a universal location for all project information. After doing some research, I think SourceForge's CVS, forums, bug tracker, and other web services will work out great.
+
+
+
+example of how many comparisons will be done: 7,058,205,078 ( always unsigned )
+example of how many files will be processed:        118,813 ( always unsigned )
+example of how many bytes a file might have:  5,751,704,607 ( always unsigned )
+
+
+08-bit BYTE      UBYTE_MAX:                             255
+16-bit SHORT     USHORT_MAX:                         65,535
+32-bit long      ULONG_MAX:                   4,294,967,295 4294967295
+64-bit ULONGLONG ULONGLONG_MAX:  18,446,744,073,709,551,615
+
+fix bug:
+upon file list generation, if a file with a modified date of:
+Wednesday, March 12, 2087, 1:44:36 PM 
+or
+Saturday, February 06, 2106, 7:28:16 AM
+or
+Saturday, February 06, 2106, 6:28:16 AM
+or
+Saturday, February 06, 2106, 9:28:16 AM
+or 
+Saturday, February 06, 2106, 6:28:16 AM
+
+is found, get crash on convert from FILETIME to CTime
+
+max file time: January 18, 2038
+solution: DO NOT USE CTime ! use COleTime instead!
+
+example files:
+D:\doc\BATCHES\Manager\13225.COM
+D:\doc\BATCHES\Manager\STDCOLOR.COM
+
+22 Oct 2002 - rearranged files for better organization (for future CVS import)
+22 Oct 2002 - renamed savelst project and associated files to savelist
+
+10 Oct 2002 - implemented searching of multiple column texts
+10 Oct 2002 - removed trial period timer
+
+_ speed up recycle processor
+_ change ALL progress ratios to percentages
+X fix: if you enter a new directory name in the browse for directory dialog, a new dir is created
+_ fix crash on close
+X fix progress bar breaking when doing more that INT_MAX (2,147,483,647) file comparisons
+_ add scheduling capabilities ( via command-line paramaters )
+_ make markers multithreaded
+_ make processes multithreaded
+_ move perform process code into CDupeFileFind so it can be executed automatically after file search
+X change all CArrays to CLists
+
+---
+X add more columns to duplicate list
+_ enable hiding/showing/size setting of each column
+X finish new markers
+X finish file info on duplicate page - on (un)mark selected invert marks, invert selection
+_ fix FCL layer orders being ignored
+X finish version info stuff
+_ fix main memory leak: cfileinfos being allocated, but never deleted
+X change array of cfileinfos to array of cfileinfo pointers
+_ re-work classes 
+X fix crash on: start, fill dupe list, start, add to dupe list, remove all from list
+X fix crash on: exit program while worker thread is running
+X reset status information / progress bars when process is stopped
+_ boolean operations on layers / filters
+X make options page pretty (split into sections with imbedded dialog)
+X implement sounds options section
+X implement grayed-out options 
+X options save feature
+_ design / implement a settings save for all the layers, selections, and processes to a DFF-format file for re-opening (possibly XML-based)
+X fix OnOK of embedded dialogs
+X finish file date/time filter
+X add copy filename / directory name / etc to duplicate context menu
+X do progress indication for FCLs
+_ implement entire progress bar
+X implement file mask filter
+X un-hard-code filename comparison layer ( with optimization )
+_ implement using filters multiply ( requires major rewrite of filter classes )
+X add more info to duplicates page ( total # of dupes, # selected, # marked, total size, other statistics )
+X implement dynamic updating of list information on duplicates page
+_ optimize important algorithms for speed
+_ write help file(s)
+_ make 100% unicode compatible
+_ add more FCLs
+_ add more selection markers
+_ add more filters
+_ add more processes
+_ implement export current settings capability
+_ implement plugin capability
+
+
+X enable using multiple FCLs (write refine duplicate list algorithm)
+X finish createlist() and refinelist() for the existing FCLs ( this may involve doing away with these methods and creating 1 to do both in CDupelicateFileFind )
+X log more 
+X fix crash on file properties
+X make get versions a new thread
+X write class for selections / markers, whatever you call them (find a good name and stick with it)
+X write example selection markers
+X finish delete process class 
+X implement directory attribute filters
+X fix property sheet size problem on minimize/restore
+X finish dialog resize code for property page / sheets
+X implement rest of filename comparison layer dialog settings
+X add options tab and settings
+
+<layer ideas>
+
+ 
+ <location>
+  include dirs: XXX
+  exclude dirs: XXX
+  <option>
+   include subdirs
+  </option>
+  include hidden dirs
+  include system dirs
+  include read-only dirs
+  include archive dirs
+  must be in same dir
+  must be in diff dir
+ </location>
+ 
+ <size>
+  size == XXX
+  size  < XXX
+  size  > XXX
+ </size>
+ 
+</layer ideas>
+
+
+<process ideas>
+ 
+ <rename files>
+ 
+
+ <send to program>
+  all files at once
+  one file at a time
+ <send to program>
+ 
+ <change attributes>
+
+
+</process ideas>

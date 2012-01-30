@@ -1,0 +1,30 @@
+need an algorithm to get the index of an array of unsigned integers whose value is the largest/smallest
+If there are 2 integers with the same highest/lowest values, set a boolean UniqueLength = false (otherwise, UniqueLength = true)
+
+int  MyArray[ARRAY_SIZE];
+bool UniqueLength = true;
+int i;
+int MaxIndex = 0;
+
+for (i = 1; i < ARRAY_SIZE; i ++)
+{
+ if ( MyArray[i] > MyArray[MaxIndex] ) 
+ {
+  UniqueLength = true;
+  MaxIndex = i;
+ }
+ else
+  if ( MyArray[i] == MyAray[MaxIndex] )
+  {
+   UniqueLength = false;
+  }
+
+}
+
+MaxIndex contains the index of the array with the highest value
+UniqueLength is true if that index is the only index with the max value, false if there is at least 1 other array element with the same max value
+
+
+
+
+
