@@ -56,11 +56,11 @@ void CFileDeleteProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & FileLi
 
 
 	ListPos = FileList.GetHeadPosition();
-	
+
 	while (ListPos)
 	{
 		pFileInfo = FileList.GetAt(ListPos);
-  
+
 		// process only the selected files
 		if (pFileInfo->Selected)
 		{
@@ -108,7 +108,7 @@ void CFileDeleteProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & FileLi
 			pDuffStatus->SubProgress1.Pos ++;
 			pDuffStatus->Unlock();
 			//
-				
+
 			/*
 			Msg.Format("Performing:\n%s (%s)\n on file:\n%s",m_Name, m_Recycle ? "to recycle bin" : "direct", FileList.ElementAt(i)->Filename);
 			MessageBox(NULL,Msg,"FYI",MB_OK);
@@ -119,9 +119,9 @@ void CFileDeleteProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & FileLi
 				Msg.Format("ERROR %s file: %s",m_Recycle ? "recycling" : "deleting", pFileInfo->FullName);
 				//g_DupeFileFind.GetDuffDlg()->Log(Msg);
 
-				
+
 				// update status and log
-				pDuffStatus->Lock();			
+				pDuffStatus->Lock();
 				pDuffStatus->LogQueue.Add(Msg);
 				pDuffStatus->Unlock();
 				//
@@ -132,7 +132,7 @@ void CFileDeleteProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & FileLi
 				Msg.Format("%s file: %s",m_Recycle ? "Recycled" : "Deleted", pFileInfo->FullName);
 			//g_DupeFileFind.GetDuffDlg()->Log(Msg);
 
-				
+
 				// update status and log
 				pDuffStatus->Lock();
 				pDuffStatus->LogQueue.Add(Msg);
@@ -140,32 +140,32 @@ void CFileDeleteProcess::ProcessFiles ( CList<CFileInfo *, CFileInfo *> & FileLi
 				//
 
 			}
-					
+
 
 			// update progress info
 	//		g_DupeFileFind.GetDuffDlg()->m_ProgressEntire.StepIt();
 			//
 
-			// free filename buffer 
+			// free filename buffer
 			delete []buffer;
 			//
 			}
 
-			
+
 			else
 			{
 				Msg.Format("%s file: %s", DeleteFile(pFileInfo->FullName) ? "Deleted" : "ERROR deleting", pFileInfo->FullName);
-				
-				
+
+
 				// update status and log
-				pDuffStatus->Lock(); 
+				pDuffStatus->Lock();
 				pDuffStatus->CurrentTaskInfo = pFileInfo->FullName;
 				pDuffStatus->LogQueue.Add(Msg);
 				pDuffStatus->Unlock();
 				//
 
 			}
-			
+
   }
 
   FileList.GetNext(ListPos);
@@ -180,7 +180,7 @@ bool CFileDeleteProcess::UpdateData(bool /*SaveAndValidate*/)
  m_Recycle = ( m_FileDeleteProcessForm.GetCheckedRadioButton(IDC_RECYCLE,IDC_DELETE) == IDC_RECYCLE) ;
  m_YesToAll = (m_FileDeleteProcessForm.m_YesToAll.GetCheck() == BST_CHECKED);
 
-#if 0
+#if 0   // [i_a] this code was reported as being unreachable anyway; hence the #if 0
  if ( m_Recycle != IDC_RECYCLE && m_Recycle != IDC_DELETE )
 		return false;
 	else
