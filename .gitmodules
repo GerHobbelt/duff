@@ -1,0 +1,3 @@
+[submodule "duff2/Source/ultrajson"]
+	path = duff2/Source/ultrajson
+	url = git@github.com:GerHobbelt/ultrajson.git
