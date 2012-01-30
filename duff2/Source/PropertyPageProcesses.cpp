@@ -53,14 +53,14 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CProcessesPropertyPage message handlers
 
-BOOL CProcessesPropertyPage::OnInitDialog() 
+BOOL CProcessesPropertyPage::OnInitDialog()
 {
 	CDialog* pConfigDlg;
  int Index;
 	CFileProcessor *pFileProcessor;
 
 	CResizablePage::OnInitDialog();
-	
+
 	// subclass checklistbox
 	m_ProcessCheckList.SubclassDlgItem(IDC_PROCESS_CHECKLIST,this);
  //
@@ -78,9 +78,9 @@ BOOL CProcessesPropertyPage::OnInitDialog()
 	// load file processors checklistbox
 	for (Index = 0; Index < g_DupeFileFind.GetFileProcessArray()->GetSize(); Index++)
 	{
-		pFileProcessor = g_DupeFileFind.GetFileProcessArray()->GetAt(Index); 
+		pFileProcessor = g_DupeFileFind.GetFileProcessArray()->GetAt(Index);
 		pConfigDlg = pFileProcessor->GetForm();
-				
+
 	 if (pConfigDlg)
 		{
  		CRect rcSheet;
@@ -99,7 +99,7 @@ BOOL CProcessesPropertyPage::OnInitDialog()
 	if ( m_ProcessCheckList.GetCount() != 0 )
 	{
 		m_ProcessCheckList.SetCurSel(0);
-  UpdateForm();	
+  UpdateForm();
 	}
 	//
 
@@ -119,7 +119,7 @@ BOOL CProcessesPropertyPage::OnInitDialog()
 	// tell the duplicate list box to update itself
 //	((CDuffDlg*)pDlg->GetParent()->GetParent())->m_DuplicatePage.UpdateListMarks();
  //
- 
+
 	return Ret;
 
 }
@@ -127,23 +127,23 @@ BOOL CProcessesPropertyPage::OnInitDialog()
 UINT CProcessesPropertyPage::PerformProcesses()
 {
 	UINT Ret;
-	Ret = g_DupeFileFind.ExecuteProcesses();					
+	Ret = g_DupeFileFind.ExecuteProcesses();
 
 	return Ret;
 
 }
 
-	
-void CProcessesPropertyPage::OnPerform() 
+
+void CProcessesPropertyPage::OnPerform()
 {
 	CString Temp, Msg;
 //	CArray<CFileInfo *, CFileInfo *> FilesToProcess;
  CFileProcessor *pProcessor;
- 
+
 //	((CDuffDlg*)GetParent()->GetParent())->SetTimer(0,100,NULL);
 
 		// build file list
-  
+
 	  // warn if trying to process all files in any duplicate set
 		bool DoIt = true;
 		if ( theApp.m_DuffOptions.Process.DupeSetProcessWarning && g_DupeFileFind.CheckForFullSetMarks() )
@@ -178,7 +178,7 @@ if (!DoIt)
 */
 //
 
-		
+
 
 	if ( g_DupeFileFind.m_DuffStatus.Status == DUFFSTATUS_STOPPED )
 	{
@@ -198,12 +198,12 @@ if (!DoIt)
 
 		for ( Index = 0; Index < m_ProcessCheckList.GetCount(); Index++)
 		{
-		
+
 			if ( m_ProcessCheckList.GetCheck(Index) )
 			{
 				pProcessor = (CFileProcessor*)m_ProcessCheckList.GetItemData(Index);
 					pProcessor->UpdateData(true);
-			
+
 				pProcessor->ProcessFiles( FilesToProcess );
 			}
 
@@ -217,7 +217,7 @@ if (!DoIt)
 ((CDuffDlg*)GetParent()->GetParent())->m_CurrentTaskText.SetWindowText( StringFromResource(IDS_STATUS_IDLE) );
 
 ((CDuffDlg*)GetParent()->GetParent())->m_CurrentTaskInfoText.SetWindowText( NULL_STR );
-					
+
 		*/
 
  // update progress information
@@ -232,20 +232,20 @@ if (!DoIt)
 
 }
 
-BOOL CProcessesPropertyPage::PreTranslateMessage(MSG* pMsg) 
+BOOL CProcessesPropertyPage::PreTranslateMessage(MSG* pMsg)
 {
 	bool ret;
-	if ( IsDialogMessage( pMsg ) )        
+	if ( IsDialogMessage( pMsg ) )
 	{
 		if ( TranslateAccelerator ( GetSafeHwnd(),((CDuffDlg*)GetParent()->GetParent())->m_hAccel,pMsg) )
   {
-   TranslateMessage(pMsg); 
-   DispatchMessage(pMsg); 
+   TranslateMessage(pMsg);
+   DispatchMessage(pMsg);
    ret = false;
 		}
 		ret = true;
 	}
-	else        
+	else
 	{
 		ret = ( CWnd::PreTranslateMessage( pMsg ) != 0);
 	}
@@ -268,7 +268,7 @@ void CProcessesPropertyPage::UpdateForm()
 
 		for (Index = 0; Index < m_ProcessCheckList.GetCount(); Index++)
 		{
-			pProcessor = ( CFileProcessor *)	m_ProcessCheckList.GetItemData(Index);				
+			pProcessor = ( CFileProcessor *)	m_ProcessCheckList.GetItemData(Index);
 			pConfigDlg = pProcessor->GetForm();
 			if ( pConfigDlg )
 			{
@@ -291,9 +291,9 @@ void CProcessesPropertyPage::UpdateForm()
 }
 
 
-void CProcessesPropertyPage::OnSelchangeProcessChecklist() 
+void CProcessesPropertyPage::OnSelchangeProcessChecklist()
 {
-	UpdateForm();	
+	UpdateForm();
 }
 
 void CProcessesPropertyPage::AddPlugin(CDuffPlugin * pPlugin)
@@ -312,7 +312,6 @@ void CProcessesPropertyPage::AddProcessor(HINSTANCE hInstance, CFileProcessor * 
   resrc = FindResource(hInstance,(LPCTSTR)pProcessor->GetFormID(),RT_DIALOG);
   if (resrc)
 		{
-
 			HGLOBAL  hGlobal = LoadResource(hInstance,resrc);
 			if (hGlobal)
 			{
@@ -330,7 +329,7 @@ void CProcessesPropertyPage::AddProcessor(HINSTANCE hInstance, CFileProcessor * 
 			//	Msg.Format("Loaded '%s' %s plugin (%s)",pProcessor->GetName(), "processor","sendto.dll");
 //							((CDuffDlg*)GetParent()->GetParent())->Log(Msg);
 				}
-				
+
 			}
 		}
 

@@ -1918,7 +1918,6 @@ int CDuplicateListCtrl::AutoSizeColumn(int iColumnIndex)
 
 BOOL CDuplicateListCtrl::DestroyWindow()
 {
-
 	m_DupeFindDlg.DestroyWindow();
 
 	return CListCtrl::DestroyWindow();

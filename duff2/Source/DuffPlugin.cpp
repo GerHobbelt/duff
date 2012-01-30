@@ -36,7 +36,7 @@ UINT CDuffPlugin::GetType() const
 	return m_ePluginType;
 }
 
-void CDuffPlugin::SetType(PluginType type) 
+void CDuffPlugin::SetType(PluginType type)
 {
  m_ePluginType = type;
 }
