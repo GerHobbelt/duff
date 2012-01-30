@@ -88,20 +88,9 @@ CDuplicateFileFind::~CDuplicateFileFind()
 
 void CDuplicateFileFind::CleanUp()
 {
-	// crashes, but i need to delete!
- /*
-	for (int i = 0; i < m_FileInfos.GetSize(); i++)
+	while (!m_FileInfos.IsEmpty())
 	{
-		delete m_FileInfos.ElementAt(i);
-	}
-
-*/
-	POSITION xPos;
-	xPos = m_FileInfos.GetHeadPosition();
-	while ( xPos )
-	{
-		delete m_FileInfos.GetAt(xPos);
-		m_FileInfos.GetHeadPosition();
+		delete m_FileInfos.RemoveTail();
 	}
 
 	m_IncludeDirectories.RemoveAll();
