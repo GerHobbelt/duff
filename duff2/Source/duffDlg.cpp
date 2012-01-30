@@ -146,7 +146,7 @@ CResizableDialog::OnInitDialog();
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
-	
+
  m_CurrentTaskText.SetWindowText( StringFromResource(IDS_STATUS_IDLE)  );
 
 
@@ -173,10 +173,10 @@ CResizableDialog::OnInitDialog();
 #ifdef _DEBUG
  m_PropertySheet.AddPage(&m_DebugPage);
 #endif
-	
+
 
 		m_PropertySheet.Create(this, WS_CLIPCHILDREN | WS_CHILD | WS_VISIBLE, 0);
- 
+
 	m_PropertySheet.ModifyStyleEx (0, WS_EX_CONTROLPARENT);
 	m_PropertySheet.ModifyStyle( 0, WS_TABSTOP );
 
@@ -229,8 +229,8 @@ TC_ITEM tcItem;
 	AddAnchor(IDC_SUBRANGE1, BOTTOM_RIGHT);
 	AddAnchor(IDC_RANGE_ENTIRE, BOTTOM_RIGHT);
  //
-	
- 
+
+
 
 //
 //this->ShowSizeGrip(FALSE);
@@ -243,7 +243,7 @@ TC_ITEM tcItem;
 //	m_PropertySheet.SetWindowPos( NULL, rcSheet.left-7, rcSheet.top-7, 0, 0, 	SWP_NOZORDER | SWP_NOSIZE | SWP_NOACTIVATE );
 
 // g_DupeFileFind.SetDuffDlg(this);
-	
+
  // load plugins
 	Log( StringFromResource(IDS_LOADING_PLUGINS) );
 	LoadPlugins();
@@ -253,7 +253,7 @@ TC_ITEM tcItem;
 	m_bAnimateControl = m_AnimateControl.Open(StringFromResource(IDS_ANIMATION_FILENAME)) != 0;
 	Log( StringFromResource(m_bAnimateControl ? IDS_ANIMATE_CONTROL_LOADED : IDS_ANIMATE_CONTROL_NOT_LOADED) );
 
-	
+
 	// not in use
 	/*
 	for (i = 0; i < g_DuffObjects.GetSize(); i++)
@@ -262,7 +262,7 @@ TC_ITEM tcItem;
 	}
  */
 
- 
+
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -274,7 +274,7 @@ void CDuffDlg::Log(const CString desc/*, CString p1, CString p2*/)
 	COleDateTime t;
 	t = t.GetCurrentTime();
 	TimeStr = t.Format(StringFromResource(IDS_LOG_DATETIME_FORMAT));
-	
+
 	m_StatusLogPage.m_StatusLog.InsertItem(m_StatusLogPage.m_StatusLog.GetItemCount(),TimeStr);
  m_StatusLogPage.m_StatusLog.SetItemText(m_StatusLogPage.m_StatusLog.GetItemCount()-1,1,desc);
 //	m_StatusLogPage.m_StatusLog.SetItemText(m_StatusLogPage.m_StatusLog.GetItemCount()-1,2,p1);
@@ -300,7 +300,7 @@ void CDuffDlg::OnSysCommand(UINT nID, LPARAM lParam)
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
 
-void CDuffDlg::OnPaint() 
+void CDuffDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -332,23 +332,23 @@ HCURSOR CDuffDlg::OnQueryDragIcon()
 	return (HCURSOR) m_hIcon;
 }
 
-void CDuffDlg::OnHelpAbout() 
+void CDuffDlg::OnHelpAbout()
 {
 	Help();
 }
 
 
 
-void CDuffDlg::OnFileSave() 
+void CDuffDlg::OnFileSave()
 {
 SaveSettings();
 }
 
-void CDuffDlg::OnOK() 
+void CDuffDlg::OnOK()
 {
 }
 
-void CDuffDlg::OnCancel() 
+void CDuffDlg::OnCancel()
 {
 	if ( g_DupeFileFind.m_DuffStatus.Status != DUFFSTATUS_RUNNING || ( (g_DupeFileFind.m_DuffStatus.Status == DUFFSTATUS_RUNNING) && Confirm()) )
 	{
@@ -356,19 +356,19 @@ void CDuffDlg::OnCancel()
 	 Exit();
 	}
 	// TODO: Add extra cleanup here
-	
+
 	//CResizableDialog::OnCancel();
 }
 
 /*
-void CDuffDlg::OnClearLog() 
+void CDuffDlg::OnClearLog()
 {
-//m_StatusLog.DeleteAllItems();	
+//m_StatusLog.DeleteAllItems();
 }
 */
-void CDuffDlg::OnFileExit() 
+void CDuffDlg::OnFileExit()
 {
- Exit();	
+ Exit();
 }
 
 void CDuffDlg::Exit()
@@ -376,13 +376,13 @@ void CDuffDlg::Exit()
 	if ( g_DupeFileFind.m_DuffStatus.Status == DUFFSTATUS_STOPPED || ( (g_DupeFileFind.m_DuffStatus.Status != DUFFSTATUS_STOPPED) && Confirm()) )
 	{
   g_DupeFileFind.m_DuffStatus.Status = DUFFSTATUS_STOPPED;
- 	CResizableDialog::OnOK();	
+ 	CResizableDialog::OnOK();
 	}
 }
 
 
 
-void CDuffDlg::OnExit() 
+void CDuffDlg::OnExit()
 {
  Exit();
 }
@@ -393,7 +393,7 @@ bool CDuffDlg::Confirm()
 }
 
 
-void CDuffDlg::OnStop() 
+void CDuffDlg::OnStop()
 {
  Stop();
 }
@@ -407,75 +407,75 @@ void CDuffDlg::Help()
 	dlgAbout.DoModal();
 }
 
-void CDuffDlg::OnSearchPause() 
+void CDuffDlg::OnSearchPause()
 {
  Pause();
 }
 
-void CDuffDlg::OnSearchStart() 
+void CDuffDlg::OnSearchStart()
 {
  Start();
 }
 
-void CDuffDlg::OnSearchStop() 
+void CDuffDlg::OnSearchStop()
 {
- Stop();	
+ Stop();
 }
 
-void CDuffDlg::OnViewLayers() 
+void CDuffDlg::OnViewLayers()
 {
  m_PropertySheet.SetActivePage(&m_LayerPage);
 }
-void CDuffDlg::OnViewDiectories() 
+void CDuffDlg::OnViewDiectories()
 {
  m_PropertySheet.SetActivePage(&m_DirectoryPage);
 }
-void CDuffDlg::OnViewFileFilters() 
+void CDuffDlg::OnViewFileFilters()
 {
- m_PropertySheet.SetActivePage(&m_FileFilterPage);	
+ m_PropertySheet.SetActivePage(&m_FileFilterPage);
 }
 
-void CDuffDlg::OnViewDuplicates() 
+void CDuffDlg::OnViewDuplicates()
 {
  m_PropertySheet.SetActivePage(&m_DuplicatePage);
 }
 
-void CDuffDlg::OnViewSelections() 
+void CDuffDlg::OnViewSelections()
 {
  m_PropertySheet.SetActivePage(&m_SelectionPage);
 }
 
-void CDuffDlg::OnViewProcesses() 
+void CDuffDlg::OnViewProcesses()
 {
  m_PropertySheet.SetActivePage(&m_ProcessPage);
 }
 
-void CDuffDlg::OnViewLog() 
+void CDuffDlg::OnViewLog()
 {
  m_PropertySheet.SetActivePage(&m_StatusLogPage);
 }
 
-void CDuffDlg::OnViewOptions() 
+void CDuffDlg::OnViewOptions()
 {
  m_PropertySheet.SetActivePage(&m_OptionsPage);
 }
 
 
 
-BOOL CDuffDlg::PreTranslateMessage(MSG* pMsg) 
+BOOL CDuffDlg::PreTranslateMessage(MSG* pMsg)
 {
 	bool ret;
-	if ( IsDialogMessage( pMsg ) )        
+	if ( IsDialogMessage( pMsg ) )
 	{
 		if ( TranslateAccelerator ( GetSafeHwnd(),m_hAccel,pMsg) )
   {
-   TranslateMessage(pMsg); 
-   DispatchMessage(pMsg); 
+   TranslateMessage(pMsg);
+   DispatchMessage(pMsg);
    ret = false;
 		}
 		ret = true;
 	}
-	else        
+	else
 	{
 		ret = ( CWnd::PreTranslateMessage( pMsg ) != 0);
 	}
@@ -517,21 +517,21 @@ bool CDuffDlg::SaveLog()
  return false;
 }
 
-void CDuffDlg::OnFileSavelog() 
+void CDuffDlg::OnFileSavelog()
 {
-	SaveLog();	
+	SaveLog();
 }
 
-void CDuffDlg::OnFileClearResults() 
+void CDuffDlg::OnFileClearResults()
 {
-	ClearResults();	
+	ClearResults();
 }
 
 bool CDuffDlg::ClearResults()
 {
 	if ( Confirm() )
 	{
-		
+
 		g_DupeFileFind.CleanUp();
 		m_DuplicatePage.m_DupeList.DeleteAllItems();
 		return true;
@@ -544,7 +544,7 @@ bool CDuffDlg::ClearResults()
 
 
 // static member function
-UINT CDuffDlg::myThread(LPVOID me) 
+UINT CDuffDlg::myThread(LPVOID me)
 {
  CDuffDlg * self = (CDuffDlg *)me;
  self->Search();
@@ -562,7 +562,7 @@ int CDuffDlg::Search()
 		m_AnimateControl.ShowWindow(SW_SHOW);
 		m_AnimateControl.Play(ALL);
 	}
-	g_DupeFileFind.StartSearh();
+	g_DupeFileFind.StartSearch();
 
 	if (m_bAnimateControl)
 	{
@@ -582,12 +582,12 @@ int CDuffDlg::Search()
 }
 
 
-void CDuffDlg::OnStart() 
+void CDuffDlg::OnStart()
 {
-Start();	
+Start();
 }
 
-void CDuffDlg::OnPause() 
+void CDuffDlg::OnPause()
 {
 Pause();
 }
@@ -613,14 +613,14 @@ void CDuffDlg::Start()
 		if ( m_DirectoryPage.m_IncludeDirectoriesList.GetCheck(i) ) Msg += " (and all subdirectories)";
 		Msg += "\n";
 	}
- 
+
 	Msg += "Then, DUFF will create a list of files found in those directories.\n";
 	Msg += "Only files that match the file mask(s): '";
 	m_DirectoryPage.m_FileMasks.GetWindowText(Temp);
 	Msg += Temp;
 	Msg += "' will be added to the list.\n";
 
-	
+
 	Temp = "";
 	for ( i = 0; i < m_FileFilterPage.m_FilterCheckList.GetCount(); i++ )
 	{
@@ -639,7 +639,7 @@ void CDuffDlg::Start()
 
 	Temp =  "DUFF will then compare all of these files with each other and create a list of files that have duplicates.\n";
 	Temp += "In order for files to be considered 'duplicates,' ";
-	
+
 	for ( i = 0; i < m_LayerPage.m_LayerCheckList.GetCount(); i++)
 	{
 		if ( m_LayerPage.m_LayerCheckList.GetCheck(i) == BST_CHECKED )
@@ -675,7 +675,7 @@ void CDuffDlg::Start()
  Msg += Temp;
 	Msg += "\n\nAre you absolutely sure you want to do this?";
 
- 
+
 	if ( MessageBox(Msg,"What DUFF is about to do",MB_YESNO | MB_ICONINFORMATION) == IDNO )
 		return;
 */
@@ -767,8 +767,8 @@ default:
 	}
 
 	//m_DirectoryPage.EnableWindow(FALSE);
-	
-	m_pWorkerThread = AfxBeginThread(myThread, this,Priority);	
+
+	m_pWorkerThread = AfxBeginThread(myThread, this,Priority);
 
 }
 
@@ -778,7 +778,7 @@ void CDuffDlg::Stop()
 	{
   g_DupeFileFind.m_DuffStatus.Status = DUFFSTATUS_STOPPED;
 
-		m_PauseCheckBox.SetCheck( BST_UNCHECKED ); 
+		m_PauseCheckBox.SetCheck( BST_UNCHECKED );
 		m_Status.SetWindowText( StringFromResource(IDS_STATUS_IDLE) );
 	 m_AnimateControl.Stop();
   KillTimer(TIMER_PROGRESS);
@@ -791,7 +791,7 @@ void CDuffDlg::Pause()
 {
  if ( g_DupeFileFind.m_DuffStatus.Status != DUFFSTATUS_STOPPED )
 	{
-		if ( m_PauseCheckBox.GetCheck() == BST_CHECKED ) 
+		if ( m_PauseCheckBox.GetCheck() == BST_CHECKED )
 			g_DupeFileFind.m_DuffStatus.Status = DUFFSTATUS_PAUSED;
 		else
 			g_DupeFileFind.m_DuffStatus.Status = DUFFSTATUS_RUNNING;
@@ -802,7 +802,7 @@ void CDuffDlg::Pause()
 			Log( StringFromResource(IDS_STATUS_PAUSED) );
 			m_AnimateControl.Stop() ;
 	 	m_Status.SetWindowText( StringFromResource(IDS_STATUS_PAUSED) );
-		 g_DupeFileFind.m_DuffStatus.Event.ResetEvent(); 
+		 g_DupeFileFind.m_DuffStatus.Event.ResetEvent();
 		}
 		else
 		{
@@ -810,12 +810,12 @@ void CDuffDlg::Pause()
 			Log(StringFromResource(IDS_STATUS_UNPAUSED));
    m_AnimateControl.Play(ALL);
 		 m_Status.SetWindowText( StringFromResource(IDS_STATUS_BUSY));
-   g_DupeFileFind.m_DuffStatus.Event.SetEvent(); 
+   g_DupeFileFind.m_DuffStatus.Event.SetEvent();
 		}
 	}
 	else
 	{
-  m_PauseCheckBox.SetCheck( BST_UNCHECKED ); 
+  m_PauseCheckBox.SetCheck( BST_UNCHECKED );
 	}
 
 }
@@ -823,17 +823,17 @@ void CDuffDlg::Pause()
 /////////////////////////////
 
 
-void CDuffDlg::OnSize(UINT nType, int cx, int cy) 
+void CDuffDlg::OnSize(UINT nType, int cx, int cy)
 {
 	CResizableDialog::OnSize(nType, cx, cy);
- if (nType != SIZE_MINIMIZED && m_PropertySheet ) 
+ if (nType != SIZE_MINIMIZED && m_PropertySheet )
 	{
 		m_PropertySheet.Resize();
 	}
 }
 
 
-void CDuffDlg::OnDestroy() 
+void CDuffDlg::OnDestroy()
 {
 	/*
 	for (int i = 0; i < g_DuffObjects.GetSize(); i++)
@@ -841,7 +841,7 @@ void CDuffDlg::OnDestroy()
 		g_DuffObjects.ElementAt(i)->SaveSettings();
 	}*/
 
-	
+
 	// wait until worker thread has exited
 	g_DupeFileFind.m_DuffStatus.Status = DUFFSTATUS_STOPPED;
  if (m_pWorkerThread)
@@ -854,7 +854,7 @@ void CDuffDlg::OnDestroy()
 }
 
 
-void CDuffDlg::OnTimer(UINT /*nIDEvent*/) 
+void CDuffDlg::OnTimer(UINT /*nIDEvent*/)
 {
 	int i;
 	CString Temp;
@@ -927,14 +927,14 @@ void CDuffDlg::OnTimer(UINT /*nIDEvent*/)
 			m_DuplicatePage.m_DupeList.SetItemText( m_DuplicatePage.m_TotalFilesCounter-1,2,buffer);
 			pFileInfo->InitVersion();
 			m_DuplicatePage.m_DupeList.SetItemText( m_DuplicatePage.m_TotalFilesCounter-1,3, pFileInfo->GetFileVersionStr());
-			//  
+			//
 
 			*/
 
 		}
 		g_DupeFileFind.m_DuffStatus.DupeQueue.RemoveAll();
- 
-		if ( theApp.m_DuffOptions.General.AutoScrollDupeList  ) 
+
+		if ( theApp.m_DuffOptions.General.AutoScrollDupeList  )
 		{
 			//if ( (unsigned long)(m_DuplicatePage.m_DupeList.GetTopIndex() + m_DuplicatePage.m_DupeList.GetCountPerPage()) == m_DuplicatePage.m_TotalFilesCounter -1 ||
 			//	(unsigned long)(m_DuplicatePage.m_DupeList.GetCountPerPage()) >   m_DuplicatePage.m_TotalFilesCounter -1
@@ -949,7 +949,7 @@ void CDuffDlg::OnTimer(UINT /*nIDEvent*/)
 }
 
 // will change
-void CDuffDlg::OnHelpIndex() 
+void CDuffDlg::OnHelpIndex()
 {
  int error;
 	error = (int)ShellExecute(this->GetSafeHwnd(), NULL, _T("help.htm"), NULL, NULL, SW_SHOWDEFAULT );
@@ -963,14 +963,14 @@ void CDuffDlg::OnHelpIndex()
 */
 }
 
-void CDuffDlg::OnFileSaveGlobal() 
+void CDuffDlg::OnFileSaveGlobal()
 {
  theApp.m_DuffOptions.SaveOptions();
 	Log( StringFromResource(IDS_SAVED_GLOBAL_OPTIONS) );
 }
 
 
-BOOL CDuffDlg::OnEraseBkgnd(CDC* pDC) 
+BOOL CDuffDlg::OnEraseBkgnd(CDC* pDC)
 {
 	// TODO: Add your message handler code here and/or call default
 	ClipChildren(pDC);
@@ -979,35 +979,35 @@ BOOL CDuffDlg::OnEraseBkgnd(CDC* pDC)
 }
 
 
-void CDuffDlg::OnFileExportCsv() 
+void CDuffDlg::OnFileExportCsv()
 {
- MessageBox(StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET), StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE), MB_OK | MB_ICONINFORMATION);	
+ MessageBox(StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET), StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE), MB_OK | MB_ICONINFORMATION);
 }
 
-void CDuffDlg::OnFileExportDuplic8() 
+void CDuffDlg::OnFileExportDuplic8()
 {
- MessageBox(StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET), StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE), MB_OK | MB_ICONINFORMATION);	
+ MessageBox(StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET), StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE), MB_OK | MB_ICONINFORMATION);
 }
 
-void CDuffDlg::OnFileExportFnd() 
+void CDuffDlg::OnFileExportFnd()
 {
- MessageBox(StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET), StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE), MB_OK | MB_ICONINFORMATION);	
+ MessageBox(StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET), StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE), MB_OK | MB_ICONINFORMATION);
 }
 
-void CDuffDlg::OnFileImportDuplic8() 
+void CDuffDlg::OnFileImportDuplic8()
 {
- MessageBox(StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET), StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE), MB_OK | MB_ICONINFORMATION);	
+ MessageBox(StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET), StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE), MB_OK | MB_ICONINFORMATION);
 }
 
-void CDuffDlg::OnFileImportFnd() 
+void CDuffDlg::OnFileImportFnd()
 {
- MessageBox(StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET), StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE), MB_OK | MB_ICONINFORMATION);	
+ MessageBox(StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET), StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE), MB_OK | MB_ICONINFORMATION);
 }
 
 
 void CDuffDlg::SaveSettings()
 {
- MessageBox(StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET), StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE), MB_OK | MB_ICONINFORMATION);	
+ MessageBox(StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET), StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE), MB_OK | MB_ICONINFORMATION);
 }
 
 //typedef CFileProcessor *(*FuncPtr)();
@@ -1051,29 +1051,29 @@ int CDuffDlg::LoadPlugins()
 	CFileFind ff;
 	CString SearchPath;
 	int iPluginTypeIndex = 0;
- bool Loaded = false; 
+ bool Loaded = false;
  FuncPtr MyFunc;
 	CFileProcessor * pProcessor = NULL;
 
 	SearchPath = _pgmptr;
 	SearchPath = SearchPath.Left( SearchPath.ReverseFind( _T('\\') ) +1);
 	SearchPath += _T("plugins\\*.dll");
-	
+
 	Good = ff.FindFile(SearchPath) != 0;
- while ( Good )	
+ while ( Good )
 	{
 		Good = ff.FindNextFile() != 0;
   sFilename = ff.GetFilePath();
 		iPluginTypeIndex = 0;
-		Loaded = false;		
+		Loaded = false;
 	 hInstance = LoadLibrary(sFilename);
 
   if (hInstance)
 	 {
 		 MyFunc = (FuncPtr) GetProcAddress(hInstance, PLUGIN_INIT_FUNCTION_NAME );
    if (MyFunc)
-		 {	
-			 
+		 {
+
 				pProcessor = MyFunc();
 			 if (pProcessor)
 			 {
@@ -1082,7 +1082,7 @@ int CDuffDlg::LoadPlugins()
 				}
 		 }
 	 }
-		
+
 		if ( Loaded )
 		{
 		 Msg.Format( StringFromResource(IDS_LOADED_PLUGIN), pProcessor->GetName(), _T("processor"),ff.GetFileName());
@@ -1094,14 +1094,14 @@ int CDuffDlg::LoadPlugins()
 		}
 		Log(Msg);
 	}
-	
+
 	return Count;
 	*/
 	return 0;
 }
 
 
-void CDuffDlg::OnTest() 
+void CDuffDlg::OnTest()
 {
 	int i;
 	for (i=0; i< m_DuplicatePage.m_DupeList.GetItemCount(); i++)
@@ -1109,5 +1109,5 @@ void CDuffDlg::OnTest()
 		if ( ((CFileInfo *)m_DuplicatePage.m_DupeList.GetItemData(i))->Size == 666 )
 			MessageBox(_T("hehe"));
 	}
-	
+
 }

@@ -46,14 +46,14 @@
 #define LOGIC_AND 0
 #define LOGIC_OR  1
 
-class CDuplicateFileFind  
+class CDuplicateFileFind
 {
 
  // public methods
 public:
 	             CDuplicateFileFind();
 	virtual      ~CDuplicateFileFind();
-	int          StartSearh();
+	int          StartSearch();
 	int          StopSearch();
 	int          PauseSearch();
 	int          ResumeSearch();
@@ -84,7 +84,7 @@ public:
 
 	bool SetLayerLogic(int);
 	int  GetLayerLogic() const;
-	
+
 	bool AddFileComparisonLayer( CFileComparisonLayer * );
 	bool RemoveAllFileComparisonLayers();
 
@@ -106,7 +106,7 @@ public:
 
 	// public data
 public:
-	
+
 	sDuffStatus m_DuffStatus;
 
  // private methods
@@ -119,7 +119,7 @@ private:
 	unsigned int BuildFileList();
 
 // private data
-private: 
+private:
 
 	int                         m_LayerLogic;
 	int                         m_IncludeHiddenDirs;

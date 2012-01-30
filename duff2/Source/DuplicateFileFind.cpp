@@ -48,7 +48,7 @@ POSITION  Find( T1 &str , CList< T1,  T1& > & strlist)
 
 CDuplicateFileFind::CDuplicateFileFind()
 {
- 
+
  m_LayerLogic = LOGIC_OR;
 
  m_FileFilters.Add(&m_FileAttributesFilter);
@@ -94,7 +94,7 @@ void CDuplicateFileFind::CleanUp()
 	{
 		delete m_FileInfos.ElementAt(i);
 	}
- 
+
 */
 	POSITION xPos;
 	xPos = m_FileInfos.GetHeadPosition();
@@ -119,11 +119,11 @@ unsigned int CDuplicateFileFind::BuildFileList()
 	HANDLE hFind;
 	WIN32_FIND_DATA FindFileData;
 	CString SearchPath;
-	bool Good; 
+	bool Good;
 	CFileInfo *pFileInfo;
 
 	// update status and log
-	m_DuffStatus.Lock(); 
+	m_DuffStatus.Lock();
 	m_DuffStatus.CurrentTaskStr  = StringFromResource(IDS_STATUS_CREATING_DIR_LIST);
 	m_DuffStatus.CurrentTaskInfo = NULL_STR;
 	m_DuffStatus.LogQueue.Add( StringFromResource(IDS_LOGTEXT_FILE_LIST_GENERATION_STARTED) );
@@ -134,7 +134,7 @@ unsigned int CDuplicateFileFind::BuildFileList()
 	m_DuplicateFiles.RemoveAll();
 	m_FileInfos.RemoveAll();
  //
- 
+
 
 	// build directory list
 	for( i = 0; i < m_UserIncludeDirectories.GetSize(); i++)
@@ -148,7 +148,7 @@ unsigned int CDuplicateFileFind::BuildFileList()
 	//
 
 	// update status and log
-	m_DuffStatus.Lock();	
+	m_DuffStatus.Lock();
 	m_DuffStatus.SubProgress2.Min = 0;
 	m_DuffStatus.SubProgress2.Max = Directories.GetCount();
 	m_DuffStatus.SubProgress2.Pos = 0;
@@ -176,14 +176,14 @@ unsigned int CDuplicateFileFind::BuildFileList()
 				SearchPath.Format( _T("%s%s"), Directories.GetAt(Position).FullPathName ,m_FileMasks.ElementAt(i) );
 			else
 	 		SearchPath.Format( _T("%s\\%s"), Directories.GetAt(Position).FullPathName ,m_FileMasks.ElementAt(i) );
-	
+
 			hFind = FindFirstFile(SearchPath, &FindFileData);
-	
+
 			if (hFind != INVALID_HANDLE_VALUE)
 			{
 				Good = true;
 				while (Good)
-				{			
+				{
 					if ( ! (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) )
 					{
 						pFileInfo = new CFileInfo(Directories.GetAt(Position).FullPathName, FindFileData);
@@ -193,7 +193,7 @@ unsigned int CDuplicateFileFind::BuildFileList()
 					Good = FindNextFile(hFind,&FindFileData) != 0;
 				}
 			}
-			FindClose(hFind);		
+			FindClose(hFind);
 		}
 		Directories.GetNext(Position);
 	}
@@ -201,7 +201,7 @@ unsigned int CDuplicateFileFind::BuildFileList()
 
 	// update status and log
 	m_DuffStatus.Lock();
- TempStr.Format( StringFromResource(IDS_LOGTEXT_FILE_LIST_GENERATION_FINISHED) ,m_FileInfos.GetCount());	
+ TempStr.Format( StringFromResource(IDS_LOGTEXT_FILE_LIST_GENERATION_FINISHED) ,m_FileInfos.GetCount());
 	m_DuffStatus.LogQueue.Add(TempStr);
  m_DuffStatus.CurrentTaskStr  = NULL_STR;
  m_DuffStatus.CurrentTaskInfo = NULL_STR;
@@ -237,29 +237,29 @@ void CDuplicateFileFind::AddSubDirsToList(CList<CDirectoryInfo,CDirectoryInfo &>
 
 
 	// find first file
-	hFind = FindFirstFile(SearchPath, &FindFileData); 
+	hFind = FindFirstFile(SearchPath, &FindFileData);
 	//
 
 	// if we found a file, continue
 	if (hFind != INVALID_HANDLE_VALUE)
 	{
 		Good = true;
-		
+
 		// continue to look for files
 		while (Good)
-		{			
+		{
    if ( (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) && _tcscmp(FindFileData.cFileName, _T(".") ) && _tcscmp(FindFileData.cFileName, _T("..") ) )
 			{
-	
-				bDirValid = 
+
+				bDirValid =
 					( (m_IncludeReadOnlyDirs   == BST_INDETERMINATE) || ( (m_IncludeReadOnlyDirs   == BST_CHECKED) == ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_READONLY   )!=0) ) ) &&
-					( (m_IncludeHiddenDirs     == BST_INDETERMINATE) || ( (m_IncludeHiddenDirs     == BST_CHECKED) == ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN     )!=0) ) ) && 
-					( (m_IncludeSystemDirs     == BST_INDETERMINATE) || ( (m_IncludeSystemDirs     == BST_CHECKED) == ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_SYSTEM     )!=0) ) ) && 
+					( (m_IncludeHiddenDirs     == BST_INDETERMINATE) || ( (m_IncludeHiddenDirs     == BST_CHECKED) == ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN     )!=0) ) ) &&
+					( (m_IncludeSystemDirs     == BST_INDETERMINATE) || ( (m_IncludeSystemDirs     == BST_CHECKED) == ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_SYSTEM     )!=0) ) ) &&
 					( (m_IncludeCompressedDirs == BST_INDETERMINATE) || ( (m_IncludeCompressedDirs == BST_CHECKED) == ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_COMPRESSED )!=0) ) ) &&
 					( (m_IncludeArchivedDirs   == BST_INDETERMINATE) || ( (m_IncludeArchivedDirs   == BST_CHECKED) == ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_ARCHIVE    )!=0) ) ) &&
-					( (m_IncludeEncryptedDirs  == BST_INDETERMINATE) || ( (m_IncludeEncryptedDirs  == BST_CHECKED) == ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_ENCRYPTED  )!=0) ) ); 
-						
-    
+					( (m_IncludeEncryptedDirs  == BST_INDETERMINATE) || ( (m_IncludeEncryptedDirs  == BST_CHECKED) == ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_ENCRYPTED  )!=0) ) );
+
+
 				TRACE2("%s %s hidden\n",FindFileData.cFileName, (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN) ? _T("is") : _T("is not"));
 
 				if ( bDirValid )
@@ -293,8 +293,8 @@ void CDuplicateFileFind::AddSubDirsToList(CList<CDirectoryInfo,CDirectoryInfo &>
 }
 
 
-// Starts the duplicate file searh engine
-int CDuplicateFileFind::StartSearh()
+// Starts the duplicate file search engine
+int CDuplicateFileFind::StartSearch()
 {
  CString TempStr;
  int DupeCount;
@@ -307,7 +307,7 @@ int CDuplicateFileFind::StartSearh()
  if ( m_DuffStatus.Status != DUFFSTATUS_STOPPED )
 		return -1;
  //
-	
+
 	// we are running now
  m_DuffStatus.Status = DUFFSTATUS_RUNNING;
 	//
@@ -317,13 +317,13 @@ int CDuplicateFileFind::StartSearh()
  //
 
  // generate file list
-	BuildFileList(); 
+	BuildFileList();
 	//
 
 	i = 0;
 	while ( !Filter && i < m_FileFilters.GetSize() )
 	{
-		if ( m_FileFilters.ElementAt(i)->IsSelected() ) 
+		if ( m_FileFilters.ElementAt(i)->IsSelected() )
 		{
 			Filter = true;
 		}
@@ -342,32 +342,32 @@ int CDuplicateFileFind::StartSearh()
 		// prefilter file list
 		for ( i = 0; i < m_FileFilters.GetSize(); i ++)
 		{
-			if ( m_FileFilters.ElementAt(i)->IsSelected() ) 
+			if ( m_FileFilters.ElementAt(i)->IsSelected() )
 			{
 				// update status and log
-				m_DuffStatus.Lock(); 
+				m_DuffStatus.Lock();
 				TempStr.Format( StringFromResource(IDS_STATUS_FILTERING_WITH_FILTER) ,m_FileFilters.ElementAt(i)->GetName());
 				m_DuffStatus.CurrentTaskStr = TempStr;
 				m_DuffStatus.Unlock();
 				//
 				uiFiltered = m_FileFilters.ElementAt(i)->FilterDuplicateList(m_FileInfos);
 				// update status and log
-				m_DuffStatus.Lock(); 
+				m_DuffStatus.Lock();
 				TempStr.Format( StringFromResource(IDS_LOGTEXT_FILTERED_OUT) ,m_FileFilters.ElementAt(i)->GetName(), uiFiltered);
 				m_DuffStatus.LogQueue.Add(TempStr);
 				m_DuffStatus.Unlock();
 				//
-				uiTotalFiltered += uiFiltered;		 
+				uiTotalFiltered += uiFiltered;
 			}
 		}
 		//
- 
+
 		// free unused memory in the array
 	//	m_FileInfos.FreeExtra();
 		//
 
 		// update status and log
-		m_DuffStatus.Lock(); 
+		m_DuffStatus.Lock();
 		TempStr.Format( StringFromResource(IDS_LOGTEXT_FILTER_FINISHED) ,uiTotalFiltered);
 		m_DuffStatus.LogQueue.Add(TempStr);
 		m_DuffStatus.CurrentTaskStr  = NULL_STR;
@@ -415,7 +415,7 @@ int CDuplicateFileFind::ResumeSearch()
 {
 	if (m_DuffStatus.Status == DUFFSTATUS_PAUSED)
 		m_DuffStatus.Status = DUFFSTATUS_RUNNING;
-	
+
 	return 0;
 }
 
@@ -438,7 +438,7 @@ UINT CDuplicateFileFind::BuildDuplicateList()
 	ULONGLONG ullProgressBarPos = 0;
 	ULONGLONG ullProgressBarMax = 0;
 
-	
+
 	// get number of file infos to proess
 	NumFileInfos = m_FileInfos.GetCount();
 	//
@@ -468,7 +468,7 @@ UINT CDuplicateFileFind::BuildDuplicateList()
 	x =0;
 	while ( xPos && m_DuffStatus.Status != DUFFSTATUS_STOPPED)
 	{
-		THREAD_CHECK_FOR_PAUSE	
+		THREAD_CHECK_FOR_PAUSE
 		File1 = m_FileInfos.GetAt(xPos);
 
 		// update status and log
@@ -482,7 +482,7 @@ UINT CDuplicateFileFind::BuildDuplicateList()
 		TRACE1( "Working with: %s...\n" ,File1->Name);
 
 		pDupeList = NULL;
-		
+
 		yPos = xPos;
 		m_FileInfos.GetNext(yPos);
 		y = x+1;
@@ -498,7 +498,7 @@ UINT CDuplicateFileFind::BuildDuplicateList()
 			{
 				File2 = m_FileInfos.GetAt(yPos);
 			//TRACE("Working against: %s...\n",File2->Name);
- 					ullProgressBarPos ++;							
+ 					ullProgressBarPos ++;
 
 				if ( !File2->Duplicate && !File2->Unaccessible  )
 				{
@@ -506,13 +506,13 @@ UINT CDuplicateFileFind::BuildDuplicateList()
 					{
 						bDuplicate = true;
 						z = 0;
-						while ( bDuplicate && !File1->Unaccessible && z < m_FileComparisonLayers.GetSize() ) 
+						while ( bDuplicate && !File1->Unaccessible && z < m_FileComparisonLayers.GetSize() )
 						{
 							if ( m_FileComparisonLayers.ElementAt(z)->IsSelected() ) //
 							{
 
 								bDuplicate =  m_FileComparisonLayers.ElementAt(z)->FilesEqual((*File1),(*File2));
-								
+
 							}
 
 							z++;
@@ -531,7 +531,7 @@ UINT CDuplicateFileFind::BuildDuplicateList()
 					{
 						bDuplicate = false;
 						z = 0;
-						while ( !bDuplicate && !File1->Unaccessible && z < m_FileComparisonLayers.GetSize() ) 
+						while ( !bDuplicate && !File1->Unaccessible && z < m_FileComparisonLayers.GetSize() )
 						{
 
 							if ( m_FileComparisonLayers.ElementAt(z)->IsSelected() ) //
@@ -546,7 +546,7 @@ UINT CDuplicateFileFind::BuildDuplicateList()
 
 							z++;
 						}
-		
+
 						// update status and log
 						if ( m_DuffStatus.LockIfUnlocked() )
 						{
@@ -555,7 +555,7 @@ UINT CDuplicateFileFind::BuildDuplicateList()
 						}
 						//
 
-				
+
 					}
 
 
@@ -572,7 +572,7 @@ UINT CDuplicateFileFind::BuildDuplicateList()
 							pDupeList->AddTail(File1);
 
 							// add duplicate to list view
-							m_DuffStatus.Lock();      
+							m_DuffStatus.Lock();
 							ASSERT(File1);
 							m_DuffStatus.DupeQueue.Add(File1);
 							m_DuffStatus.Unlock();
@@ -587,7 +587,7 @@ UINT CDuplicateFileFind::BuildDuplicateList()
 				//		progressbar_range -= (m_FileInfos.GetSize() - (x-1) - 2);    //??
 
 						// update status and log
-						m_DuffStatus.Lock();				
+						m_DuffStatus.Lock();
 						ASSERT(File2);
 						m_DuffStatus.DupeQueue.Add(File2);
 						m_DuffStatus.SubProgress1.Pos = (int) (1000 * ulonglongdivide(ullProgressBarPos,ullProgressBarMax));
@@ -596,7 +596,7 @@ UINT CDuplicateFileFind::BuildDuplicateList()
 						//
 
 					}
-				
+
 				}
 				y++;
 				m_FileInfos.GetNext(yPos);
@@ -613,7 +613,7 @@ UINT CDuplicateFileFind::BuildDuplicateList()
 
 
 	// update status and log
- m_DuffStatus.Lock(); 
+ m_DuffStatus.Lock();
  m_DuffStatus.LogQueue.Add( StringFromResource(IDS_LOGTEXT_DUPELIST_BUILD_FINISHED) );
 	m_DuffStatus.CurrentTaskStr  = "Idle";
  m_DuffStatus.CurrentTaskInfo = "";
@@ -666,7 +666,7 @@ bool CDuplicateFileFind::CheckForFullSetMarks()
 		yPos = m_DuplicateFiles.GetAt(xPos)->GetHeadPosition();
 		while (All && yPos)
 		{
-   if ( ! m_DuplicateFiles.GetAt(xPos)->GetAt(yPos)->Selected ) All = false;   
+   if ( ! m_DuplicateFiles.GetAt(xPos)->GetAt(yPos)->Selected ) All = false;
    m_DuplicateFiles.GetAt(xPos)->GetNext(yPos);
 		}
   Count += m_DuplicateFiles.GetAt(xPos)->GetCount() - 1;
@@ -711,7 +711,7 @@ UINT CDuplicateFileFind::ExecuteMarkers()
 	}
 
 	// update status and log
- m_DuffStatus.Lock(); 
+ m_DuffStatus.Lock();
  m_DuffStatus.LogQueue.Add( StringFromResource(IDS_LOGTEXT_MARKING_STARTED) );
 	m_DuffStatus.CurrentTaskStr  = NULL_STR;
  m_DuffStatus.CurrentTaskInfo = NULL_STR;
@@ -729,7 +729,7 @@ UINT CDuplicateFileFind::ExecuteMarkers()
 		if ( m_FileMarkers.ElementAt(SelectionIndex)->IsSelected() )
 		{
 			//Msg.Format("Making selection: %s",m_FileMarkers.ElementAt(SelectionIndex)->IsSelected()->GetName() );
-   //((CDuffDlg*)GetParent()->GetParent())->Log(Msg);	
+   //((CDuffDlg*)GetParent()->GetParent())->Log(Msg);
 
 			// update status and log
 			if ( m_DuffStatus.LockIfUnlocked() )
@@ -738,7 +738,7 @@ UINT CDuplicateFileFind::ExecuteMarkers()
 				m_DuffStatus.Unlock();
 			}
 			//
- 		
+
 			m_FileMarkers.ElementAt(SelectionIndex)->MakeSelections( m_DuplicateFiles );
 
 		}
@@ -746,7 +746,7 @@ UINT CDuplicateFileFind::ExecuteMarkers()
 	//
 
 	// update status and log
- m_DuffStatus.Lock(); 
+ m_DuffStatus.Lock();
  m_DuffStatus.LogQueue.Add( StringFromResource(IDS_LOGTEXT_MARKING_FINISHED) );
 	m_DuffStatus.CurrentTaskStr  = NULL_STR;
  m_DuffStatus.CurrentTaskInfo = NULL_STR;
@@ -774,7 +774,7 @@ UINT CDuplicateFileFind::ExecuteProcesses()
 	 pProcessor = m_FileProcesses.ElementAt(ProcessIndex);
 		if ( pProcessor->IsSelected() )
 		{
-			pProcessor->UpdateData(true);		
+			pProcessor->UpdateData(true);
 			pProcessor->ProcessFiles( m_FileInfos );
 			Count++;
 		}
