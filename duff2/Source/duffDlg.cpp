@@ -81,6 +81,7 @@ BEGIN_MESSAGE_MAP(CDuffDlg, CResizableDialog)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_COMMAND(IDM_HELP_ABOUT, OnHelpAbout)
+	ON_COMMAND(IDM_FILE_LOAD, OnFileLoad)
 	ON_COMMAND(IDM_FILE_SAVE, OnFileSave)
 	ON_COMMAND(IDM_FILE_EXIT, OnFileExit)
 	ON_BN_CLICKED(IDC_EXIT, OnExit)
@@ -95,7 +96,7 @@ BEGIN_MESSAGE_MAP(CDuffDlg, CResizableDialog)
 	ON_COMMAND(IDM_VIEW_PROCESSES, OnViewProcesses)
 	ON_COMMAND(IDM_VIEW_SELECTIONS, OnViewSelections)
 	ON_COMMAND(IDM_FILE_SAVELOG, OnFileSavelog)
-	ON_COMMAND(ID_FILE_CLEAR_RESULTS, OnFileClearResults)
+	ON_COMMAND(IDM_FILE_CLEAR_RESULTS, OnFileClearResults)
 	ON_BN_CLICKED(IDC_START, OnStart)
 	ON_BN_CLICKED(IDC_PAUSE, OnPause)
 	ON_WM_SIZE()
@@ -342,6 +343,11 @@ void CDuffDlg::OnHelpAbout()
 void CDuffDlg::OnFileSave()
 {
 SaveSettings();
+}
+
+void CDuffDlg::OnFileLoad()
+{
+LoadSettings();
 }
 
 void CDuffDlg::OnOK()
@@ -1005,6 +1011,11 @@ void CDuffDlg::OnFileImportFnd()
 
 
 void CDuffDlg::SaveSettings()
+{
+ MessageBox(StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET), StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE), MB_OK | MB_ICONINFORMATION);
+}
+
+void CDuffDlg::LoadSettings()
 {
  MessageBox(StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET), StringFromResource(IDS_MSGBOX_NOT_IMPLEMENTED_YET_TITLE), MB_OK | MB_ICONINFORMATION);
 }

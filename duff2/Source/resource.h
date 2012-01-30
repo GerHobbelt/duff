@@ -1,5 +1,5 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
+// Microsoft Visual C++ generated include file.
 // Used by duff.rc
 //
 #define IDM_ABOUTBOX                    0x0010
@@ -421,7 +421,6 @@
 #define IDM_VIEW_SELECTIONS             32780
 #define IDM_VIEW_PROCESSES              32781
 #define IDM_VIEW_LOG                    32782
-#define ID_FILE_CLEAR_RESULTS           32784
 #define IDM_FILE_SAVELOG                32785
 #define ID_OPENDIRS                     32787
 #define ID_OPENFILES                    32788
@@ -465,13 +464,15 @@
 #define IDM_FILE_IMPORT_DUPLIC8         32846
 #define IDM_FILE_EXPORT_FND             32847
 #define IDM_FILE_IMPORT_FND             32848
+#define IDM_FILE_LOAD                   32850
+#define IDM_FILE_CLEAR_RESULTS          32856
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        168
-#define _APS_NEXT_COMMAND_VALUE         32850
+#define _APS_NEXT_COMMAND_VALUE         32857
 #define _APS_NEXT_CONTROL_VALUE         1298
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

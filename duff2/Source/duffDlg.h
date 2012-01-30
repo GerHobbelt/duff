@@ -56,6 +56,7 @@ private:
  int  Search();
 	void Help();
 	void SaveSettings();
+	void LoadSettings();
 	void StartPause();
 	void Stop();
 	bool Confirm();
@@ -123,6 +124,7 @@ private:
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg void OnHelpAbout();
 	afx_msg void OnFileSave();
+	afx_msg void OnFileLoad();
 	virtual void OnOK();
 	virtual void OnCancel();
 	afx_msg void OnFileExit();

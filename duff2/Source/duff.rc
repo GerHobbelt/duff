@@ -645,10 +645,11 @@ IDR_MENU_MAIN MENU
 BEGIN
     POPUP "&File"
     BEGIN
-        MENUITEM "Save Global Options",         IDM_FILE_SAVE_GLOBAL
+        MENUITEM "Save Global Options\tCtrl+G", IDM_FILE_SAVE_GLOBAL
         MENUITEM "Save &Log...\tCtrl+L",        IDM_FILE_SAVELOG
         MENUITEM "Save Current Settings...\tCtrl+S", IDM_FILE_SAVE
-        MENUITEM "&Clear results\tCtrl+R",      ID_FILE_CLEAR_RESULTS
+        MENUITEM "&Clear results\tCtrl+R",      IDM_FILE_CLEAR_RESULTS
+        MENUITEM "Load Settings...\tCtrl+O",    32850
         MENUITEM SEPARATOR
         POPUP "Import"
         BEGIN
@@ -748,16 +749,20 @@ END
 
 IDR_ACCELERATOR ACCELERATORS 
 BEGIN
-    "1",            IDM_VIEW_LAYERS,        VIRTKEY, CONTROL, NOINVERT
-    "2",            IDM_VIEW_DIECTORIES,    VIRTKEY, CONTROL, NOINVERT
-    "3",            IDM_VIEW_FILE_FILTERS,  VIRTKEY, CONTROL, NOINVERT
-    "4",            IDM_VIEW_DUPLICATES,    VIRTKEY, CONTROL, NOINVERT
-    "5",            IDM_VIEW_SELECTIONS,    VIRTKEY, CONTROL, NOINVERT
-    "6",            IDM_VIEW_PROCESSES,     VIRTKEY, CONTROL, NOINVERT
-    "7",            IDM_VIEW_LOG,           VIRTKEY, CONTROL, NOINVERT
-    "8",            IDM_VIEW_OPTIONS,       VIRTKEY, CONTROL, NOINVERT
     "S",            IDM_FILE_SAVE,          VIRTKEY, CONTROL, NOINVERT
     VK_F1,          IDM_HELP_ABOUT,         VIRTKEY, NOINVERT
+    "2",            IDM_VIEW_DIECTORIES,    VIRTKEY, CONTROL, NOINVERT
+    "4",            IDM_VIEW_DUPLICATES,    VIRTKEY, CONTROL, NOINVERT
+    "3",            IDM_VIEW_FILE_FILTERS,  VIRTKEY, CONTROL, NOINVERT
+    "1",            IDM_VIEW_LAYERS,        VIRTKEY, CONTROL, NOINVERT
+    "7",            IDM_VIEW_LOG,           VIRTKEY, CONTROL, NOINVERT
+    "8",            IDM_VIEW_OPTIONS,       VIRTKEY, CONTROL, NOINVERT
+    "6",            IDM_VIEW_PROCESSES,     VIRTKEY, CONTROL, NOINVERT
+    "5",            IDM_VIEW_SELECTIONS,    VIRTKEY, CONTROL, NOINVERT
+    "R",            IDM_FILE_CLEAR_RESULTS, VIRTKEY, CONTROL, NOINVERT
+    "L",            IDM_FILE_SAVELOG,       VIRTKEY, CONTROL, NOINVERT
+    "O",            IDM_FILE_LOAD,          VIRTKEY, CONTROL, NOINVERT
+    "G",            IDM_FILE_SAVE_GLOBAL,   VIRTKEY, CONTROL, NOINVERT
 END
 
 
