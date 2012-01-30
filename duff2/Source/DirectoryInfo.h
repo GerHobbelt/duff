@@ -13,14 +13,14 @@ class CDirectoryInfo
 {
 public:
 	CDirectoryInfo();
- CDirectoryInfo(const TCHAR * fullname, bool sub);
-	CDirectoryInfo(const TCHAR * dir, const TCHAR * parent, bool b) 
+ CDirectoryInfo(const TCHAR * fullname, bool sub = true);
+	CDirectoryInfo(const TCHAR * dir, const TCHAR * parent, bool b = true) 
 	{ 
 		Init(dir, parent,b); 
 	}
- CDirectoryInfo(const CString & fullname, bool subdirs);
+ CDirectoryInfo(const CString & fullname, bool subdirs = true);
 
- void Init(const TCHAR *name, const TCHAR * parent,bool subdirs);
+ void Init(const TCHAR *name, const TCHAR * parent,bool subdirs = true);
 
 	TCHAR  FullPathName[MAX_PATH];
 	bool    SubDirs;

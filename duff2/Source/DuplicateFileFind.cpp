@@ -264,9 +264,14 @@ void CDuplicateFileFind::AddSubDirsToList(CList<CDirectoryInfo,CDirectoryInfo &>
 				if ( bDirValid )
 				{
 					// add the found directory to the list of directories
-					DirEntry.Init(FindFileData.cFileName, (TCHAR*)Dir.FullPathName,true);
+					DirEntry.Init(FindFileData.cFileName, (TCHAR*)Dir.FullPathName, Dir.SubDirs);
 					Directories.AddTail( DirEntry );
-					AddSubDirsToList(Directories, DirEntry);
+
+					// only when subdirs are requested, do we recurse:
+					if (Dir.SubDirs)
+					{
+						AddSubDirsToList(Directories, DirEntry);
+					}
 					//
 				}
 
