@@ -33,7 +33,7 @@ CDuffOptions::CDuffOptions()
 
 	for (int i = 0; i < 6; i++)
 		Directory.DirAttributes[i] = BST_INDETERMINATE;
- 
+
 	Directory.IncludeSubDirs = true;
 
 	Sound.Enabled = false;
@@ -43,7 +43,7 @@ CDuffOptions::CDuffOptions()
 	Marker.MarkAtLeastOne = false;
 	Marker.MarkMode = MARK_MODE_SINGLE;
  Marker.ClearMarks = true;
- 
+
 	Process.AutoPerformProcesses = false;
 	Process.DupeSetProcessWarning = true;
 
@@ -115,7 +115,7 @@ bool CDuffOptions::LoadOptions()
 		return false;
 	}
 
-/*	
+/*
 	CString TempStr;
  const char * pFilename = AfxGetApp()->m_pszProfileName;
  char buffer[256];

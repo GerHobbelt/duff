@@ -3,10 +3,10 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include <fstream>
 
 #include "duff.h"
 #include "FilterFileContents.h"
+#include "FileEx.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -52,7 +52,8 @@ int CFileContentsFilter::FilterDuplicateList( CList<CFileInfo*,CFileInfo*> & Fil
  ULONGLONG TotalBytesRead;
  ULONGLONG NumRead;
  UINT Count = 0;
-	ifstream ifile;
+ CFileEx ifile;
+ CFileException file_ex;
  int ArrayIndex = 0;
 
 	// update status and log
@@ -81,33 +82,31 @@ int CFileContentsFilter::FilterDuplicateList( CList<CFileInfo*,CFileInfo*> & Fil
 		}
 		//
 
-		ifile.open( FileList.GetAt(xPos)->FullName ,  ios::in | ios::binary);
- 	ok = ifile.is_open() && !ifile.fail() && !ifile.bad();
+		ok = ifile.Open( FileList.GetAt(xPos)->FullName ,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan, &file_ex);
 		if (ok)
 		{
-   ifile.seekg(0);
+			//ifile.seekg(0);
 			bDataFound = false;
 			TotalBytesRead = 0;
 			do
 			{
-			 ifile.read((char *)buffer,BUFFSIZE);
-				NumRead = ifile.gcount();
+				NumRead = ifile.Read(buffer, BUFFSIZE);
 				TotalBytesRead +=NumRead;
 				i=0;
-				while(i < BUFFSIZE-1 && !bDataFound)
+				while(i + 1 < NumRead && !bDataFound)
 				{
-     if (m_CaseSensitive)
+					if (m_CaseSensitive)
 					 bDataFound =  memcmp( buffer, (BYTE*)(LPTSTR)(LPCTSTR)m_ContentString, m_ContentString.GetLength() * sizeof(TCHAR) ) == 0;
 					else
 					 bDataFound = _memicmp( buffer, (BYTE*)(LPTSTR)(LPCTSTR)m_ContentString, m_ContentString.GetLength() * sizeof(TCHAR) ) == 0;
 
 					i++;
 				}
-				if (!bDataFound) 
+				if (!bDataFound)
 				{
-					ifile.seekg(-1 * ( m_ContentString.GetLength() * (sizeof(TCHAR)+1) ),ios::cur);
+					ifile.Seek(-1 * ( m_ContentString.GetLength() * (sizeof(TCHAR)+1) ), CFile::current);
 				}
-			
+
 						// update status and log
 				if ( g_DupeFileFind.m_DuffStatus.LockIfUnlocked() )
 				{
@@ -116,8 +115,8 @@ int CFileContentsFilter::FilterDuplicateList( CList<CFileInfo*,CFileInfo*> & Fil
 				}
 				//
 			}
-			while (!bDataFound && NumRead && !ifile.eof());
-  
+			while (!bDataFound && NumRead /* && !ifile.eof() */ );
+
 			if ( (!bDataFound && (m_ContentsOption == 0)) || (bDataFound && (m_ContentsOption == 1)))
 			{
 				//FileList.ElementAt(i)->Unaccessible = true;
@@ -126,7 +125,7 @@ int CFileContentsFilter::FilterDuplicateList( CList<CFileInfo*,CFileInfo*> & Fil
 				delete FileList.GetAt(xPos);
 				FileList.RemoveAt(xPos);
 				//i--;
-	 		xPos = Pos2;
+	 			xPos = Pos2;
 				Count++;
 				ArrayIndex--;
 			}
@@ -138,7 +137,7 @@ int CFileContentsFilter::FilterDuplicateList( CList<CFileInfo*,CFileInfo*> & Fil
 			ArrayIndex ++;
 	//	 FileList.GetNext(xPos);
 		}
-  ifile.close();
+		ifile.Close();
 		// update status and log
 		if ( ArrayIndex >=0 && g_DupeFileFind.m_DuffStatus.LockIfUnlocked() )
 		{
@@ -147,7 +146,6 @@ int CFileContentsFilter::FilterDuplicateList( CList<CFileInfo*,CFileInfo*> & Fil
 			g_DupeFileFind.m_DuffStatus.Unlock();
 		}
 		//
-
 	}
 	return Count;
 }
@@ -159,11 +157,11 @@ bool CFileContentsFilter::UpdateData(bool /*SaveAndValidate*/)
 	//	return false;
 
 	m_FileContentsFilterForm.m_ContentString.GetWindowText(m_ContentString);
- 
+
 	m_CaseSensitive = m_FileContentsFilterForm.m_CaseSensitive.GetCheck() == BST_CHECKED;
-	
+
 	m_ContentsOption = m_FileContentsFilterForm.GetCheckedRadioButton(IDC_CONTAINS_DATA, IDC_DOES_NOT_CONTAIN_DATA);
-	
+
 	switch( m_ContentsOption )
 	{
 	 case IDC_DOES_NOT_CONTAIN_DATA:
@@ -177,7 +175,7 @@ bool CFileContentsFilter::UpdateData(bool /*SaveAndValidate*/)
 
 	}
 
-	
+
  return GoodData;
 }
 

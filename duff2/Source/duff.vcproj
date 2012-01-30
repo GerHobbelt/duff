@@ -531,6 +531,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\FileEx.cpp"
+				>
+			</File>
+			<File
 				RelativePath="FileInfo.cpp"
 				>
 			</File>
@@ -877,6 +881,10 @@
 			</File>
 			<File
 				RelativePath="DuplicateListHeaderCtrl.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FileEx.h"
 				>
 			</File>
 			<File

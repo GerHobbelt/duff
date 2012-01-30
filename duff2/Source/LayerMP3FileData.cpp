@@ -3,10 +3,10 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include <fstream>
 
 #include "duff.h"
 #include "LayerMP3FileData.h"
+#include "FileEx.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -29,8 +29,8 @@ extern CDuplicateFileFind g_DupeFileFind;
 
 CMP3FileDataLayer::CMP3FileDataLayer()
 {
- m_pForm = &m_FileMP3DataLayerForm; 
-	m_uiFormID = IDD_FILE_MP3DATA_LAYER_FORM; 
+ m_pForm = &m_FileMP3DataLayerForm;
+	m_uiFormID = IDD_FILE_MP3DATA_LAYER_FORM;
 	m_sName = "MP3 File Data";
 	m_sDescription = "Does a binary compare on MP3 files, ignoring the MPEG header and ID3v1 and/or ID3v2 tags, if present\r\nIgnores non-MP3 files";
  m_MaxFileSizeDifference = 4096;
@@ -47,9 +47,9 @@ bool CMP3FileDataLayer::UpdateData(bool /*SaveAndValidate*/)
 {
 
 	m_MaxFileSizeDifference = m_FileMP3DataLayerForm.m_Slider.GetPos() * 1024;
-	
+
 	if (m_MaxFileSizeDifference >= 1025024) m_MaxFileSizeDifference = -1;
-	 
+
 	 return true;
 }
 
@@ -77,10 +77,11 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 	bool         FileGood2 = false;
 	BYTE         buffer1[BUFFSIZE] = { 0x0 };
 	BYTE         buffer2[BUFFSIZE] = { 0x0 };
-	ifstream     Mp3File1;
-	ifstream     Mp3File2;
-	ULONGLONG    NumBytesRead1 = 0;
- ULONGLONG    NumBytesRead2 = 0;
+	CFileEx     Mp3File1;
+	CFileEx     Mp3File2;
+	CFileException file_ex;
+	UINT    NumBytesRead1 = 0;
+	UINT    NumBytesRead2 = 0;
 	ULONGLONG    DataStartPos1 = 0;
  ULONGLONG    DataStartPos2 = 0;
  ULONGLONG    MaxDataPos1 = 0;
@@ -89,14 +90,14 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 	ULONGLONG    Mp3DataLength2 = 0;
 
 
-	
-	
-	// avoid comparison if file sizes are very different	
+
+
+	// avoid comparison if file sizes are very different
 	if (
 		    (m_MaxFileSizeDifference > 0) &&
 			   (
 						 (FileInfo1.Size > FileInfo2.Size) &&  (FileInfo1.Size - FileInfo2.Size >= m_MaxFileSizeDifference) ||
-						 (FileInfo2.Size > FileInfo1.Size) &&  (FileInfo2.Size - FileInfo1.Size >= m_MaxFileSizeDifference)  
+						 (FileInfo2.Size > FileInfo1.Size) &&  (FileInfo2.Size - FileInfo1.Size >= m_MaxFileSizeDifference)
 					 )
 				)
 					return false;
@@ -105,7 +106,7 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 	if ( FileInfo1.Size == 0 && FileInfo2.Size == 0)
 		return true;
  //
-	
+
 
 	// update status and progress
  if ( g_DupeFileFind.m_DuffStatus.LockIfUnlocked() )
@@ -119,41 +120,35 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 	//
 
 	// attempt to open the files
-	Mp3File1.open( FileInfo1.FullName ,  ios::in | ios::binary);
-	Mp3File2.open( FileInfo2.FullName ,  ios::in | ios::binary);
+	FileGood1 = Mp3File1.Open( FileInfo1.FullName ,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan);
+	FileGood2 = Mp3File2.Open( FileInfo2.FullName ,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan);
  //
 
- // get result of open attempts
-	FileGood1 = Mp3File1.is_open() && !Mp3File1.fail() && !Mp3File1.bad();
-	FileGood2 = Mp3File2.is_open() && !Mp3File2.fail() && !Mp3File2.bad();
- //
-	
+
  // continue if both opened OK
 	if ( FileGood1 && FileGood2 )
 	{
-		
+
 		// read until MPEG header is found or EOF
-		Mp3File1.seekg(0);
 		HeaderFound = false;
 		TotalBytesRead = 0;
 		do
 		{
-			Mp3File1.read((char *)buffer1,BUFFSIZE);
-			NumBytesRead1 = Mp3File1.gcount();
+			NumBytesRead1 = Mp3File1.Read(buffer1,BUFFSIZE);
 			i=0;
-			while(i < BUFFSIZE-1 && !HeaderFound)
+			while(i + 1 < NumBytesRead1 && !HeaderFound)
 			{
-    HeaderFound = (((*(WORD*)(buffer1+i)) & HeaderSyncMask) == HeaderSyncMask);
+				HeaderFound = (((*(WORD*)(buffer1+i)) & HeaderSyncMask) == HeaderSyncMask);
 				i++;
-			}	
-			if (HeaderFound) 
+			}
+			if (HeaderFound)
 			{
 				DataStartPos1 = TotalBytesRead + i - 1;
 			}
 			else
 			{
-				Mp3File1.seekg(-1,ios::cur);
-				TotalBytesRead+= NumBytesRead1-1;
+				Mp3File1.Seek(-1,CFile::current);
+				TotalBytesRead += NumBytesRead1-1;
 			}
 		}
 		while (!HeaderFound && NumBytesRead1);
@@ -165,26 +160,24 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 		//
 
   // read until MPEG header is found or EOF
-		Mp3File2.seekg(0);
 		HeaderFound = false;
 		TotalBytesRead = 0;
 		do
 		{
-			Mp3File2.read((char *)buffer2,BUFFSIZE);
-			NumBytesRead2 = Mp3File2.gcount();
+			NumBytesRead2 = Mp3File2.Read(buffer2,BUFFSIZE);
 			i=0;
-			while(i < BUFFSIZE-1 && !HeaderFound)
+			while(i + 1 < NumBytesRead2 && !HeaderFound)
 			{
-    HeaderFound = (((*(WORD*)(buffer2+i)) & HeaderSyncMask) == HeaderSyncMask);
+				HeaderFound = (((*(WORD*)(buffer2+i)) & HeaderSyncMask) == HeaderSyncMask);
 				i++;
 			}
-			if (HeaderFound) 
+			if (HeaderFound)
 			{
 				DataStartPos2 = TotalBytesRead + i - 1;
 			}
 			else
 			{
-				Mp3File2.seekg(-1,ios::cur);
+				Mp3File2.Seek(-1,CFile::current);
 				TotalBytesRead+= NumBytesRead2;
 			}
 		}
@@ -199,8 +192,8 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 		// get the max mp3 data position in the file
   if ( FileInfo1.Size >=128)
 		{
-			Mp3File1.seekg(FileInfo1.Size-128);
-			Mp3File1.read((char *)buffer1,128);
+			Mp3File1.Seek(FileInfo1.Size-128, CFile::begin);
+			Mp3File1.Read(buffer1,128);
 			if( memcmp(buffer1,"TAG",3) == 0 || memcmp(buffer1,NullBytes,128) == 0)
 			{
 				MaxDataPos1 = FileInfo1.Size - 128;
@@ -214,8 +207,8 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 		{
 			MaxDataPos1 = FileInfo1.Size;
 		}
-		// 
-  
+		//
+
 	 /*
 		// ignore all 0xFF bytes at end of mp3 data
 		buffer1[0] = 0x00;
@@ -231,10 +224,10 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
   */
 
 		// get the max mp3 data position in the file
-  if ( FileInfo2.Size >=128)
+		if ( FileInfo2.Size >=128)
 		{
-			Mp3File2.seekg(FileInfo2.Size-128);
-			Mp3File2.read((char *)buffer2,128);
+			Mp3File2.Seek(FileInfo2.Size-128, CFile::begin);
+			Mp3File2.Read(buffer2,128);
 			if( memcmp(buffer2,"TAG",3) == 0 || memcmp(buffer2,NullBytes,128) == 0)
 			{
 				MaxDataPos2 = FileInfo2.Size - 128;
@@ -249,7 +242,7 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 			MaxDataPos2 = FileInfo2.Size;
 		}
   //
-		
+
 		/*
 		// ignore all 0xFF bytes at end of mp3 data
 		buffer2[0] = 0x00;
@@ -275,7 +268,7 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
   //
 
 		// if mp3 data chunks are different size, the files can not be duplicate, so exit
-  if ( Mp3DataLength1 != Mp3DataLength2 )
+		if ( Mp3DataLength1 != Mp3DataLength2 )
 		{
 			TRACE2("File1 and File2 Data chunk sizes are different (%d vs %d)!\n",(UINT)Mp3DataLength1,(UINT)Mp3DataLength2);
 			return false;
@@ -283,22 +276,17 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 		//
 
 		// seek to beginning positions
-  Mp3File1.seekg(DataStartPos1);   
-  Mp3File2.seekg(DataStartPos2);
+		Mp3File1.Seek(DataStartPos1, CFile::begin);
+		Mp3File2.Seek(DataStartPos2, CFile::begin);
 		//
 
 		// compare file data in loop until eof or it is determined that the files are not FilesStillEqual
-  do
-		{			
-			Mp3File1.read((char *)buffer1,BUFFSIZE);
-		 Mp3File2.read((char *)buffer2,BUFFSIZE);
-			
-			// get sizes of data read from files
-			NumBytesRead1 = Mp3File1.gcount();
-			NumBytesRead2 = Mp3File2.gcount();
-   //
+		do
+		{
+			NumBytesRead1 = Mp3File1.Read(buffer1,BUFFSIZE);
+			NumBytesRead2 = Mp3File2.Read(buffer2,BUFFSIZE);
 
-   // adjust NumBytesRead1 and NumBytesRead2 if id3v1 tags (at end of file) were read
+		   // adjust NumBytesRead1 and NumBytesRead2 if id3v1 tags (at end of file) were read
 			if ( (TotalBytesRead + DataStartPos1 + NumBytesRead1) > MaxDataPos1 )
 			{
 				NumBytesRead1 = MaxDataPos1 - (TotalBytesRead + DataStartPos1);
@@ -309,57 +297,57 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 			}
 			//
 
- 		// increment total bytes read counter
+ 			// increment total bytes read counter
 			TotalBytesRead += NumBytesRead1;
 			//
 
 			// if we read different number of bytes from the files, they are not FilesStillEqual,
-			// otherwise, compare the data read   
+			// otherwise, compare the data read
 			FilesStillEqual = (NumBytesRead1 == NumBytesRead2) ? (memcmp(buffer1,buffer2,NumBytesRead1) == 0) : false;
    //
 
 			// update progress
 			if ( g_DupeFileFind.m_DuffStatus.LockIfUnlocked() )
 			{
-				g_DupeFileFind.m_DuffStatus.SubProgress2.Pos = (int) (1000 *  ulonglongdivide(TotalBytesRead, Mp3DataLength1 )  ); 
+				g_DupeFileFind.m_DuffStatus.SubProgress2.Pos = (int) (1000 *  ulonglongdivide(TotalBytesRead, Mp3DataLength1 )  );
 				g_DupeFileFind.m_DuffStatus.Unlock();
 			}
 			//
 
 		}
-		while ( FilesStillEqual &&  (TotalBytesRead<Mp3DataLength1) && (Mp3File1.tellg() < MaxDataPos1) && (Mp3File2.tellg() < MaxDataPos2) );
+		while ( FilesStillEqual &&  (TotalBytesRead < Mp3DataLength1) && (Mp3File1.GetPosition() < MaxDataPos1) && (Mp3File2.GetPosition() < MaxDataPos2) );
 
 		// be nice and close the files
-		Mp3File1.close();
-		Mp3File2.close();
+		Mp3File1.Close();
+		Mp3File2.Close();
 		//
 
 	}
 	else
 	{
 		// Could not open the file, so log the access error
-		if (!FileGood1) 
+		if (!FileGood1)
 		{
 			sTemp.Format( _T("ERROR Accessing file: %s") ,FileInfo1.FullName);
-		
+
 			// update log
 			g_DupeFileFind.m_DuffStatus.Lock();
 			g_DupeFileFind.m_DuffStatus.LogQueue.Add(sTemp);
 			g_DupeFileFind.m_DuffStatus.Unlock();
 			//
-			
+
 			// mark the file as unaccessible so we don't try to read it again
 			if ( !GetAccessRetry() )
 				FileInfo1.Unaccessible = true;
 			//
 		}
 	 //
-		
+
 		// Could not open the file, so log the access error
-		if (!FileGood2) 
+		if (!FileGood2)
 		{
 			sTemp.Format( _T("ERROR Accessing file: %s") ,FileInfo2.FullName);
-			
+
 			// update log
 			g_DupeFileFind.m_DuffStatus.Lock();
 			g_DupeFileFind.m_DuffStatus.LogQueue.Add(sTemp);
@@ -372,12 +360,12 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 			//
 		}
 		//
-		
+
 		// could not compare, so assume they are not equal
 		FilesStillEqual = false;
 		//
 	}
-	
+
 	// update status, log and progress
  g_DupeFileFind.m_DuffStatus.Lock();
  g_DupeFileFind.m_DuffStatus.SubProgress2.Pos = 0;
@@ -386,6 +374,6 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
  //
 
  // return a simple yes or no answer
-	return FilesStillEqual; 
+	return FilesStillEqual;
 	//
 }

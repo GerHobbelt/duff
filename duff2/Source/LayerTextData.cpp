@@ -3,10 +3,10 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include <fstream>
 
 #include "duff.h"
 #include "LayerTextData.h"
+#include "FileEx.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -29,8 +29,8 @@ extern CDuplicateFileFind g_DupeFileFind;
 
 CFileTextDataLayer::CFileTextDataLayer()
 {
- m_pForm = &m_FileTextDataLayerForm; 
-	m_uiFormID = IDD_FILE_TEXT_DATA_LAYER_FORM; 
+ m_pForm = &m_FileTextDataLayerForm;
+	m_uiFormID = IDD_FILE_TEXT_DATA_LAYER_FORM;
 	m_sName = "Text Data";
 	m_sDescription = "Textual data must be equal. Compares ANSI with Unicode and optionally ignores case.";
  m_bComplete = false;
@@ -62,10 +62,10 @@ bool CFileTextDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2
 	const int BUFFSIZE = 4096;
 	BYTE buffer1[BUFFSIZE];
 	BYTE buffer2[BUFFSIZE];
-	ifstream ifile1;
-	ifstream ifile2;
-//	ULONGLONG NumRead1;
- //ULONGLONG NumRead2;
+	CFileEx ifile1;
+	CFileEx ifile2;
+	UINT NumRead1;
+	UINT NumRead2;
  ULONGLONG TotalBytesRead = 0;
 
 	TRACE2("Comparing %s : %s...",FileInfo1.Name, FileInfo2.Name);
@@ -88,14 +88,8 @@ bool CFileTextDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2
 
 
 	// attempt to open the files
-	ifile1.open(FileInfo1.FullName,  ios::in | ios::binary);
-	ifile2.open(FileInfo2.FullName,  ios::in | ios::binary);
- //
-
- // get result of open attempts
-	ok1 = ifile1.is_open() && !ifile1.fail() && !ifile1.bad();
-	ok2 = ifile2.is_open() && !ifile2.fail() && !ifile2.bad();
- //
+	ok1 = ifile1.Open(FileInfo1.FullName,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan);
+	ok2 = ifile2.Open(FileInfo2.FullName,  CFile::modeRead | CFile::shareDenyWrite | CFile::typeBinary | CFile::osSequentialScan);
 
 	TRACE0("attempted open;");
 
@@ -103,17 +97,19 @@ bool CFileTextDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2
 	if ( ok1 && ok2 )
 	{
 		// compare file data in loop until eof or it is determined that the files are not equal
-  do
-		{			
-			//int FileType1;
-   //int FileType2;
-
+		  do
+		{
 			// attempt to header from files
-		 ifile1.read((char *)buffer1,BUFFSIZE);
-		 ifile2.read((char *)buffer2,BUFFSIZE);
-	  //
+			NumRead1 = ifile1.Read((char *)buffer1,BUFFSIZE);
+			NumRead2 = ifile2.Read((char *)buffer2,BUFFSIZE);
+			//
 
-			/*
+			// increment total read count
+			TotalBytesRead += NumRead1;
+
+#if 0
+			int FileType1;
+			int FileType2;
 
 			// determine text file types
 			FileType1 = CharEncSchemes::GetType(buffer1);
@@ -123,23 +119,24 @@ bool CFileTextDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2
 			//
 
 			// seek to beginning of text
-			ifile1.seek( CharEncSchemes[FileType1].HeaderLength );
-			ifile2.seek( CharEncSchemes[FileType2].HeaderLength );
+			ifile1.Seek( CharEncSchemes[FileType1].HeaderLength , CFile::begin);
+			ifile2.Seek( CharEncSchemes[FileType2].HeaderLength , CFile::begin);
    //
+
+			// reset total read count for progress display
+			TotalBytesRead += CharEncSchemes[FileType1].HeaderLength;
 
 			// Get biggest character size
 			MaxCharSize = max( CharEncSchemes[FileType1].CharacterLength, CharEncSchemes[FileType2].CharacterLength );
 			//
-			
+
 			// attempt to read chunk of data from files
-		 ifile1.read(buffer1,BUFFSIZE / CharEncSchemes[FileType1].CharacterLength);
-		 ifile2.read(buffer2,BUFFSIZE / CharEncSchemes[FileType2].CharacterLength);
+			NumRead1 = ifile1.Read(buffer1,BUFFSIZE / CharEncSchemes[FileType1].CharacterLength);
+			NumRead2 = ifile2.Read(buffer2,BUFFSIZE / CharEncSchemes[FileType2].CharacterLength);
 	  //
 
-			// get length of data read from files
-			NumRead1 = ifile1.gcount();
-			NumRead2 = ifile2.gcount();
-			//
+			// increment total read count
+			TotalBytesRead += NumRead1;
 
 			// if the amount of data read from the files implies that the data cannot be the same, they are not equal
 			// otherwise, compare the data
@@ -166,7 +163,7 @@ bool CFileTextDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2
 
 					memcpy((BYTE*)&CharVal1, pPos1, CharEncSchemes[FileType1].CharacterLength );
 					CharVal1 >>= sizeof(int) - CharEncSchemes[FileType1].CharacterLength;
-					
+
 					memcpy((BYTE*)&CharVal2, pPos2, CharEncSchemes[FileType2].CharacterLength );
 					CharVal2 >>= sizeof(int) - CharEncSchemes[FileType2].CharacterLength;
 
@@ -184,32 +181,29 @@ bool CFileTextDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2
 			}
 			//
 
-			
-*/   
+#else
+			break;
+#endif
 
-		// update status and log
-		if ( g_DupeFileFind.m_DuffStatus.LockIfUnlocked() )
-		{
-		 g_DupeFileFind.m_DuffStatus.SubProgress2.Pos = (int) (1000 *  ulonglongdivide(TotalBytesRead, FileInfo1.Size )  );  //??
-		 g_DupeFileFind.m_DuffStatus.Unlock();
+			// update status and log
+			if ( g_DupeFileFind.m_DuffStatus.LockIfUnlocked() )
+			{
+			 g_DupeFileFind.m_DuffStatus.SubProgress2.Pos = (int) (1000 *  ulonglongdivide(TotalBytesRead, FileInfo1.Size )  );  //??
+			 g_DupeFileFind.m_DuffStatus.Unlock();
+			}
 		}
-		//
-
-
-
-		}
-		while ( equal && !ifile1.eof()  && !ifile2.eof() );
+		while ( equal && NumRead1 && NumRead2);
 
 		// be nice and close the files
-		ifile1.close();
-		ifile2.close();
+		ifile1.Close();
+		ifile2.Close();
 	}
 	else
 	{
 		// Could not open 1 or more files, so log the access error(s)
 
 		CString Temp;
-		if (!ok1) 
+		if (!ok1)
 		{
 			Temp.Format( _T("ERROR Accessing file: %s") ,FileInfo1.FullName);
 			// update status and log
@@ -217,12 +211,12 @@ bool CFileTextDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2
 			g_DupeFileFind.m_DuffStatus.LogQueue.Add(Temp);
 			g_DupeFileFind.m_DuffStatus.Unlock();
 			//
-			
+
 			if ( !GetAccessRetry() )
 				FileInfo1.Unaccessible = true;
 		}
-			
-		if (!ok2) 
+
+		if (!ok2)
 		{
 			Temp.Format( _T("ERROR Accessing file: %s") ,FileInfo2.FullName);
 			// update status and log
@@ -234,11 +228,11 @@ bool CFileTextDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2
 			if ( !GetAccessRetry() )
  			FileInfo2.Unaccessible = true;
 		}
-					
+
 		// could not compare, so assume they are not equal
 		equal = false;
 	}
-	
+
 	// progress bar stuff
 	//g_DupeFileFind.GetDuffDlg()->m_ProgressSub2.SetPos(0);
 
@@ -251,7 +245,7 @@ bool CFileTextDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2
 
 	TRACE0("Done!\n");
 
- return equal; 
+ return equal;
 }
 
 
