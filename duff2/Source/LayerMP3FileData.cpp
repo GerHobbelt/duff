@@ -178,7 +178,7 @@ bool CMP3FileDataLayer::FilesEqual(CFileInfo & FileInfo1, CFileInfo & FileInfo2)
 			else
 			{
 				Mp3File2.Seek(-1,CFile::current);
-				TotalBytesRead+= NumBytesRead2;
+				TotalBytesRead+= NumBytesRead2 - 1;   // BUGFIX!
 			}
 		}
 		while (!HeaderFound && NumBytesRead2);
