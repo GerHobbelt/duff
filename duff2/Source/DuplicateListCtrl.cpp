@@ -45,7 +45,7 @@ CDuplicateListCtrl::CDuplicateListCtrl()
 	m_MultiModifyInProgress = false;
 
 	m_DupeFindDlg.Create(IDD_DUPE_FIND_DIALOG,NULL);
-	m_DupeFindDlg.SetWindowPos(&wndTopMost , 0,0,0,0, SWP_NOMOVE | SWP_NOSIZE ); 
+	m_DupeFindDlg.SetWindowPos(&wndTopMost , 0,0,0,0, SWP_NOMOVE | SWP_NOSIZE );
 	m_DupeFindDlg.SetDupeDlg(this);
 
 	m_pTotalCheckedCtrl = NULL;
@@ -73,7 +73,7 @@ CDuplicateListCtrl::CDuplicateListCtrl()
 
 CDuplicateListCtrl::~CDuplicateListCtrl()
 {
-	// tool tip cleanup 
+	// tool tip cleanup
  if(m_pchTip  != NULL) delete m_pchTip;
 	if(m_pwchTip != NULL)	delete m_pwchTip;
  //
@@ -101,19 +101,19 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CDuplicateListCtrl message handlers
 
-void CDuplicateListCtrl::PreSubclassWindow() 
+void CDuplicateListCtrl::PreSubclassWindow()
 {
  CString sMsg;
 	LOGFONT lfLogFont;
 	long    lFontHeight = 11;
  RECT    rCtrlRect;
-	
+
 	CListCtrl::PreSubclassWindow();
 
-	
 
 
- 
+
+
 	// initialize list view settings
 	SetExtendedStyle(  LVS_REPORT | LVS_EX_CHECKBOXES | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES | LVS_EX_HEADERDRAGDROP );
  //
@@ -138,16 +138,16 @@ void CDuplicateListCtrl::PreSubclassWindow()
 		TRACE0("Unable to get font");
 	}
 	//
- 
+
 	// get window rectanle
 	GetWindowRect(&rCtrlRect);
  //
-	
+
 
 	// insert the mark (check) column
-	InsertColumn( 0 , _T("?") , LVCFMT_LEFT ,    (int)(lFontHeight * 1.9) ); 
+	InsertColumn( 0 , _T("?") , LVCFMT_LEFT ,    (int)(lFontHeight * 1.9) );
 	//
-	
+
 	// save the control width
 	m_OldListWidth	= rCtrlRect.right - rCtrlRect.left;
  //
@@ -155,7 +155,7 @@ void CDuplicateListCtrl::PreSubclassWindow()
 	// add the visible columns
 	SetupColumns();
  //
-	
+
  return;
 }
 
@@ -200,16 +200,16 @@ void CDuplicateListCtrl::SetupColumns()
 			case CDuplicateListColumn::VM_AUTO:
 				// auto-size column
 			//	iNewColumnWidth = AutoSizeColumn(iIndex);
-				
+
 				break;
 			}
-		
+
 
 		if ( m_Columns.ElementAt(iIndex)->IsVisible() )
   	InsertColumn(iIndex+1, m_Columns.ElementAt(iIndex)->GetName(), m_Columns.ElementAt(iIndex)->GetFormat(),iNewColumnWidth, iIndex+1);
 	}
 	//
- 
+
 	return;
 }
 
@@ -224,7 +224,7 @@ int CDuplicateListCtrl::OnToolHitTest(CPoint point, TOOLINFO * pTI) const
 	RECT cellrect;
 	row = CellRectFromPoint(point, &cellrect, &col );
 
-	if ( row == -1 ) 
+	if ( row == -1 )
 	{
 		return -1;
 	}
@@ -262,13 +262,13 @@ int CDuplicateListCtrl::CellRectFromPoint(CPoint & point, RECT * cellrect, int *
 		pHeader = (CHeaderCtrl*)GetDlgItem(0);
 		nColumnCount = pHeader->GetItemCount();
 	}
-	
+
 	// Get the top and bottom row visible
 	int row = GetTopIndex();
 	int bottom = row + GetCountPerPage();
 	if( bottom > GetItemCount() )
 		bottom = GetItemCount();
-	
+
 	// Loop through the visible rows
 	for( ;row <=bottom;row++)
 	{
@@ -317,7 +317,7 @@ int CDuplicateListCtrl::CellRectFromPoint(CPoint & point, RECT * cellrect, int *
 					colwidth = GetColumnWidth(colnum);
 				}
 
-				if( (point.x >= rect.left 
+				if( (point.x >= rect.left
 					&& point.x <= (rect.left + colwidth )) ||
 					(point.x >= rectLabel.left
 					&& point.x <= (rectLabel.left + colwidth )))
@@ -330,7 +330,7 @@ int CDuplicateListCtrl::CellRectFromPoint(CPoint & point, RECT * cellrect, int *
 
 					// Make sure that the right extent does not exceed
 					// the client area
-					if ( rect.right > rectClient.right ) 
+					if ( rect.right > rectClient.right )
 						rect.right = rectClient.right;
 					if ( rectLabel.right > rectClient.right )
 						rectLabel.right = rectClient.right;
@@ -380,7 +380,7 @@ BOOL CDuplicateListCtrl::OnToolTipText( UINT , NMHDR * pNMHDR, LRESULT * pResult
 
 
 if(!m_bToolTipCtrlCustomizeDone)
-{  
+{
    ::SendMessage(pNMHDR->hwndFrom, TTM_SETMAXTIPWIDTH, 0, 500);
    m_bToolTipCtrlCustomizeDone = true;
 }
@@ -417,7 +417,7 @@ if ( ! theApp.m_DuffOptions.General.UseToolTip )
 
 
 	strTip.Format("%s\n%s bytes\nCreated on %s\nLast Modified on %s\nLast Accessed on %s\nAttributes: %s",
-		                 pFileInfo->FullName, 
+		                 pFileInfo->FullName,
 																			 buffer,
 																				TimeC.Format("%B %d %Y at %H:%M:%S"),
 																				TimeM.Format("%B %d %Y at %H:%M:%S"),
@@ -430,6 +430,7 @@ if ( ! theApp.m_DuffOptions.General.UseToolTip )
 
 	// format the tool tip
 		CFileInfo* pFileInfo = (CFileInfo*)GetItemData(row);
+		ASSERT_VALID(pFileInfo);
 
 	strTip = theApp.m_DuffOptions.General.ToolTipText;
 
@@ -494,7 +495,7 @@ if ( ! theApp.m_DuffOptions.General.UseToolTip )
 }
 
 
-void CDuplicateListCtrl::OnRclick(NMHDR* /*pNMHDR*/, LRESULT* pResult) 
+void CDuplicateListCtrl::OnRclick(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 {
  POINT ptCursorPos;
 	GetCursorPos(&ptCursorPos);
@@ -507,11 +508,11 @@ void CDuplicateListCtrl::OnRclick(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 }
 
 
-void CDuplicateListCtrl::OnDeleteitem(NMHDR* pNMHDR, LRESULT* pResult) 
+void CDuplicateListCtrl::OnDeleteitem(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 	CFileInfo *pFileInfo = NULL;
-	
+
 	pFileInfo = (CFileInfo*)GetItemData( pNMListView->iItem );
 
 	// item data should always be set
@@ -522,7 +523,7 @@ void CDuplicateListCtrl::OnDeleteitem(NMHDR* pNMHDR, LRESULT* pResult)
 	m_TotalBytesCounter -= pFileInfo->Size;
 	m_TotalFilesCounter --;
 
-	if ( pFileInfo->FirstFile ) 
+	if ( pFileInfo->FirstFile )
 	{
 		m_DuplicateSetCounter --;
 	}
@@ -544,7 +545,7 @@ void CDuplicateListCtrl::OnDeleteitem(NMHDR* pNMHDR, LRESULT* pResult)
 		m_MarkedCounter --;
 		m_MarkedBytesCounter -= pFileInfo->Size;
 	}
-		
+
  //
 
 	// item data should always be set
@@ -555,17 +556,17 @@ void CDuplicateListCtrl::OnDeleteitem(NMHDR* pNMHDR, LRESULT* pResult)
 	delete pFileInfo;
 	//
 
-#ifdef _DEBUG 
+#ifdef _DEBUG
 	SetItemData( pNMListView->iItem, NULL );
 #endif
 /*
 
-  UC_TOTAL_CHECKED =  1, UC_NUM_SELECTED =  2, UC_SELECTED_BYTES    =  4, UC_MARKED_BYTES = 8, 
+  UC_TOTAL_CHECKED =  1, UC_NUM_SELECTED =  2, UC_SELECTED_BYTES    =  4, UC_MARKED_BYTES = 8,
   UC_TOTAL_COUNT   = 16, UC_TOTAL_BYTES  = 32, UC_TOTAL_DUPELICATES = 64, UC_DUPELICATE_BYTES = 128
 */
 
 	// update controls
-	UpdateCtrls(	UC_TOTAL_COUNT | UC_TOTAL_BYTES | UC_TOTAL_DUPELICATES | UC_DUPELICATE_BYTES | 
+	UpdateCtrls(	UC_TOTAL_COUNT | UC_TOTAL_BYTES | UC_TOTAL_DUPELICATES | UC_DUPELICATE_BYTES |
 					UC_NUM_SELECTED | UC_SELECTED_BYTES | UC_TOTAL_CHECKED | UC_MARKED_BYTES
 					);
 	//
@@ -573,7 +574,7 @@ void CDuplicateListCtrl::OnDeleteitem(NMHDR* pNMHDR, LRESULT* pResult)
 	*pResult = 0;
 }
 
-void CDuplicateListCtrl::OnInsertitem(NMHDR* pNMHDR, LRESULT* pResult) 
+void CDuplicateListCtrl::OnInsertitem(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	NM_LISTVIEW *pNMListView = (NM_LISTVIEW*)pNMHDR;
 	CString      sTemp;
@@ -587,7 +588,7 @@ void CDuplicateListCtrl::OnInsertitem(NMHDR* pNMHDR, LRESULT* pResult)
 	// update total counters
 	m_TotalBytesCounter += pFileInfo->Size;
 	m_TotalFilesCounter ++;
-	if ( pFileInfo->FirstFile ) 
+	if ( pFileInfo->FirstFile )
 	{
 		m_DuplicateSetCounter ++;
 	}
@@ -621,7 +622,7 @@ void CDuplicateListCtrl::OnInsertitem(NMHDR* pNMHDR, LRESULT* pResult)
 
 
 
-void CDuplicateListCtrl::OnItemchanged(NMHDR* pNMHDR, LRESULT* pResult) 
+void CDuplicateListCtrl::OnItemchanged(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	NM_LISTVIEW *pNMListView = (NM_LISTVIEW*)pNMHDR;
 	CString      sTemp;
@@ -631,7 +632,7 @@ void CDuplicateListCtrl::OnItemchanged(NMHDR* pNMHDR, LRESULT* pResult)
  if (m_MultiModifyInProgress)
 		return;
 	//
-	
+
 	if ( pNMListView )
 	{
 		// if we were told about an item that was just added, we have nothing to do
@@ -656,7 +657,7 @@ void CDuplicateListCtrl::OnItemchanged(NMHDR* pNMHDR, LRESULT* pResult)
 			}
 
 		}
-  
+
   // if the checked state of the item has changed, update check-related counts
 		if ( (pNMListView->uChanged & LVIF_STATE  ) && ((pNMListView->uNewState & 4096) != (pNMListView->uOldState & 4096)))
 		{
@@ -682,9 +683,9 @@ void CDuplicateListCtrl::OnItemchanged(NMHDR* pNMHDR, LRESULT* pResult)
 	}//endif
 
 
-	
+
  if (pResult)	*pResult = 0;
-	
+
 	return;
 }
 
@@ -697,7 +698,7 @@ void CDuplicateListCtrl::AddItem( CFileInfo * pFileInfo)
 	// add file to list view
 	InsertItem ( LVIF_PARAM | LVIF_TEXT , (int)m_TotalFilesCounter , _T("") , NULL , NULL , NULL , (DWORD)pFileInfo );
  //
-	
+
 	// resize columns if needed
 	UpdateColumnWidths();
 	//
@@ -714,7 +715,7 @@ void CDuplicateListCtrl::UpdateColumnWidths(int iNewListWidth , int iNewListHeig
  int  iOldColumnWidth;
 	int  iNewColumnWidth;
  bool bNeedToRedraw = false;
- 
+
 	// get control rectangle
 	GetWindowRect(&rRectangle);
 	//
@@ -767,7 +768,7 @@ void CDuplicateListCtrl::UpdateColumnWidths(int iNewListWidth , int iNewListHeig
 }
 
 
-void CDuplicateListCtrl::OnSize(UINT uiType, int iNewListWidth , int iNewListHeight) 
+void CDuplicateListCtrl::OnSize(UINT uiType, int iNewListWidth , int iNewListHeight)
 {
 
 	// do parent clas OnSize
@@ -821,7 +822,7 @@ bool CDuplicateListCtrl::DoFind()
 		{
 			SetItemState(iIndex, NULL ,LVIS_SELECTED);
 			iIndex = GetNextItem(iIndex,LVNI_SELECTED );
-		}			
+		}
 		m_MultiModifyInProgress = false;
 		m_SelectedCounter = 0;
 		m_SelectedBytesCounter = 0;
@@ -845,7 +846,7 @@ bool CDuplicateListCtrl::DoFind()
 	while( !bDone && iIndex >= 0 && iIndex < m_TotalFilesCounter )
 	{
 
-		pFileInfo = (CFileInfo*)GetItemData(iIndex);		
+		pFileInfo = (CFileInfo*)GetItemData(iIndex);
 		bFound = false;
   iColumnIndex = 0;
 
@@ -865,7 +866,7 @@ bool CDuplicateListCtrl::DoFind()
 			   }
 						iColumnIndex++;
 					}
-										
+
 					break;
 				case FALSE:
 					// search all the searchable column texts
@@ -908,7 +909,7 @@ bool CDuplicateListCtrl::DoFind()
 			   }
 						iColumnIndex++;
 					}
-     
+
 					break;
 				}
     break;
@@ -920,7 +921,7 @@ bool CDuplicateListCtrl::DoFind()
 		if ( m_DupeFindDlg.m_Not ) bFound = !bFound;
   //
 
-	 
+
 		// if an item was found, select it and if it is the first found item, make sure its visible
 		if ( bFound )
 		{
@@ -933,7 +934,7 @@ bool CDuplicateListCtrl::DoFind()
 
   iIndex += iDirection;
 	}
- 
+
 	return bEverFound;
 }
 
@@ -959,15 +960,15 @@ void CDuplicateListCtrl::SetMarkedBytesCtrl(CEdit *pEdit)
 {
 	m_pMarkedBytesCtrl = pEdit;
 	UpdateCtrls(UC_MARKED_BYTES);
-} 
+}
 
-void CDuplicateListCtrl::SetTotalCountCtrl(CEdit *pEdit) 
-{ 
+void CDuplicateListCtrl::SetTotalCountCtrl(CEdit *pEdit)
+{
 	m_pTotalCountCtrl = pEdit;
 	UpdateCtrls(UC_TOTAL_COUNT);
 }
 
-void CDuplicateListCtrl::SetTotalBytesCtrl(CEdit *pEdit) 
+void CDuplicateListCtrl::SetTotalBytesCtrl(CEdit *pEdit)
 {
 	m_pTotalBytesCtrl = pEdit;
 	UpdateCtrls(UC_TOTAL_BYTES);
@@ -1001,14 +1002,14 @@ void CDuplicateListCtrl::UpdateCtrls(UINT uiFlags)
 		ulonglong2str(tcBuffer, m_SelectedCounter);
 		m_pNumSelectedCtrl->SetWindowText(tcBuffer);
 	}
-	
+
 	// update 'selected bytes' edit box
  if ( (uiFlags & UC_SELECTED_BYTES) && m_pSelectedBytesCtrl )
 	{
 		ulonglong2str(tcBuffer, m_SelectedBytesCounter);
 		m_pSelectedBytesCtrl->SetWindowText(tcBuffer);
 	}
-  
+
 	// update 'marked bytes' edit box
 	if ( (uiFlags & UC_MARKED_BYTES) && m_pMarkedBytesCtrl )
 	{
@@ -1044,7 +1045,7 @@ void CDuplicateListCtrl::UpdateCtrls(UINT uiFlags)
 	 m_pDupeBytesCtrl->SetWindowText(tcBuffer);
  }
 
-	
+
  return;
 }
 
@@ -1065,7 +1066,7 @@ int CDuplicateListCtrl::VisibleIndexToAbsoluteIndex(int VisibleIndex)
 	int iVisibleCount = 0;
  int iAbsoluteIndex = -1;
 
-	if (VisibleIndex != -1) 
+	if (VisibleIndex != -1)
 	{
 		iVisibleCount = 0;
 		iAbsoluteIndex = 0;
@@ -1083,14 +1084,14 @@ int CDuplicateListCtrl::VisibleIndexToAbsoluteIndex(int VisibleIndex)
 }
 
 //incomplete
-void CDuplicateListCtrl::OnColumnClick(NMHDR* pNMHDR, LRESULT* pResult) 
+void CDuplicateListCtrl::OnColumnClick(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 // int iColumnIndex;
  int iIndex;
 
  // if a valid column was clicked, sort the list based on that column's data
-	if (pNMListView->iSubItem != -1) 
+	if (pNMListView->iSubItem != -1)
 	{
 	/*	iColumnIndex = 0;
 		iIndex = 0;
@@ -1103,7 +1104,7 @@ void CDuplicateListCtrl::OnColumnClick(NMHDR* pNMHDR, LRESULT* pResult)
 		}
 		iIndex--;
   */
- 
+
 	iIndex = VisibleIndexToAbsoluteIndex(pNMListView->iSubItem);
 
   if ( iIndex <0 )
@@ -1131,14 +1132,14 @@ void CDuplicateListCtrl::OnColumnClick(NMHDR* pNMHDR, LRESULT* pResult)
 	return;
 }
 
-void CDuplicateListCtrl::OnDoubleClickItem(NMHDR* pNMHDR, LRESULT* pResult) 
+void CDuplicateListCtrl::OnDoubleClickItem(NMHDR* pNMHDR, LRESULT* pResult)
 {
  NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 
 	// if a valid list item was double-clicked on, execute the file associated with it
-	if ( pNMListView->iItem != -1 ) 
+	if ( pNMListView->iItem != -1 )
 	{
- 	ShellExecute( NULL , NULL, ((CFileInfo*)GetItemData(pNMListView->iItem))->FullName , NULL_STR , NULL_STR , SW_SHOWNORMAL );	
+ 	ShellExecute( NULL , NULL, ((CFileInfo*)GetItemData(pNMListView->iItem))->FullName , NULL_STR , NULL_STR , SW_SHOWNORMAL );
 	}
  //
 
@@ -1149,7 +1150,7 @@ void CDuplicateListCtrl::OnDoubleClickItem(NMHDR* pNMHDR, LRESULT* pResult)
 
 void CDuplicateListCtrl::RebuildColumns()
 {
- int          iColumnIndex; 
+ int          iColumnIndex;
 	unsigned int uiIndexX;
 	int          iIndexY;
 
@@ -1171,9 +1172,9 @@ void CDuplicateListCtrl::RebuildColumns()
 
 
 
-BOOL CDuplicateListCtrl::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult) 
+BOOL CDuplicateListCtrl::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 {
-	//LPNMHDR pNH = (LPNMHDR) lParam; 
+	//LPNMHDR pNH = (LPNMHDR) lParam;
  HD_NOTIFY   *pHDN = (HD_NOTIFY*)lParam;
  double dPercentWidth;
 
@@ -1191,7 +1192,7 @@ BOOL CDuplicateListCtrl::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult
      return TRUE;
 			}
 		break;
-  
+
 		// save the new column percent width after it is manually resized
 		case HDN_ENDTRACKA:
 		case HDN_ENDTRACKW:
@@ -1232,7 +1233,7 @@ BOOL CDuplicateListCtrl::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult
 				CPoint pt(GetMessagePos());
 				CHeaderCtrl* pHeader = (CHeaderCtrl*)GetDlgItem(0);
 				pHeader->ScreenToClient(&pt);
-				
+
 				// Determine the column index
 				int index = -1;
 				CRect rcCol;
@@ -1283,7 +1284,7 @@ void CDuplicateListCtrl::DoColumnPopupMenu(int iColumnIndex)
 		{
 
 		 default:
-		 case CDuplicateListColumn::VM_FIXED: 
+		 case CDuplicateListColumn::VM_FIXED:
 		 	uiItem = IDM_COLUMN_FIXED_WIDTH;
    break;
 
@@ -1308,7 +1309,7 @@ void CDuplicateListCtrl::DoColumnPopupMenu(int iColumnIndex)
 		// disable the column width menu options
 		mPopupMenu.GetSubMenu(0)->EnableMenuItem(IDM_COLUMN_FIXED_WIDTH,MF_GRAYED);
 		mPopupMenu.GetSubMenu(0)->EnableMenuItem(IDM_COLUMN_VARIABLE_WIDTH,MF_GRAYED);
-		mPopupMenu.GetSubMenu(0)->EnableMenuItem(IDM_COLUMN_AUTO_WIDTH,MF_GRAYED);	
+		mPopupMenu.GetSubMenu(0)->EnableMenuItem(IDM_COLUMN_AUTO_WIDTH,MF_GRAYED);
 		//
 
 	}
@@ -1344,7 +1345,7 @@ void CDuplicateListCtrl::DoColumnPopupMenu(int iColumnIndex)
 	 GetWindowRect(&rRectangle);
 		PercentWidth = (double)GetColumnWidth( iColumnIndex ) / (rRectangle.right - rRectangle.left);
 
-		m_Columns.ElementAt( VisibleIndexToAbsoluteIndex(iColumnIndex) )->SetPercentWidth(PercentWidth); 
+		m_Columns.ElementAt( VisibleIndexToAbsoluteIndex(iColumnIndex) )->SetPercentWidth(PercentWidth);
 		m_Columns.ElementAt( VisibleIndexToAbsoluteIndex(iColumnIndex) )->SetMode(CDuplicateListColumn::VM_VARIABLE);
  	}
 		break;
@@ -1381,7 +1382,7 @@ void CDuplicateListCtrl::DoColumnPopupMenu(int iColumnIndex)
 void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 {
  CMenu   mPopupMenu;
- int     iIndex; 
+ int     iIndex;
  CMenu   *pMenu;
  int      iSelectionMade;
 	CString  sTemp;
@@ -1391,11 +1392,11 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 	// get the index of the first selected item
 	iIndex = GetNextItem (-1,LVNI_SELECTED );
 	//
- 
+
 	// attempt to load the context menu
 	if ( mPopupMenu.LoadMenu(IDR_MENU_DUPLICATES) )
 	{
-		pMenu = mPopupMenu.GetSubMenu(0); 
+		pMenu = mPopupMenu.GetSubMenu(0);
 	}
  else
 	{
@@ -1404,8 +1405,8 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 	}
 	//
 
-	
-		
+
+
 
   pMenu->EnableMenuItem ( ID_REMOVE_ALL, MF_GRAYED | MF_BYCOMMAND );
   pMenu->EnableMenuItem ( ID_REMOVEFROMLIST, MF_GRAYED | MF_BYCOMMAND );
@@ -1415,9 +1416,9 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
   int iColIndex;
 	for (iColIndex = 0; iColIndex < m_Columns.GetSize(); iColIndex++)
 	{
-		pMenu->InsertMenu(IDM_COPY_ALL_VISIBLE_COLUMNS, MF_BYCOMMAND | MF_STRING,IDM_COPY_ALL_VISIBLE_COLUMNS+iColIndex+1, m_Columns.ElementAt(iColIndex)->GetName() ); 
+		pMenu->InsertMenu(IDM_COPY_ALL_VISIBLE_COLUMNS, MF_BYCOMMAND | MF_STRING,IDM_COPY_ALL_VISIBLE_COLUMNS+iColIndex+1, m_Columns.ElementAt(iColIndex)->GetName() );
 	}
-	pMenu->InsertMenu(IDM_COPY_ALL_VISIBLE_COLUMNS, MF_BYCOMMAND | MF_SEPARATOR,IDM_COPY_ALL_VISIBLE_COLUMNS+iColIndex+1, NULL_STR ); 
+	pMenu->InsertMenu(IDM_COPY_ALL_VISIBLE_COLUMNS, MF_BYCOMMAND | MF_SEPARATOR,IDM_COPY_ALL_VISIBLE_COLUMNS+iColIndex+1, NULL_STR );
  //
 
 	// if there were no selected items, disable some of the menu items
@@ -1449,16 +1450,16 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 		int iShellIndex ;
 		for (iShellIndex = 0; iShellIndex < pFileInfo->ShellVerbs.GetSize(); iShellIndex++)
 		{
-			pMenu->InsertMenu(ID_PROPERTIES, MF_BYCOMMAND | MF_STRING,IDM_COPY_ALL_VISIBLE_COLUMNS+iShellIndex+m_Columns.GetSize(), pFileInfo->ShellVerbs.ElementAt(iShellIndex).Name); 
+			pMenu->InsertMenu(ID_PROPERTIES, MF_BYCOMMAND | MF_STRING,IDM_COPY_ALL_VISIBLE_COLUMNS+iShellIndex+m_Columns.GetSize(), pFileInfo->ShellVerbs.ElementAt(iShellIndex).Name);
 		}
-		if (iShellIndex) pMenu->InsertMenu(ID_PROPERTIES, MF_BYCOMMAND | MF_SEPARATOR,IDM_COPY_ALL_VISIBLE_COLUMNS+iShellIndex+1+m_Columns.GetSize(), NULL_STR ); 
+		if (iShellIndex) pMenu->InsertMenu(ID_PROPERTIES, MF_BYCOMMAND | MF_SEPARATOR,IDM_COPY_ALL_VISIBLE_COLUMNS+iShellIndex+1+m_Columns.GetSize(), NULL_STR );
 		//
-	
+
 	}
 	//
 
 
-	
+
 /*
 
 		// append the column types to the end of the menu, and check the ones that are visible
@@ -1524,7 +1525,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 		case ID_OPENFILES:
 	 	while ( iIndex != LB_ERR )
 	 	{
-	 		ShellExecute( NULL , NULL , ((CFileInfo*)GetItemData(iIndex))->FullName , NULL_STR , NULL_STR , SW_SHOWNORMAL);	
+	 		ShellExecute( NULL , NULL , ((CFileInfo*)GetItemData(iIndex))->FullName , NULL_STR , NULL_STR , SW_SHOWNORMAL);
     iIndex = GetNextItem ( iIndex , LVNI_SELECTED );
 	 	}
  	break;
@@ -1535,15 +1536,15 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 		 {
 		  sTemp = ((CFileInfo*)GetItemData(iIndex))->FullName;
 		  sTemp = sTemp.Left( sTemp.ReverseFind('\\') );
-    ShellExecute( NULL , NULL , sTemp , NULL_STR , NULL_STR , SW_SHOWNORMAL );	
+    ShellExecute( NULL , NULL , sTemp , NULL_STR , NULL_STR , SW_SHOWNORMAL );
     iIndex = GetNextItem ( iIndex, LVNI_SELECTED );
 			}
   break;
 
 		// open the shell properties dialog for the selected items
 	 case ID_PROPERTIES:
-		
-			
+
+
 		/*
 		CString sAllFiles;
 		memset( &seiExecInfo,0,sizeof(seiExecInfo) );
@@ -1572,7 +1573,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 		{
 			seiExecInfo.lpFile = ((CFileInfo*)GetItemData(iIndex))->FullName ;
 			ShellExecuteEx ( &seiExecInfo ) ;
-			iIndex = GetNextItem(iIndex,LVNI_SELECTED );		
+			iIndex = GetNextItem(iIndex,LVNI_SELECTED );
 		}
  	break;
 
@@ -1638,7 +1639,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 			UpdateCtrls( UC_TOTAL_CHECKED | UC_MARKED_BYTES );
 		break;
 
- 
+
 		// invert the marks (checks) on the selected list item(s)
 		case ID_INVERTMARKS:
 			m_MultiModifyInProgress = true;
@@ -1654,7 +1655,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 					m_MarkedCounter ++;
 					m_MarkedBytesCounter += ((CFileInfo*)GetItemData(iIndex))->Size;
 				}
-				SetCheck(iIndex,  GetCheck(iIndex) ? BST_UNCHECKED : BST_CHECKED); 
+				SetCheck(iIndex,  GetCheck(iIndex) ? BST_UNCHECKED : BST_CHECKED);
 				((CFileInfo*)GetItemData(iIndex))->Selected = (GetCheck(iIndex) == BST_CHECKED);
 				iIndex = GetNextItem(iIndex,LVNI_SELECTED );
 			}
@@ -1714,7 +1715,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 			{
 				SetItemState(iIndex, NULL ,LVIS_SELECTED);
 				iIndex = GetNextItem(iIndex,LVNI_SELECTED );
-			}			
+			}
 			m_MultiModifyInProgress = false;
 			m_SelectedCounter = 0;
 			m_SelectedBytesCounter = 0;
@@ -1756,7 +1757,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 			m_DuplicateBytesCounter = 0;
 			UpdateCtrls( UC_TOTAL_COUNT | UC_TOTAL_BYTES | UC_TOTAL_DUPELICATES | UC_DUPELICATE_BYTES);
 		break;
-	
+
 		case IDM_COPY_ENTIRE_LIST:
 		case IDM_COPY_ALL_VISIBLE_COLUMNS:
 
@@ -1781,7 +1782,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 						}
 						sTemp += _T("\r\n");
 						iIndex--;
-					}			
+					}
 					sTemp.TrimRight();
 					NTextClipboard::SetClipboardText( sTemp );
 				}
@@ -1802,7 +1803,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 						}
 						sTemp += _T("\r\n");
 						iIndex = GetNextItem(iIndex,LVNI_SELECTED );
-					}			
+					}
 					sTemp.TrimRight();
 					NTextClipboard::SetClipboardText( sTemp );
 				}
@@ -1837,7 +1838,7 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
 						sTemp += m_Columns.ElementAt(iSelectionMade-IDM_COPY_ALL_VISIBLE_COLUMNS-1)->GetColumnText(pFileInfo);
 						sTemp += _T("\r\n");
 						iIndex = GetNextItem(iIndex,LVNI_SELECTED );
-					}			
+					}
 				}
 				sTemp.TrimRight();
 				NTextClipboard::SetClipboardText( sTemp );
@@ -1856,11 +1857,11 @@ void CDuplicateListCtrl::DoItemPopupMenu(const POINT & ptMenuPoint)
  return;
 }
 
-void CDuplicateListCtrl::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags) 
+void CDuplicateListCtrl::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	RECT  rControlRectangle;
  POINT ptMenuPoint;
- 
+
  // if the application menu was pressed, show the list item context menu
 	if ( nChar == VK_APPS )
 	{
@@ -1915,10 +1916,10 @@ int CDuplicateListCtrl::AutoSizeColumn(int iColumnIndex)
 
 
 
-BOOL CDuplicateListCtrl::DestroyWindow() 
+BOOL CDuplicateListCtrl::DestroyWindow()
 {
 
-	m_DupeFindDlg.DestroyWindow();	
-	
+	m_DupeFindDlg.DestroyWindow();
+
 	return CListCtrl::DestroyWindow();
 }

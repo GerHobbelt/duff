@@ -13,6 +13,9 @@ static char THIS_FILE[]=__FILE__;
 #endif
 
 
+IMPLEMENT_DYNAMIC(CFileInfo, CObject);
+
+
 #ifdef _DEBUG
 UINT CFileInfo::Count = 0;
 #endif
@@ -29,3 +32,22 @@ CFileInfo::~CFileInfo()
 	#endif
 
 }
+
+
+
+
+#if defined(_DEBUG) || defined(_AFXDLL)
+
+// Diagnostic Support
+void CFileInfo::AssertValid() const
+{
+	CObject::AssertValid();
+}
+
+void CFileInfo::Dump(CDumpContext& dc) const
+{
+	CObject::Dump(dc);
+}
+
+#endif
+
