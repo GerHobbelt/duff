@@ -229,9 +229,9 @@ void CDuplicateFileFind::AddSubDirsToList(CList<CDirectoryInfo,CDirectoryInfo &>
 
  // format search path string
 	if ( Dir.FullPathName[ _tcsclen(Dir.FullPathName) -1] == _T('\\') )
-	 SearchPath.Format( _T("%s%s") ,Dir.FullPathName, _T("*.*") );
- else
-	 SearchPath.Format( _T("%s\\%s") ,Dir.FullPathName, _T("*.*") );
+		 SearchPath.Format( _T("%s%s") ,Dir.FullPathName, _T("*.*") );
+	 else
+		 SearchPath.Format( _T("%s\\%s") ,Dir.FullPathName, _T("*.*") );
  //
 
 
@@ -277,7 +277,6 @@ void CDuplicateFileFind::AddSubDirsToList(CList<CDirectoryInfo,CDirectoryInfo &>
 				 m_DuffStatus.Unlock();
 				}
 				//
-
 			}
 			// find next file
 			Good = FindNextFile(hFind,&FindFileData) != 0;

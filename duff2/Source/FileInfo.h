@@ -38,6 +38,16 @@ public:
 
 	// from WIN32_FIND_DATA
  DWORD      Attributes;
+
+ inline bool IsDirectory() const
+ {
+	 return 0 != (Attributes & FILE_ATTRIBUTE_DIRECTORY);
+ }
+ inline bool IsRegularFile() const
+ {
+	 return 0 == (Attributes & (FILE_ATTRIBUTE_DIRECTORY | FILE_ATTRIBUTE_DEVICE | FILE_ATTRIBUTE_VIRTUAL));
+ }
+
  COleDateTime   TimeCreated;
  COleDateTime   TimeLastAccessed;
  COleDateTime   TimeLastModified;
@@ -437,7 +447,6 @@ OpenedBefore = false;
 
 inline void CFileInfo::Init(const TCHAR* ParentDir, const WIN32_FIND_DATA & fd)
 {
-
 	Attributes       = fd.dwFileAttributes;
  TimeCreated      = fd.ftCreationTime;
  TimeLastAccessed = fd.ftLastAccessTime;

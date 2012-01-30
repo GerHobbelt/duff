@@ -14,11 +14,14 @@ class CDirectoryInfo
 public:
 	CDirectoryInfo();
  CDirectoryInfo(const TCHAR * fullname, bool sub);
-	CDirectoryInfo(const TCHAR * dir, const TCHAR * parent, bool b) { Init(dir, parent,b); }
+	CDirectoryInfo(const TCHAR * dir, const TCHAR * parent, bool b) 
+	{ 
+		Init(dir, parent,b); 
+	}
  CDirectoryInfo(const CString & fullname, bool subdirs);
 
- void Init(const TCHAR *, const TCHAR * ,bool);
-//	CString PathName;
+ void Init(const TCHAR *name, const TCHAR * parent,bool subdirs);
+
 	TCHAR  FullPathName[MAX_PATH];
 	bool    SubDirs;
 };
@@ -48,9 +51,7 @@ inline void CDirectoryInfo::Init(const TCHAR * name, const TCHAR *  parent,bool 
 
 	_tcscpy(FullPathName, parent);
 	if ( FullPathName[ _tcslen( FullPathName ) - 1 ] != _T('\\') )  _tcscat(FullPathName, _T("\\") );
- _tcscat(FullPathName,name);
-
-
+	_tcscat(FullPathName,name);
 }
 
 #endif // !defined(AFX_DirectoryInfo_H__2AE9F41D_5FF6_489A_83AF_156DC1833EFE__INCLUDED_)
